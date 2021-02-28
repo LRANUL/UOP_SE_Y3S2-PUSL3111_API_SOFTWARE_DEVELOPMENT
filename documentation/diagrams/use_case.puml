@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor citizen
+actor health_inspector
+rectangle "Update Info" {
+  citizen -- (scan QR code)
+  (scan QR code) .> (login) : <<include>>
+  citizen -- (update test results)
+  health_inspector -- (update test results)
+  citizen -- (get notification)
+  health_inspector -- (get notification)
+  (get notification) .> (get test results) : <<extend>>
+}
+@enduml
