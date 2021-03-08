@@ -1,0 +1,12 @@
+{
+  "name": "cov-track",
+  "displayName": "cov-track",
+  "expo": {
+    "name": "cov-track",
+    "slug": "cov-track",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
