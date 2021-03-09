@@ -1,17 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
-import Login from "./src/screens/Login";
-
+import Login from "../screens/Login";
+import Register from "../screens/Register";
+import Dashboard from "../screens/Dashboard";
 
 const DrawerNavigation = createDrawerNavigator({
   Login: Login,
-
+  Register: Register,
+  Dashboard: Dashboard,
 });
 
 const StackNavigation = createStackNavigator(
@@ -20,7 +22,8 @@ const StackNavigation = createStackNavigator(
       screen: DrawerNavigation
     },
     Login: Login,
-
+    Register: Register,
+    Dashboard: Dashboard,
   },
   {
     headerMode: "none"
@@ -45,9 +48,9 @@ function App() {
 async function loadResourcesAsync() {
   await Promise.all([
     Font.loadAsync({
-      "roboto-300": require("./src/assets/fonts/roboto-300.ttf"),
-      "roboto-700": require("./src/assets/fonts/roboto-700.ttf"),
-      "roboto-regular": require("./src/assets/fonts/roboto-regular.ttf")
+      "roboto-300": require("../assets/fonts/roboto-300.ttf"),
+      "roboto-700": require("../assets/fonts/roboto-700.ttf"),
+      "roboto-regular": require("../assets/fonts/roboto-regular.ttf")
     })
   ]);
 }

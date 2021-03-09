@@ -6,10 +6,18 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  TextInput
+  TextInput,
 } from "react-native";
 
-function Login1(props) {
+let firstName,
+  lastName,
+  mobileNumber,
+  emailAddress,
+  nic,
+  password,
+  confirmPassword;
+
+function Register(props) {
   return (
     <View style={styles.container}>
       <StatusBar animated />
@@ -18,15 +26,28 @@ function Login1(props) {
         resizeMode="cover"
         style={styles.logo}
       ></Image>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.register2}>Register</Text>
+      <TouchableOpacity style={styles.registerbtn}>
+        <Text style={styles.registerbtnTxt}>Register</Text>
       </TouchableOpacity>
       <Text style={styles.covTrackRegister}>CovTrack Register</Text>
       <TouchableOpacity
-        onPress={() => props.navigation.navigate("Register")}
-        style={styles.registerbtn}
+        // onPress={() =>
+        //   createUser({
+        //     firstName,
+        //     lastName,
+        //     mobileNumber,
+        //     nic,
+        //     emailAddress,
+        //   })
+        // }
+        style={styles.loginbtn}
       >
-        <Text style={styles.registertxt}>Already have an account ?</Text>
+        <Text
+          onPress={() => props.navigation.navigate("Login")}
+          style={styles.registertxt}
+        >
+          Already have an account ?
+        </Text>
       </TouchableOpacity>
       <View style={styles.group}>
         <TextInput
@@ -34,15 +55,21 @@ function Login1(props) {
           clearButtonMode="unless-editing"
           keyboardType="default"
           autoFocus={true}
-          style={styles.emailAddress1}
+          style={styles.firstName}
+          value={firstName}
+          onChangeText={(value) => {
+            firstName = value;
+          }}
         ></TextInput>
         <TextInput
           placeholder="Last Name"
           clearButtonMode="unless-editing"
-          keyboardType="numeric"
           autoFocus={false}
-          dataDetector="phoneNumber"
-          style={styles.emailAddress2}
+          style={styles.lastName}
+          value={lastName}
+          onChangeText={(value) => {
+            lastName = value;
+          }}
         ></TextInput>
         <TextInput
           placeholder="Mobile Number"
@@ -50,38 +77,55 @@ function Login1(props) {
           keyboardType="numeric"
           autoFocus={false}
           dataDetector="phoneNumber"
-          style={styles.emailAddress3}
+          style={styles.mobileNumber}
+          value={mobileNumber}
+          onChangeText={(value) => {
+            mobileNumber = value;
+          }}
         ></TextInput>
         <TextInput
           placeholder="NIC"
           clearButtonMode="unless-editing"
           keyboardType="default"
           autoFocus={false}
-          style={styles.emailAddress4}
+          style={styles.nic}
+          value={nic}
+          onChangeText={(value) => {
+            nic = value;
+          }}
         ></TextInput>
         <TextInput
           placeholder="Email Address"
           dataDetector="all"
           clearButtonMode="unless-editing"
-          secureTextEntry={true}
           autoFocus={false}
-          style={styles.emailAddress5}
+          style={styles.emailAddress}
+          value={emailAddress}
+          onChangeText={(value) => {
+            emailAddress = value;
+          }}
         ></TextInput>
         <TextInput
           placeholder="Password"
           clearButtonMode="unless-editing"
-          keyboardType="email-address"
           autoFocus={false}
           secureTextEntry={true}
-          style={styles.emailAddress6}
+          style={styles.password}
+          value={password}
+          onChangeText={(value) => {
+            password = value;
+          }}
         ></TextInput>
         <TextInput
           placeholder="Confirm Password"
           clearButtonMode="unless-editing"
-          keyboardType="email-address"
           autoFocus={false}
           secureTextEntry={true}
-          style={styles.textInput}
+          style={styles.confirmPassword}
+          value={confirmPassword}
+          onChangeText={(value) => {
+            confirmPassword = value;
+          }}
         ></TextInput>
       </View>
     </View>
@@ -92,130 +136,130 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderWidth: 1,
-    borderColor: "#000000"
+    borderColor: "#000000",
   },
   logo: {
     width: 95,
-    height: 86,
+    height: 91,
     borderRadius: 87,
     borderWidth: 0,
     borderColor: "#000000",
-    marginTop: 35,
-    alignSelf: "center"
+    marginTop: 37,
+    alignSelf: "center",
   },
-  button: {
-    height: 57,
+  registerbtn: {
+    height: 61,
     backgroundColor: "rgba(74,144,226,0.7)",
     width: 265,
     borderRadius: 17,
-    marginTop: 506,
-    alignSelf: "center"
+    marginTop: 535,
+    alignSelf: "center",
   },
-  register2: {
+  registerbtnTxt: {
     fontFamily: "roboto-regular",
     color: "rgba(255,255,255,1)",
     textAlign: "center",
     fontSize: 25,
-    marginTop: 11,
-    alignSelf: "center"
+    marginTop: 12,
+    alignSelf: "center",
   },
   covTrackRegister: {
     fontFamily: "roboto-700",
     color: "rgba(0,0,0,1)",
     fontSize: 35,
-    marginTop: -543,
-    alignSelf: "center"
+    marginTop: -575,
+    alignSelf: "center",
   },
-  registerbtn: {
-    width: 683,
-    height: 32,
-    marginTop: 516,
-    alignSelf: "center"
+  loginbtn: {
+    width: 187,
+    height: 34,
+    marginTop: 548,
+    alignSelf: "center",
   },
   registertxt: {
     fontFamily: "roboto-regular",
     color: "#121212",
     textDecorationLine: "underline",
-    marginTop: 10,
-    alignSelf: "center"
+    marginTop: 11,
+    alignSelf: "center",
   },
   group: {
-    width: 1035,
-    height: 341,
+    width: 283,
+    height: 361,
     justifyContent: "space-between",
-    marginTop: -512,
-    alignSelf: "center"
+    marginTop: -542,
+    alignSelf: "center",
   },
-  emailAddress1: {
+  firstName: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 42,
-    width: 1035,
+    height: 45,
+    width: 283,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center"
+    textAlign: "center",
   },
-  emailAddress2: {
+  lastName: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 42,
-    width: 1033,
+    height: 45,
+    width: 283,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center"
+    textAlign: "center",
   },
-  emailAddress3: {
+  mobileNumber: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 42,
-    width: 1035,
+    height: 45,
+    width: 283,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center"
+    textAlign: "center",
   },
-  emailAddress4: {
+  nic: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 42,
-    width: 1035,
+    height: 45,
+    width: 283,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center"
+    textAlign: "center",
   },
-  emailAddress5: {
+  emailAddress: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 42,
-    width: 1035,
+    height: 45,
+    width: 283,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center"
+    textAlign: "center",
   },
-  emailAddress6: {
+  password: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 42,
-    width: 1035,
+    height: 45,
+    width: 283,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center"
+    textAlign: "center",
   },
-  textInput: {
+  confirmPassword: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 42,
-    width: 1035,
+    height: 45,
+    width: 283,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 
-export default Login1;
+export default Register;
