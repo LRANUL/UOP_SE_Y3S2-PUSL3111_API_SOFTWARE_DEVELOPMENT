@@ -124,8 +124,11 @@ function Register(props) {
           style={styles.confirmPassword}
           value={confirmPassword}
           onChangeText={(value) => {
-            confirmPassword = value;
-          }}
+            if(value){
+              confirmPassword = value;
+            }
+          }
+        }
         ></TextInput>
       </View>
     </View>

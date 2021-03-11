@@ -22,4 +22,4 @@ app.use(bodyParser.json());
 
 routes(app);
 
-app.listen(PORT, () => console.log(`Server Running on Port ${PORT}`));
+app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
