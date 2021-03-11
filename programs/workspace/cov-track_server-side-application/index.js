@@ -2,10 +2,12 @@ import express from "express";
 import routes from "./src/routes/covTrackRoutes";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 const app = express();
 const PORT = 5000;
 
+app.use(cors());
 
 mongoose.Promise = global.Promise; //allows Asynchronous Operations
 

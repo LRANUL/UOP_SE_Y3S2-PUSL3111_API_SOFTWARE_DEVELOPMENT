@@ -24,7 +24,7 @@ export const getUsers = (req, res) => {
   });
 };
 
-export const getUsersFromNIC = (req, res) => {
+export const getUserFromNIC = (req, res) => {
   User.findOne({ nic: req.params.nic }, (err, user) => {
     if (err) {
       res.send(err);

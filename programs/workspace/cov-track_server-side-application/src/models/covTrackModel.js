@@ -11,7 +11,7 @@ export const UserSchema = new Schema({
     type: String,
     required: "Last Name is required",
   },
-  email: {
+  emailAddress: {
     type: String,
     required: "Email address is required",
   },
@@ -19,7 +19,7 @@ export const UserSchema = new Schema({
     type: String,
     required: "NIC is required",
   },
-  phone: {
+  mobileNumber: {
     type: Number,
     required: "Phone is required",
   },

@@ -1,7 +1,7 @@
 import {
   addNewUser,
   getUsers,
-  getUsersFromNIC,
+  getUserFromNIC,
   updateUserFromNIC,
   removeUserFromNIC
 } from "../controllers/covTrackController";
@@ -12,7 +12,7 @@ const routes = (app) => {
   // For updating user from NIC
   app.route("/user-update/:nic").put(updateUserFromNIC);
   // For getting user from NIC
-  app.route("/user/:nic").get(getUsersFromNIC);
+  app.route("/user/:nic").get(getUserFromNIC);
   // For getting all users
   app.route("/get-users").get(getUsers);
   // For register a user with CovTrack
