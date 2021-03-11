@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   Text,
   TextInput,
+  Alert
 } from "react-native";
+import UserService from '../services/userService';
 
 let firstName,
   lastName,
@@ -26,20 +28,40 @@ function Register(props) {
         resizeMode="cover"
         style={styles.logo}
       ></Image>
-      <TouchableOpacity style={styles.registerbtn}>
+      <TouchableOpacity style={styles.registerbtn}
+        onPress={() => {
+          let registrationData = {
+            firstName,
+            lastName,
+            mobileNumber,
+            nic,
+            emailAddress,
+          }
+          console.log(registrationData)
+          UserService.register(registrationData)
+            .then(response => {
+              console.log(response.data);
+              Alert.alert(
+                "Registration Successful",
+                "You have registered successfully, login now. "+ response.data,
+                [
+                  {
+                    text: "Close",
+                  },
+                  { text: "Login", onPress: () => props.navigation.navigate("Login") }
+                ],
+                { cancelable: false }
+              );
+            })
+            .catch(error => {
+              console.log(error);
+            })
+        }
+        }>
         <Text style={styles.registerbtnTxt}>Register</Text>
       </TouchableOpacity>
       <Text style={styles.covTrackRegister}>CovTrack Register</Text>
       <TouchableOpacity
-        // onPress={() =>
-        //   createUser({
-        //     firstName,
-        //     lastName,
-        //     mobileNumber,
-        //     nic,
-        //     emailAddress,
-        //   })
-        // }
         style={styles.loginbtn}
       >
         <Text
@@ -124,11 +146,11 @@ function Register(props) {
           style={styles.confirmPassword}
           value={confirmPassword}
           onChangeText={(value) => {
-            if(value){
+            if (value) {
               confirmPassword = value;
             }
           }
-        }
+          }
         ></TextInput>
       </View>
     </View>
