@@ -9,11 +9,13 @@ import * as Font from "expo-font";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Dashboard from "../screens/Dashboard";
+import History from "../screens/History";
 
 const DrawerNavigation = createDrawerNavigator({
   Login: Login,
   Register: Register,
   Dashboard: Dashboard,
+  History: History,
 });
 
 const StackNavigation = createStackNavigator(
@@ -24,6 +26,7 @@ const StackNavigation = createStackNavigator(
     Login: Login,
     Register: Register,
     Dashboard: Dashboard,
+    History: History,
   },
   {
     headerMode: "none"

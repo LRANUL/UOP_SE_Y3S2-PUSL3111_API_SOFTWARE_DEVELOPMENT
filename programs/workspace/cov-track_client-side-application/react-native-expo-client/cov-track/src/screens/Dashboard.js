@@ -39,7 +39,10 @@ function Dashboard(props) {
           ></MaterialCommunityIconsIcon>
           <Text style={styles.checkOut}>Check out</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.historybtn}>
+        <TouchableOpacity
+          style={styles.historybtn}
+          onPress={() => props.navigation.navigate('History')}
+        >
           <MaterialCommunityIconsIcon
             name="history"
             style={styles.historyicn}
