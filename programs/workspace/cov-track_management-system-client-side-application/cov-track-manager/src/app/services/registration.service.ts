@@ -7,5 +7,10 @@ export class RegistrationService {
 
   constructor() { }
 
+  signup(form)
+  {
+    console.log(form);
+  }
+
 
 }

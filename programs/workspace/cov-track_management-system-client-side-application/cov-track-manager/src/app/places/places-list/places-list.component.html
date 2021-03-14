@@ -1,1 +1,44 @@
-<p>places-list works!</p>
+<mat-tab-group animationDuration="2000ms" style="margin-left: 80px; margin-right: 80px;">
+  <mat-tab label="School">
+    <br>
+    <div class="button">
+      <button mat-stroked-button style="float: right; color: lightgreen;">Add New Agent</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    School Content
+    <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </mat-tab>
+  <mat-tab label="Private Businesses">
+    <br>
+    <div class="button">
+      <button mat-stroked-button style="float: right; color: lightgreen;">Add New Agent</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    Private Business Content
+    <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </mat-tab>
+  <mat-tab label="Public Businesses">
+    <br>
+    <div class="button">
+      <button mat-stroked-button style="float: right; color: lightgreen;">Add New Agent</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    Public Business Content
+    <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </mat-tab>
+</mat-tab-group>

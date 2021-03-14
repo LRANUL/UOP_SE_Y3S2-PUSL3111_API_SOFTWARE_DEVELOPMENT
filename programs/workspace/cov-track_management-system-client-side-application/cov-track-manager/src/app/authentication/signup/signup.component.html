@@ -44,8 +44,11 @@
     <mat-form-field class="login-full-width" style=" margin-left: 40px">
       <mat-label>Phone Number</mat-label>
       <input matInput formControlName="phone">
-      <mat-error *ngIf="phone.invalid">
+      <mat-error *ngIf="phone.invalid && !phone.errors?.minlength && !phone.errors?.maxlength">
         Phone Number is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="phone.errors?.minlength && phone.errors?.maxlength">
+        Phone Number is <strong>invaild</strong>
       </mat-error>
     </mat-form-field>
     <br>
