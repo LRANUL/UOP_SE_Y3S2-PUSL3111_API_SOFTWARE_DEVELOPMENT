@@ -5,8 +5,30 @@
     "name": "cov-track",
     "slug": "cov-track",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/icon.png",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "splash": {
+      "image": "./src/assets/images/splash-screen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#77BC3F"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "backgroundColor": "#77BC3F"
+      }
+    },
+    "web": {
+      "favicon": "./src/assets/images/favicon.png"
+    }
   }
 }
