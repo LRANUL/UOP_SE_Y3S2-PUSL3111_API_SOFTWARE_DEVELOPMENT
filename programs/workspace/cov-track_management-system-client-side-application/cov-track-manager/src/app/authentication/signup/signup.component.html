@@ -1,1 +1,121 @@
-<p>signup works!</p>
+<mat-card>
+  <div mat-card-avatar class="login-header-image"></div>
+  <br>
+  <mat-card-title style="font-weight: bolder; text-align: center;">Sign Up</mat-card-title>
+  <br>
+<mat-card-content>
+  <form class="login-form" [formGroup]="SignUpForm" (ngSubmit)="submit()" style=" margin-left: 60px;  margin-right: 60px;">
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="firstName.invalid">
+        First Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="login-full-width" style="padding-right: 60px;  margin-left: 40px">
+      <mat-label>Middle Name</mat-label>
+      <input matInput formControlName="middleName">
+    </mat-form-field>
+    <mat-form-field class="login-full-width"  style="padding-right: 60px;  margin-left: 40px">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="lastName.invalid">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Date Of Birth</mat-label>
+      <input matInput [matDatepicker]="datepicker" formControlName="DOB">
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+        </mat-datepicker-actions>
+        <mat-error *ngIf="DOB.invalid">
+          Date Of Birth is <strong>required</strong>
+        </mat-error>
+      </mat-datepicker>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="phone">
+      <mat-error *ngIf="phone.invalid">
+        Phone Number is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput placeholder="Ex. jay@gmail.com" formControlName="email">
+      <mat-error *ngIf="email.invalid && email.touched">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="email.untouched">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+  <mat-form-field class="example-full-width" style="padding-right: 60px; margin-left: 40px;">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput formControlName="password">
+    <mat-error *ngIf="password.errors?.minlength && password.invalid">
+      Password should have atleast 8 characters
+    </mat-error>
+    <mat-error *ngIf="password.errors?.maxlength  && !password.errors?.minlength">
+      Password can only have 30 characters
+    </mat-error>
+    <mat-error *ngIf="password.invalid && !password.errors?.minlength && !password.errors?.maxlength">
+      Password is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width" style=" margin-left: 40px">
+    <mat-label>Confirm Password</mat-label>
+    <input type="password" matInput formControlName="confirmPassword">
+    <mat-error *ngIf="password != confirmPassword && confirmPassword.touched">
+      The Passwords does not Match
+    </mat-error>
+    <mat-error *ngIf="confirmPassword.invalid && !confirmPassword.errors?.minlength && !confirmPassword.errors?.maxlength">
+      Password is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="login-full-width" style=" margin-left: 40px">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address">
+    <mat-error *ngIf="address.invalid">
+      Address is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="login-full-width" style=" margin-left: 40px">
+    <mat-label>User Type</mat-label>
+  <mat-select disableRipple formControlName="userType">
+    <mat-option value="PHI User">PHI User</mat-option>
+    <mat-option value="CDC User">CDC User</mat-option>
+  </mat-select>
+    <mat-error *ngIf="userType.invalid">
+      User Type is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <br>
+   <div class="button">
+      <button type="submit" mat-stroked-button  style="width: 100%; color: green;" [disabled]="!SignUpForm.valid">Register User</button>
+    </div>
+    <br>
+    <div class="button">
+      <button mat-stroked-button style="width: 100%; color: lightcoral;" routerLink="" >Cancel</button>
+    </div>
+</form>
+</mat-card-content>
+</mat-card>
+

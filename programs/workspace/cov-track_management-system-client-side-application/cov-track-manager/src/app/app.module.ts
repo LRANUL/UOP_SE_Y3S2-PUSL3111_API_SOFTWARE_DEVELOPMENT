@@ -13,6 +13,8 @@ import { CitizenListComponent } from './health-inspection/citizen-list/citizen-l
 import { CitizenViewComponent } from './health-inspection/citizen-view/citizen-view.component';
 import { PlacesListComponent } from './places/places-list/places-list.component';
 import { PlaceCreateComponent } from './places/place-create/place-create.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -30,9 +32,11 @@ import { PlaceCreateComponent } from './places/place-create/place-create.compone
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
