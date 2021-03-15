@@ -10,12 +10,14 @@ import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Dashboard from "../screens/Dashboard";
 import History from "../screens/History";
+import CheckIn from "../components/QRCheckIn";
 
 const DrawerNavigation = createDrawerNavigator({
   Login: Login,
   Register: Register,
   Dashboard: Dashboard,
   History: History,
+  CheckIn: CheckIn,
 });
 
 const StackNavigation = createStackNavigator(
@@ -27,6 +29,7 @@ const StackNavigation = createStackNavigator(
     Register: Register,
     Dashboard: Dashboard,
     History: History,
+    CheckIn: CheckIn,
   },
   {
     headerMode: "none"
