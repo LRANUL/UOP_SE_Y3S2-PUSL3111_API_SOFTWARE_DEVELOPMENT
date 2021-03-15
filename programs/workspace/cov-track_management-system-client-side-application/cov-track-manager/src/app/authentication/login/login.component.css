@@ -1,0 +1,43 @@
+mat-card {
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+mat-form-field {
+  display: block;
+}
+
+.login-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.login-full-width {
+  width: 100%;
+}
+
+/* For Mobile */
+@media screen and (max-width: 540px) {
+  .login-header-image {
+    background-image: url('../../../assets/images/avatar.jpg');
+    background-size: cover;
+    margin-left: 120px;
+    height: 100px;
+    width: 100px;
+  }
+}
+
+/* For Other screen sizes */
+@media screen and (min-width: 540px){
+  .login-header-image {
+    background-image: url('../../../assets/images/avatar.jpg');
+    background-size: cover;
+    margin-left: 150px;
+    height: 100px;
+    width: 100px;
+  }
+}
+
+

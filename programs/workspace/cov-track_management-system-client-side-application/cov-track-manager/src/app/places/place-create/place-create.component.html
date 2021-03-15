@@ -1,0 +1,185 @@
+<mat-card>
+  <div mat-card-avatar class="login-header-image"></div>
+  <br>
+  <mat-card-title style="font-weight: bolder; text-align: center;">Profile Creation</mat-card-title>
+  <br>
+<mat-card-content>
+  <form class="login-form" [formGroup]="createAgentForm" (ngSubmit)="submit()" style=" margin-left: 60px;  margin-right: 60px;">
+   <mat-label style="font-weight: bolder; font-size: 20px;">Organization Details</mat-label>
+   <br>
+   <br>
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>Organization Name</mat-label>
+      <input matInput formControlName="organizationName">
+      <mat-error *ngIf="organizationName.invalid">
+        Organization Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Organization Sector</mat-label>
+    <mat-select disableRipple formControlName="organizationSector">
+      <mat-option value="Private">Private</mat-option>
+      <mat-option value="Public">Public</mat-option>
+    </mat-select>
+      <mat-error *ngIf="organizationSector.invalid">
+        Organization sector is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>Organization Type</mat-label>
+      <input matInput formControlName="organizationType">
+      <mat-error *ngIf="organizationType.invalid">
+        Organization Type is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>Organization Address</mat-label>
+      <input matInput formControlName="organizationAddress">
+      <mat-error *ngIf="organizationAddress.invalid">
+        Organization Address is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Organization Email</mat-label>
+      <input type="email" matInput placeholder="Ex. jay@gmail.com" formControlName="organizationEmail">
+      <mat-error *ngIf="organizationEmail.invalid && organizationEmail.touched">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="organizationEmail.untouched">
+        Organization email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>Organization Phone Number</mat-label>
+      <input matInput formControlName="organizationPhone">
+      <mat-error *ngIf="organizationPhone.invalid">
+        Organization phone number is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-label style="font-weight: bolder; font-size: 20px;">Owner/Head Personal Details</mat-label>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="ownerFirstName">
+      <mat-error *ngIf="ownerFirstName.invalid">
+        First Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="login-full-width" style="padding-right: 60px;  margin-left: 40px">
+      <mat-label>Middle Name</mat-label>
+      <input matInput formControlName="ownerMiddleName">
+    </mat-form-field>
+    <mat-form-field class="login-full-width"  style="padding-right: 60px;  margin-left: 40px">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="ownerLastName">
+      <mat-error *ngIf="ownerLastName.invalid">
+        Last Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Date Of Birth</mat-label>
+      <input matInput [matDatepicker]="datepicker" formControlName="DOB">
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+        </mat-datepicker-actions>
+        <mat-error *ngIf="DOB.invalid">
+          Date Of Birth is <strong>required</strong>
+        </mat-error>
+      </mat-datepicker>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width"  style="padding-right: 60px;  margin-left: 40px">
+      <mat-label>NIC</mat-label>
+      <input matInput formControlName="ownerNIC">
+      <mat-error *ngIf="ownerNIC.invalid">
+        NIC is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="personalPhone">
+      <mat-error *ngIf="personalPhone.invalid && !personalPhone.errors?.minlength && !personalPhone.errors?.maxlength">
+        Phone Number is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="personalPhone.errors?.minlength && personalPhone.errors?.maxlength">
+        Phone Number is <strong>invaild</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-label style="font-weight: bolder; font-size: 20px;">Account Details</mat-label>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput placeholder="Ex. jay@gmail.com" formControlName="personalEmail">
+      <mat-error *ngIf="personalEmail.invalid && personalEmail.touched">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="personalEmail.untouched">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+  <mat-form-field class="example-full-width" style="padding-right: 60px; margin-left: 40px;">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput formControlName="password">
+    <mat-error *ngIf="password.errors?.minlength && password.invalid">
+      Password should have atleast 8 characters
+    </mat-error>
+    <mat-error *ngIf="password.errors?.maxlength  && !password.errors?.minlength">
+      Password can only have 30 characters
+    </mat-error>
+    <mat-error *ngIf="password.invalid && !password.errors?.minlength && !password.errors?.maxlength">
+      Password is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width" style=" margin-left: 40px">
+    <mat-label>Confirm Password</mat-label>
+    <input type="password" matInput formControlName="confirmPassword">
+    <mat-error *ngIf="password != confirmPassword && confirmPassword.touched">
+      The Passwords does not Match
+    </mat-error>
+    <mat-error *ngIf="confirmPassword.invalid && !confirmPassword.errors?.minlength && !confirmPassword.errors?.maxlength">
+      Password is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-label style="font-weight: bolder; font-size: 20px;">Generated QR Code</mat-label>
+  <br>
+  <br>
+  <div *ngIf="createAgentForm.valid">
+    <qrcode [qrdata]="code" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+  </div>
+  <br>
+   <div class="button">
+      <button type="submit" mat-stroked-button  style="width: 100%; color: green;" [disabled]="createAgentForm.valid">Create User</button>
+   </div>
+    <br>
+    <div class="button">
+      <button mat-stroked-button style="width: 100%; color: lightcoral;">Cancel</button>
+    </div>
+</form>
+</mat-card-content>
+</mat-card>

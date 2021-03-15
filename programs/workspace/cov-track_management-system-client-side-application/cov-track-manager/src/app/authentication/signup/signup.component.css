@@ -1,0 +1,47 @@
+mat-card {
+  max-width: 1000px;
+  margin: 2em auto;
+}
+
+/* For Mobile */
+@media screen and (max-width: 540px) {
+  .login-header-image {
+    background-image: url('../../../assets/images/addUser.jpg');
+    background-size: cover;
+    margin-left: 170px;
+    height: 100px;
+    width: 100px;
+  }
+}
+
+/* For tabet screen sizes */
+@media screen and (min-width: 414px) and (max-width: 640px){
+  .login-header-image {
+    background-image: url('../../../assets/images/addUser.jpg');
+    background-size: cover;
+    margin-left: 140px;
+    height: 100px;
+    width: 100px;
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 780px){
+  .login-header-image {
+    background-image: url('../../../assets/images/addUser.jpg');
+    background-size: cover;
+    margin-left: 320px;
+    height: 100px;
+    width: 100px;
+  }
+}
+
+/* For other screen sizes */
+@media screen and (min-width: 780px){
+  .login-header-image {
+    background-image: url('../../../assets/images/addUser.jpg');
+    background-size: cover;
+    margin-left: 450px;
+    height: 100px;
+    width: 100px;
+  }
+}
