@@ -43,7 +43,7 @@ function Register(props) {
               console.log(response.data);
               Alert.alert(
                 "Registration Successful",
-                "You have registered successfully, login now. "+ response.data,
+                "You have registered successfully, login now. " + response.data,
                 [
                   {
                     text: "Close",
@@ -162,129 +162,131 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     borderColor: "#000000",
+    backgroundColor: "#fff",
+    borderRadius: 20
   },
   logo: {
-    width: 95,
-    height: 91,
-    borderRadius: 87,
+    width: 74,
+    height: 71,
+    borderRadius: 100,
     borderWidth: 0,
     borderColor: "#000000",
-    marginTop: 37,
-    alignSelf: "center",
+    marginTop: 31,
+    alignSelf: "center"
   },
   registerbtn: {
-    height: 61,
+    height: 48,
     backgroundColor: "rgba(74,144,226,0.7)",
     width: 265,
     borderRadius: 17,
-    marginTop: 535,
-    alignSelf: "center",
+    marginTop: 420,
+    alignSelf: "center"
   },
   registerbtnTxt: {
     fontFamily: "roboto-regular",
     color: "rgba(255,255,255,1)",
     textAlign: "center",
     fontSize: 25,
-    marginTop: 12,
-    alignSelf: "center",
+    marginTop: 9,
+    alignSelf: "center"
   },
   covTrackRegister: {
     fontFamily: "roboto-700",
     color: "rgba(0,0,0,1)",
     fontSize: 35,
-    marginTop: -575,
-    alignSelf: "center",
+    marginTop: -453,
+    alignSelf: "center"
   },
   loginbtn: {
-    width: 187,
-    height: 34,
-    marginTop: 548,
-    alignSelf: "center",
+    width: 179,
+    height: 27,
+    marginTop: 423,
+    alignSelf: "center"
   },
   registertxt: {
     fontFamily: "roboto-regular",
     color: "#121212",
     textDecorationLine: "underline",
-    marginTop: 11,
-    alignSelf: "center",
+    marginTop: 9,
+    alignSelf: "center"
   },
   group: {
-    width: 283,
-    height: 361,
+    width: 272,
+    height: 284,
     justifyContent: "space-between",
-    marginTop: -542,
-    alignSelf: "center",
+    marginTop: -427,
+    alignSelf: "center"
   },
   firstName: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 45,
-    width: 283,
+    height: 35,
+    width: 272,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center",
+    textAlign: "center"
   },
   lastName: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 45,
-    width: 283,
+    height: 35,
+    width: 271,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center",
+    textAlign: "center"
   },
   mobileNumber: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 45,
-    width: 283,
+    height: 35,
+    width: 272,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center",
+    textAlign: "center"
   },
   nic: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 45,
-    width: 283,
+    height: 35,
+    width: 272,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center",
+    textAlign: "center"
   },
   emailAddress: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 45,
-    width: 283,
+    height: 35,
+    width: 272,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center",
+    textAlign: "center"
   },
   password: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 45,
-    width: 283,
+    height: 35,
+    width: 272,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center",
+    textAlign: "center"
   },
   confirmPassword: {
     fontFamily: "roboto-regular",
     color: "#121212",
-    height: 45,
-    width: 283,
+    height: 35,
+    width: 272,
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center",
-  },
+    textAlign: "center"
+  }
 });
 
 export default Register;
