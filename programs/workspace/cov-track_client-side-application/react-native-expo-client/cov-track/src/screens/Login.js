@@ -21,27 +21,31 @@ function Login(props) {
       <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("Dashboard")}>
         <Text style={styles.logintxt}>Login</Text>
       </TouchableOpacity>
-      <TextInput
-        placeholder="email address"
-        clearButtonMode="unless-editing"
-        keyboardType="email-address"
-        autoFocus={true}
-        style={styles.emailfield}
-      ></TextInput>
-      <TextInput
-        placeholder="Password"
-        dataDetector="all"
-        clearButtonMode="unless-editing"
-        secureTextEntry={true}
-        style={styles.passwordfield}
-      ></TextInput>
+      <View style={styles.group}>
+        <TextInput
+          placeholder="email address"
+          clearButtonMode="unless-editing"
+          keyboardType="email-address"
+          autoFocus={true}
+          style={styles.emailfield}
+        ></TextInput>
+        <TextInput
+          placeholder="Password"
+          dataDetector="all"
+          clearButtonMode="unless-editing"
+          secureTextEntry={true}
+          style={styles.passwordfield}
+        ></TextInput>
+      </View>
       <Text style={styles.logotxt}>CovTrack Login</Text>
-      <TouchableOpacity
-        onPress={() => props.navigation.navigate("Register")}
-        style={styles.registerbtn}
-      >
-        <Text style={styles.registertxt}>No account register with us</Text>
-      </TouchableOpacity>
+      <View style={styles.registerbtnStack}>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("Register")}
+          style={styles.registerbtn}
+        >
+          <Text style={styles.registertxt}>No account register with us</Text>
+        </TouchableOpacity>      
+        </View>
     </View>
   );
 }
@@ -52,21 +56,21 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#000000"
   },
-  logo: {
-    width: 95,
-    height: 86,
-    borderRadius: 87,
+ logo: {
+    width: 74,
+    height: 71,
+    borderRadius: 100,
     borderWidth: 0,
     borderColor: "#000000",
-    marginTop: 35,
+    marginTop: 31,
     alignSelf: "center"
   },
   button: {
-    height: 57,
+    height: 55,
     backgroundColor: "rgba(126,211,33,0.7)",
     width: 265,
     borderRadius: 17,
-    marginTop: 506,
+    marginTop: 460,
     alignSelf: "center"
   },
   logintxt: {
@@ -74,7 +78,15 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     textAlign: "center",
     fontSize: 25,
-    marginTop: 11,
+    marginTop: 9,
+    alignSelf: "center"
+  },
+  group: {
+    width: 278,
+    height: 124,
+    justifyContent: "space-between",
+    alignItems: "stretch",
+    marginTop: -425,
     alignSelf: "center"
   },
   emailfield: {
@@ -85,9 +97,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center",
-    marginTop: -325,
-    alignSelf: "center"
+    textAlign: "center"
   },
   passwordfield: {
     fontFamily: "roboto-regular",
@@ -97,29 +107,34 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#000000",
     borderRadius: 10,
-    textAlign: "center",
-    marginTop: 32,
-    alignSelf: "center"
+    textAlign: "center"
   },
   logotxt: {
     fontFamily: "roboto-700",
     color: "rgba(0,0,0,1)",
     fontSize: 35,
-    marginTop: -346,
+    marginTop: -222,
     alignSelf: "center"
   },
   registerbtn: {
-    width: 683,
-    height: 32,
-    marginTop: 516,
-    alignSelf: "center"
+    top: 0,
+    width: 179,
+    height: 31,
+    position: "absolute",
+    left: 0
   },
   registertxt: {
     fontFamily: "roboto-regular",
     color: "#121212",
     textDecorationLine: "underline",
-    marginTop: 10,
+    marginTop: 9,
     alignSelf: "center"
+  },
+  registerbtnStack: {
+    width: 181,
+    height: 31,
+    marginTop: 495,
+    marginLeft: 89
   }
 });
 
