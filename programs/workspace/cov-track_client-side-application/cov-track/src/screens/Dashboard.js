@@ -6,11 +6,23 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
-  Text
+  Text,
+  Platform
 } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 function Dashboard(props) {
+  let mobileView = true
+  if (Platform.OS === 'web') {
+    mobileView = false
+    // setting to true during development
+    // @RyanCargon and @hvlhasanka comment line 17 to after testing
+  }
+  else if (Platform.OS === 'ios' || Platform.OS === 'android') {
+    mobileView = true;
+  }
+
+
   return (
     <View style={styles.container}>
       <StatusBar animated />
@@ -20,7 +32,7 @@ function Dashboard(props) {
         style={styles.image}
         imageStyle={styles.image_imageStyle}
       >
-        <TouchableOpacity style={styles.profilebtn}>
+        <TouchableOpacity style={styles.profilebtn} >
           <View style={styles.profileicnStack}>
             <MaterialCommunityIconsIcon
               name="account-circle"
@@ -29,25 +41,29 @@ function Dashboard(props) {
             <Text style={styles.profile}>Profile</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.checkinbtn}
-        onPress={() => props.navigation.navigate('CheckIn')}>
-          <View style={styles.checkinicnStack}>
-            <MaterialCommunityIconsIcon
-              name="qrcode-scan"
-              style={styles.checkinicn}
-            ></MaterialCommunityIconsIcon>
-            <Text style={styles.checkIn}>Check in</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.checkoutbtn}>
-          <View style={styles.checkouticnStack}>
-            <MaterialCommunityIconsIcon
-              name="qrcode"
-              style={styles.checkouticn}
-            ></MaterialCommunityIconsIcon>
-            <Text style={styles.checkOut}>Check out</Text>
-          </View>
-        </TouchableOpacity>
+        {mobileView ?
+          <TouchableOpacity style={styles.checkinbtn}
+            onPress={() => props.navigation.navigate('CheckIn')}>
+            <View style={styles.checkinicnStack}>
+              <MaterialCommunityIconsIcon
+                name="qrcode-scan"
+                style={styles.checkinicn}
+              ></MaterialCommunityIconsIcon>
+              <Text style={styles.checkIn}>Check in</Text>
+            </View>
+          </TouchableOpacity>
+          : null}
+        {mobileView ?
+          <TouchableOpacity style={styles.checkoutbtn}>
+            <View style={styles.checkouticnStack}>
+              <MaterialCommunityIconsIcon
+                name="qrcode"
+                style={styles.checkouticn}
+              ></MaterialCommunityIconsIcon>
+              <Text style={styles.checkOut}>Check out</Text>
+            </View>
+          </TouchableOpacity>
+          : null}
         <TouchableOpacity style={styles.historybtn}
           onPress={() => props.navigation.navigate('History')}
         >

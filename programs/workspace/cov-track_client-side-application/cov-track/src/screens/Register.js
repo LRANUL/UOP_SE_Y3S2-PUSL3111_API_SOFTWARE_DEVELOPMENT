@@ -160,10 +160,7 @@ function Register(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "#000000",
     backgroundColor: "#fff",
-    borderRadius: 20
   },
   logo: {
     width: 74,
