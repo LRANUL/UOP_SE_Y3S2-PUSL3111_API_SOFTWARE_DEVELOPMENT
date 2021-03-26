@@ -1,57 +1,77 @@
 import mongoose from "mongoose";
-import { UserSchema } from "../models/covTrackModel";
+import { CustomerSchema, HistorySchema } from "../models/covTrackModel";
 
-const User = mongoose.model("User", UserSchema);
-4;
+const Customer = mongoose.model("Customer", CustomerSchema);
+const History = mongoose.model("History", HistorySchema);
 
-export const addNewUser = (req, res) => {
-  let newUser = new User(req.body);
+/** Creating a New Customer */
+export const addNewCustomer = (req, res) => {
+  let newCustomer = new Customer(req.body);
 
-  newUser.save((err, user) => {
+  newCustomer.save((err, Customer) => {
     if (err) {
       res.send(err);
     }
-    res.json(user);
+    res.json(Customer);
   });
 };
-
-export const getUsers = (req, res) => {
-  User.find({}, (err, user) => {
+/** Search Customer List */
+export const getCustomers = (req, res) => {
+  Customer.find({}, (err, Customer) => {
     if (err) {
       res.send(err);
     }
-    res.json(user);
+    res.json(Customer);
   });
 };
-
-export const getUserFromNIC = (req, res) => {
-  User.findOne({ nic: req.params.nic }, (err, user) => {
+/** Find Customer by NIC */
+export const getCustomerFromNIC = (req, res) => {
+  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
     if (err) {
       res.send(err);
     }
-    res.json(user);
+    res.json(Customer);
   });
 };
-
-export const updateUserFromNIC = (req, res) => {
-  User.findOne(
+/** Update Customer by NIC */
+export const updateCustomerFromNIC = (req, res) => {
+  Customer.findOne(
     { nic: req.params.nic },
     req.body,
     { new: true, useFindAndModify: false },
-    (err, user) => {
+    (err, Customer) => {
       if (err) {
         res.send(err);
       }
-      res.json(user);
+      res.json(Customer);
     }
   );
 };
-
-export const removeUserFromNIC = (req, res) => {
-  User.findOneAndDelete({ nic: req.params.nic }, (err, user) => {
+/** Remove Customer by NIC */
+export const removeCustomerFromNIC = (req, res) => {
+  Customer.findOneAndDelete({ nic: req.params.nic }, (err, Customer) => {
     if (err) {
       res.send(err);
     }
-    res.json({ message: `${req.params.id} was deleted.` });
+    res.json({ message: `${req.params.nic} was deleted.` });
+  });
+};
+/** Find Customer CheckIn Status */
+export const getCustomerCheckInStatus = (req, res) => {
+  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer.checkedin);
+  });
+};
+/** Adding a New Checkin to Customer */
+export const setCustomerCheckIn = (req, res) => {
+  let newCheckInRecord = new History(req.body);
+  newCheckInRecord.save((err, History) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(History);
   });
 };
