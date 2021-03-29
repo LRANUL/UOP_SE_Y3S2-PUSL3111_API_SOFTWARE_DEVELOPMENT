@@ -1,17 +1,19 @@
-const passport = require('passport');
+import passport from 'passport';
 const localStrategy = require('passport-local').Strategy;
-const UserModel = require('../models/covTrackModel');
+import UserModel from '../models/authModel';
+const JWTstrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 passport.use(
-  'customer-register',
+  'signup',
   new localStrategy(
     {
-      usernameField: 'emailAddress',
+      usernameField: 'email',
       passwordField: 'password'
     },
-    async (emailAddress, password, done) => {
+    async (email, password, done) => {
       try {
-        const user = await UserModel.create({ emailAddress, password });
+        const user = await UserModel.create({ email, password });
 
         return done(null, user);
       } catch (error) {
@@ -22,15 +24,15 @@ passport.use(
 );
 
 passport.use(
-  'customer-login',
+  'login',
   new localStrategy(
     {
-      usernameField: 'emailAddress',
+      usernameField: 'email',
       passwordField: 'password'
     },
-    async (emailAddress, password, done) => {
+    async (email, password, done) => {
       try {
-        const user = await UserModel.findOne({ emailAddress });
+        const user = await UserModel.findOne({ email });
 
         if (!user) {
           return done(null, false, { message: 'User not found' });
@@ -49,9 +51,6 @@ passport.use(
     }
   )
 );
-
-const JWTstrategy = require('passport-jwt').Strategy;
-const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 passport.use(
   new JWTstrategy(

@@ -10,7 +10,7 @@ import {
   test,
 } from "../controllers/covTrackController";
 
-const routes = (app) => {
+const router = (app) => {
 
   /** Customer Manage Routes */
   app.route("/").get(test);
@@ -36,4 +36,4 @@ const routes = (app) => {
 
 };
 
-export default routes;
+module.exports = router;
