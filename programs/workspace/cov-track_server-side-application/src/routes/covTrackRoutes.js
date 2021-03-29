@@ -6,14 +6,12 @@ import {
   removeCustomerFromNIC,
   getCustomerCheckInStatus,
   setCustomerCheckIn,
-  loginCustomer,
-  test,
 } from "../controllers/covTrackController";
 
 const router = (app) => {
 
   /** Customer Manage Routes */
-  app.route("/").get(test);
+
   // For deleting customer from NIC
   app.route("/customer-delete/:nic").delete(removeCustomerFromNIC);
   // For updating customer from NIC
@@ -24,8 +22,6 @@ const router = (app) => {
   app.route("/get-customers").get(getCustomers);
   // For register a customer with CovTrack
   app.route("/customer-register").post(addNewCustomer);
-  // For logging in a customer with CovTrack
-  app.route("/customer-login").post(loginCustomer);
 
   /** Customer Checkin and History Routes */
 
