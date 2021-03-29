@@ -2,9 +2,9 @@ import express from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
-const authRouter = express.Router();
+const router = express.Router();
 
-authRouter.post(
+router.post(
   '/signup',
   passport.authenticate('signup', { session: false }),
   async (req, res, next) => {
@@ -15,7 +15,7 @@ authRouter.post(
   }
 );
 
-authRouter.post(
+router.post(
   '/login',
   async (req, res, next) => {
     passport.authenticate(
@@ -35,7 +35,7 @@ authRouter.post(
               if (error) return next(error);
 
               const body = { _id: user._id, email: user.email };
-              const token = jwt.sign({ user: body }, 'TOP_SECRET');
+              const token = jwt.sign({ user: body }, 'TOP_SECRET', { expiresIn: '1m' });
 
               return res.json({ token });
             }
@@ -48,4 +48,4 @@ authRouter.post(
   }
 );
 
-export default authRouter;
+module.exports = router;

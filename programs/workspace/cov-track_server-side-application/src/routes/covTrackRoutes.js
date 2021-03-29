@@ -8,7 +8,7 @@ import {
   setCustomerCheckIn,
 } from "../controllers/covTrackController";
 
-const routes = (app) => {
+const router = (app) => {
 
   /** Customer Manage Routes */
   
@@ -32,4 +32,4 @@ const routes = (app) => {
 
 };
 
-export default routes;
+module.exports = router;

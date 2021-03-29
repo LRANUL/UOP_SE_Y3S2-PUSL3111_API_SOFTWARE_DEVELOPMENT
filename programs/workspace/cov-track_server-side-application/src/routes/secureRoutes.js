@@ -1,7 +1,7 @@
 const express = require('express');
-const authRouter = express.Router();
+const router = express.Router();
 
-authRouter.get(
+router.get(
   '/profile',
   (req, res, next) => {
     res.json({
@@ -12,4 +12,17 @@ authRouter.get(
   }
 );
 
-export default authRouter;
+router.delete(
+  '/customer-delete/:nic',
+  (req, res, next) => {
+    Customer.findOneAndDelete({ nic: req.params.nic }, (err, Customer) => {
+      if (err) {
+        res.send(err);
+      }
+      res.json({ message: `${req.params.nic} was deleted.` });
+    });
+  }
+);
+
+
+module.exports = router;
