@@ -16,6 +16,10 @@ export const CustomerSchema = new Schema({
     type: String,
     required: "Email address is required",
   },
+  password: {
+    type: String,
+    required: "Password is required",
+  },
   heathStatus: {
     type: String,
   },
@@ -26,6 +30,10 @@ export const CustomerSchema = new Schema({
     type: String,
   },
   checkedin: {
+    type: Boolean,
+    default: false,
+  },
+  loggedin: {
     type: Boolean,
     default: false,
   },
@@ -42,6 +50,8 @@ export const CustomerSchema = new Schema({
     default: Date.now,
   },
 });
+
+export const UserModel = mongoose.model('Customer', CustomerSchema);
 
 export const HistorySchema = new Schema({
   nic: {

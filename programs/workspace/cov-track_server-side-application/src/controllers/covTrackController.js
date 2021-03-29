@@ -4,6 +4,10 @@ import { CustomerSchema, HistorySchema } from "../models/covTrackModel";
 const Customer = mongoose.model("Customer", CustomerSchema);
 const History = mongoose.model("History", HistorySchema);
 
+/** Test */
+export const test = (req, res) => {
+  res.send('Running...');
+};
 /** Creating a New Customer */
 export const addNewCustomer = (req, res) => {
   let newCustomer = new Customer(req.body);
@@ -73,5 +77,14 @@ export const setCustomerCheckIn = (req, res) => {
       res.send(err);
     }
     res.json(History);
+  });
+};
+/** Find Customer Login Status */
+export const loginCustomer = (req, res) => {
+  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer.loggedin);
   });
 };

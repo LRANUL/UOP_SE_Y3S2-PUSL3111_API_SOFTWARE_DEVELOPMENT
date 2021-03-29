@@ -12,7 +12,8 @@ app.use(cors());
 mongoose.Promise = global.Promise; //allows Asynchronous Operations
 
 mongoose.connect( // MongoDB mongoose connection
-  "mongodb+srv://developer:OWBFpoXsPEQWjKgK@covtrack-cluster-1.tpmbm.mongodb.net/CovTrack_DB_Primary?retryWrites=true&w=majority",
+//  "mongodb+srv://developer:OWBFpoXsPEQWjKgK@covtrack-cluster-1.tpmbm.mongodb.net/CovTrack_DB_Primary?retryWrites=true&w=majority",
+    "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
