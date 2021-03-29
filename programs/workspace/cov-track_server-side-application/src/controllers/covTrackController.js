@@ -75,12 +75,3 @@ export const setCustomerCheckIn = (req, res) => {
     res.json(History);
   });
 };
-/** Find Customer Login Status */
-export const loginCustomer = (req, res) => {
-  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
-    if (err) {
-      res.send(err);
-    }
-    res.json(Customer.loggedin);
-  });
-};
