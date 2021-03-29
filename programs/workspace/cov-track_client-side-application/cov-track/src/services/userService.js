@@ -10,10 +10,6 @@ class UserService {
         console.log(registrationData)
         return http.post("/customer-register", registrationData);
     }
-    login(loginData) {
-        console.log(loginData)
-        return http.post("/customer-login", loginData);
-    }
     checkInStatus() {
         var nic = 123
         const status = http.post(`/customer-checkin-status/${nic}`);
