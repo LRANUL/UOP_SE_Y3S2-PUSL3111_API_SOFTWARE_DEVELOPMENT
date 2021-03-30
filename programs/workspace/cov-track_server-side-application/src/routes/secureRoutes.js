@@ -1,5 +1,7 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
+const cors = require('cors');
 
 router.get(
   '/profile',
@@ -12,10 +14,24 @@ router.get(
   }
 );
 
+// router.delete(
+//   '/delete',
+//   (req, res, next) => {
+//     Customer.findOneAndDelete({ _id: new mongoose.Types.ObjectId(req.body.id) }, (err, Customer) => {
+//       if (!err) {
+//           res.json({ msg: "customer deleted", deleted: Customer });
+//       } else {
+//           console.log("Error removing :" + err);
+//       }
+//   });
+//   }
+// );
+
 router.delete(
-  '/customer-delete/:nic',
+  '/customer-delete/:nic',  cors(),
   (req, res, next) => {
-    Customer.findOneAndDelete({ nic: req.params.nic }, (err, Customer) => {
+    const nic = req.params.nic;
+    Customer.findOneAndDelete( nic, (err, Customer) => {
       if (err) {
         res.send(err);
       }

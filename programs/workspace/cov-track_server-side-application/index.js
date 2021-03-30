@@ -11,8 +11,6 @@ const PORT = 5000;
 
 app.use(cors());
 
-mongoose.Promise = global.Promise; //allows Asynchronous Operations
-
 mongoose.connect("mongodb://127.0.0.1:27017/covtrackDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -32,8 +30,9 @@ app.use(bodyParser.json());
 
 app.use('/', routes);
 
+export const authJwt = passport.authenticate('jwt', { session: false });
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
-app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
+app.use('/user', authJwt, secureRoute);
 
 // Handle errors.
 app.use(function(err, req, res, next) {
