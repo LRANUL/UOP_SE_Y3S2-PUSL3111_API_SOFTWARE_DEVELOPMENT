@@ -24,6 +24,7 @@
     "react-native": "~0.63.4",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-material-kit": "^0.6.0-beta.1",
+    "react-native-paper": "^4.7.2",
     "react-native-reanimated": "~1.13.0",
     "react-native-screens": "~2.15.0",
     "react-native-unimodules": "~0.12.0",

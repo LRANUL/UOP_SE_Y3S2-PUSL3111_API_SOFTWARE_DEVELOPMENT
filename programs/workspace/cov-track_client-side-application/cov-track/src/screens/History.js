@@ -6,12 +6,42 @@ import {
   ImageBackground,
   TouchableOpacity,
   Text,
-  SectionList
+  SectionList,
 } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import {
+  DefaultTheme,
+  Provider as PaperProvider,
+  Appbar,
+  Card,
+  Title,
+  Paragraph,
+  Badge,
+  Avatar,
+  //LeftContent,
+  Button,
+} from 'react-native-paper';
+//import { Provider as StoreProvider } from 'react-redux';
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    accent: 'yellow',
+  },
+};
 
 function History(props) {
+  const _goBack = () => console.log("Went back");
+  const _handleSearch = () => console.log("Searching");
+  const _handleMore = () => console.log("Shown more");
+
+  const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
+
   return (
+    // <StoreProvider store={store}>
+    <PaperProvider theme={theme}>
     <View style={styles.container}>
       <ImageBackground
         source={require("../assets/images/4324939.jpg")}
@@ -19,22 +49,33 @@ function History(props) {
         style={styles.image}
         imageStyle={styles.image_imageStyle}
       >
-        <MaterialCommunityIconsIcon
-            name="history"
-            style={styles.sectionlst}
-        >
-        <SectionList
-          sections={[
-            {title: 'Title1', data: ['1', '2', '3']},
-            {title: 'Title2', data: ['1', '2', '3', '4', '5', '6', '7']},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-          keyExtractor={(item, index) => index}
-        />
-        </MaterialCommunityIconsIcon>
+        <Appbar.Header>
+          <Appbar.BackAction onPress={_goBack} />
+          <Appbar.Content title="Title" subtitle="Subtitle" />
+          <Appbar.Action icon="magnify" onPress={_handleSearch} />
+          <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
+        </Appbar.Header>
+        <Badge>Test</Badge>
+        <Card>
+          <Card.Title
+            title="Card Title"
+            subtitle="Card Subtitle"
+            left={LeftContent}
+          />
+          <Card.Content>
+            <Title>Card title</Title>
+            <Paragraph>Card content</Paragraph>
+          </Card.Content>
+          <Card.Cover source={{uri: 'https://picsum.photos/700'}} />
+          <Card.Actions>
+            <Button>Cancel</Button>
+            <Button>OK</Button>
+          </Card.Actions>
+        </Card>
       </ImageBackground>
     </View>
+    </PaperProvider>
+    // </StoreProvider>
   );
 }
 
