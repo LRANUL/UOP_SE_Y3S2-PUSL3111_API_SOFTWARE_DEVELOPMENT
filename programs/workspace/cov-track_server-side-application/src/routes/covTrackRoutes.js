@@ -1,45 +1,45 @@
+import { Router } from 'express';
 import validate from 'express-validation';
 
 import { authLocal, authJwt } from '../services/auth';
-import * as userController from '../controllers/userControllers';
-import userValidation from '../services/validations';
+import * as userController from '../controllers/userController';
 import {
-  getCustomers,
+  getCustomerCheckInStatus,
   getCustomerFromNIC,
   updateCustomerFromNIC,
   removeCustomerFromNIC,
-  getCustomerCheckInStatus,
   setCustomerCheckIn,
-} from "../controllers/covTrackController";
+  getCustomers
+} from '../controllers/covTrackController';
+import userValidation from '../services/validations';
 
-const routes = (app) => {
+const routes = new Router();
 
-  // JWT test route
-  app.route('/test').get(authJwt, (req, res) => {
-    res.send('Private route accessed!');
-  });
+// JWT test route
+routes.get('/test', authJwt, (req, res) => {
+  res.send('Private route accessed!');
+});
 
-  // Auth
-  app.route("/signup").post(validate(userValidation.signup), userController.signUp);
-  app.route("/login").post(authLocal, userController.login);
+// Auth
+routes.post("/signup", validate(userValidation.signup), userController.signUp);
+routes.post("/login", authLocal, userController.login);
 
-  /** Customer Manage Routes */
-  
-  // For deleting customer from NIC
-  app.route("/customer-delete/:nic").delete(removeCustomerFromNIC);
-  // For updating customer from NIC
-  app.route("/customer-update/:nic").put(updateCustomerFromNIC);
-  // For getting customer from NIC
-  app.route("/customer/:nic").get(getCustomerFromNIC);
-  // For getting all customers
-  app.route("/get-customers").get(getCustomers);
+// /** Customer Manage Routes */
 
-  /** Customer Checkin and History Routes */
+// For deleting customer from NIC
+routes.delete("/customer-delete/:nic", removeCustomerFromNIC);
+// For updating customer from NIC
+routes.put("/customer-update/:nic", updateCustomerFromNIC);
+// For getting customer from NIC
+routes.get("/customer/:nic", getCustomerFromNIC);
+// For getting all customers
+routes.get("/get-customers", getCustomers);
 
-  // For getting checkin status
-  app.route("/customer-checkin-status/:nic").get(getCustomerCheckInStatus);
-  // For checking in customer
-  app.route("/customer-checkin").post(setCustomerCheckIn);
-}
+/** Customer Checkin and History Routes */
+
+// For getting checkin status
+routes.get("/customer-checkin-status/:nic", getCustomerCheckInStatus);
+// For checking in customer
+routes.post("/customer-checkin", setCustomerCheckIn);
 
 export default routes;

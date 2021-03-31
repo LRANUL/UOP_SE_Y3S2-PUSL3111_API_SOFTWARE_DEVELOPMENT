@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-shadow */
 import mongoose from "mongoose";
 import { CustomerSchema, HistorySchema } from "../models/covTrackModel";
 
