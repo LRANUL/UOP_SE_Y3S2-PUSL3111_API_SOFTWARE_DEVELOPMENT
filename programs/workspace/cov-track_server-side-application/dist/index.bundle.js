@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -111,7 +111,7 @@ exports.default = Object.assign({}, defaultConfig, envConfig(process.env.NODE_EN
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("mongoose");
 
 /***/ }),
 /* 2 */
@@ -123,30 +123,108 @@ module.exports = require("express");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.authJwt = exports.authLocal = undefined;
 
-var _mongoose = __webpack_require__(4);
+var _passport = __webpack_require__(5);
+
+var _passport2 = _interopRequireDefault(_passport);
+
+var _passportLocal = __webpack_require__(26);
+
+var _passportLocal2 = _interopRequireDefault(_passportLocal);
+
+var _passportJwt = __webpack_require__(25);
+
+var _userModel = __webpack_require__(3);
+
+var _userModel2 = _interopRequireDefault(_userModel);
+
+var _config = __webpack_require__(0);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Local strategy
+const localOpts = {
+  usernameField: 'email'
+};
+
+const localStrategy = new _passportLocal2.default(localOpts, async (email, password, done) => {
+  try {
+    const user = await _userModel2.default.findOne({ email });
+    if (!user) {
+      return done(null, false);
+    } else if (!user.authenticateUser(password)) {
+      return done(null, false);
+    }
+
+    return done(null, user);
+  } catch (e) {
+    return done(e, false);
+  }
+});
+
+// Jwt strategy
+const jwtOpts = {
+  jwtFromRequest: _passportJwt.ExtractJwt.fromAuthHeader('authorization'),
+  secretOrKey: _config2.default.JWT_SECRET
+};
+
+const jwtStrategy = new _passportJwt.Strategy(jwtOpts, async (payload, done) => {
+  try {
+    const user = await _userModel2.default.findById(payload._id);
+
+    if (!user) {
+      return done(null, false);
+    }
+
+    return done(null, user);
+  } catch (e) {
+    return done(e, false);
+  }
+});
+
+_passport2.default.use(localStrategy);
+_passport2.default.use(jwtStrategy);
+
+const authLocal = exports.authLocal = _passport2.default.authenticate('local', { session: false });
+const authJwt = exports.authJwt = _passport2.default.authenticate('jwt', { session: false });
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _validator = __webpack_require__(25);
+var _validator = __webpack_require__(27);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _bcryptNodejs = __webpack_require__(13);
+var _bcryptNodejs = __webpack_require__(14);
 
-var _jsonwebtoken = __webpack_require__(20);
+var _jsonwebtoken = __webpack_require__(22);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _mongooseUniqueValidator = __webpack_require__(21);
+var _mongooseUniqueValidator = __webpack_require__(23);
 
 var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
-var _user = __webpack_require__(3);
+var _userValidations = __webpack_require__(4);
 
-var _constants = __webpack_require__(0);
+var _config = __webpack_require__(0);
 
-var _constants2 = _interopRequireDefault(_constants);
+var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -186,7 +264,7 @@ const UserSchema = new _mongoose.Schema({
     minlength: [6, 'Password need to be longer!'],
     validate: {
       validator(password) {
-        return _user.passwordReg.test(password);
+        return _userValidations.passwordReg.test(password);
       },
       message: '{VALUE} is not a valid password!'
     }
@@ -215,7 +293,7 @@ UserSchema.methods = {
   createToken() {
     return _jsonwebtoken2.default.sign({
       _id: this._id
-    }, _constants2.default.JWT_SECRET);
+    }, _config2.default.JWT_SECRET);
   },
   toAuthJSON() {
     return {
@@ -235,7 +313,7 @@ UserSchema.methods = {
 exports.default = _mongoose2.default.model('User', UserSchema);
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -246,7 +324,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.passwordReg = undefined;
 
-var _joi = __webpack_require__(19);
+var _joi = __webpack_require__(21);
 
 var _joi2 = _interopRequireDefault(_joi);
 
@@ -267,12 +345,6 @@ exports.default = {
 };
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -285,13 +357,76 @@ module.exports = require("passport");
 "use strict";
 
 
-var _mongoose = __webpack_require__(4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _expressValidation = __webpack_require__(18);
+
+var _expressValidation2 = _interopRequireDefault(_expressValidation);
+
+var _auth = __webpack_require__(2);
+
+var _userControllers = __webpack_require__(12);
+
+var userController = _interopRequireWildcard(_userControllers);
+
+var _userValidations = __webpack_require__(4);
+
+var _userValidations2 = _interopRequireDefault(_userValidations);
+
+var _covTrackController = __webpack_require__(11);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const routes = app => {
+
+  // JWT test route
+  app.route('/test').get(_auth.authJwt, (req, res) => {
+    res.send('Private route accessed!');
+  });
+
+  // Auth
+  app.route("/signup").post((0, _expressValidation2.default)(_userValidations2.default.signup), userController.signUp);
+  app.route("/login").post(_auth.authLocal, userController.login);
+
+  /** Customer Manage Routes */
+
+  // For deleting customer from NIC
+  app.route("/customer-delete/:nic").delete(_covTrackController.removeCustomerFromNIC);
+  // For updating customer from NIC
+  app.route("/customer-update/:nic").put(_covTrackController.updateCustomerFromNIC);
+  // For getting customer from NIC
+  app.route("/customer/:nic").get(_covTrackController.getCustomerFromNIC);
+  // For getting all customers
+  app.route("/get-customers").get(_covTrackController.getCustomers);
+
+  /** Customer Checkin and History Routes */
+
+  // For getting checkin status
+  app.route("/customer-checkin-status/:nic").get(_covTrackController.getCustomerCheckInStatus);
+  // For checking in customer
+  app.route("/customer-checkin").post(_covTrackController.setCustomerCheckIn);
+};
+
+exports.default = routes;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _constants = __webpack_require__(0);
+var _config = __webpack_require__(0);
 
-var _constants2 = _interopRequireDefault(_constants);
+var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -302,9 +437,9 @@ _mongoose2.default.Promise = global.Promise;
 
 // Connect the db with the url provided
 try {
-  _mongoose2.default.connect(_constants2.default.MONGO_URL);
+  _mongoose2.default.connect(_config2.default.MONGO_URL);
 } catch (err) {
-  _mongoose2.default.createConnection(_constants2.default.MONGO_URL);
+  _mongoose2.default.createConnection(_config2.default.MONGO_URL);
 }
 
 _mongoose2.default.connection.once('open', () => console.log('MongoDB Running')).on('error', e => {
@@ -312,7 +447,7 @@ _mongoose2.default.connection.once('open', () => console.log('MongoDB Running'))
 });
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -322,19 +457,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _morgan = __webpack_require__(22);
+var _morgan = __webpack_require__(24);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _bodyParser = __webpack_require__(14);
+var _bodyParser = __webpack_require__(15);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _compression = __webpack_require__(15);
+var _compression = __webpack_require__(17);
 
 var _compression2 = _interopRequireDefault(_compression);
 
-var _helmet = __webpack_require__(17);
+var _helmet = __webpack_require__(19);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
@@ -363,69 +498,65 @@ exports.default = app => {
 };
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 9 */
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _user = __webpack_require__(11);
-
-var _user2 = _interopRequireDefault(_user);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = app => {
-  app.use('/api/v1/users', _user2.default);
-};
+module.exports = require("express");
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _express = __webpack_require__(1);
+var _express = __webpack_require__(9);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _constants = __webpack_require__(0);
+var _config = __webpack_require__(0);
 
-var _constants2 = _interopRequireDefault(_constants);
+var _config2 = _interopRequireDefault(_config);
 
-__webpack_require__(6);
+__webpack_require__(7);
 
-var _middlewares = __webpack_require__(7);
+var _middlewares = __webpack_require__(8);
 
 var _middlewares2 = _interopRequireDefault(_middlewares);
 
-var _modules = __webpack_require__(8);
+var _covTrackRoutes = __webpack_require__(6);
 
-var _modules2 = _interopRequireDefault(_modules);
+var _covTrackRoutes2 = _interopRequireDefault(_covTrackRoutes);
+
+var _auth = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const app = (0, _express2.default)(); /* eslint-disable no-console */
+/* eslint-disable no-console */
+
+const apiRoutes = () => {
+  app.use('/protected', _covTrackRoutes2.default);
+};
+
+const app = (0, _express2.default)();
 
 (0, _middlewares2.default)(app);
 
 app.get('/', (req, res) => {
-  res.send('Hello world!');
+  res.send('Running...');
+});
+app.get('/test', _auth.authJwt, (req, res) => {
+  res.send('Private route accessed!');
 });
 
-(0, _modules2.default)(app);
+apiRoutes(app);
 
-app.listen(_constants2.default.PORT, err => {
+app.listen(_config2.default.PORT, err => {
   if (err) {
     throw err;
   } else {
     console.log(`
-      Server running on port: ${_constants2.default.PORT}
+      Server running on port: ${_config2.default.PORT}
       ---
       Running on ${process.env.NODE_ENV}
       ---
@@ -435,7 +566,97 @@ app.listen(_constants2.default.PORT, err => {
 });
 
 /***/ }),
-/* 10 */
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setCustomerCheckIn = exports.getCustomerCheckInStatus = exports.removeCustomerFromNIC = exports.updateCustomerFromNIC = exports.getCustomerFromNIC = exports.getCustomers = exports.addNewCustomer = undefined;
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _covTrackModel = __webpack_require__(13);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Customer = _mongoose2.default.model("Customer", _covTrackModel.CustomerSchema);
+const History = _mongoose2.default.model("History", _covTrackModel.HistorySchema);
+
+/** Creating a New Customer */
+const addNewCustomer = exports.addNewCustomer = (req, res) => {
+  let newCustomer = new Customer(req.body);
+
+  newCustomer.save((err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer);
+  });
+};
+/** Search Customer List */
+const getCustomers = exports.getCustomers = (req, res) => {
+  Customer.find({}, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer);
+  });
+};
+/** Find Customer by NIC */
+const getCustomerFromNIC = exports.getCustomerFromNIC = (req, res) => {
+  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer);
+  });
+};
+/** Update Customer by NIC */
+const updateCustomerFromNIC = exports.updateCustomerFromNIC = (req, res) => {
+  Customer.findOne({ nic: req.params.nic }, req.body, { new: true, useFindAndModify: false }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer);
+  });
+};
+/** Remove Customer by NIC */
+const removeCustomerFromNIC = exports.removeCustomerFromNIC = (req, res) => {
+  Customer.findOneAndDelete({ nic: req.params.nic }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json({ message: `${req.params.nic} was deleted.` });
+  });
+};
+/** Find Customer CheckIn Status */
+const getCustomerCheckInStatus = exports.getCustomerCheckInStatus = (req, res) => {
+  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer.checkedin);
+  });
+};
+/** Adding a New Checkin to Customer */
+const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
+  let newCheckInRecord = new History(req.body);
+  newCheckInRecord.save((err, History) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(History);
+  });
+};
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -447,19 +668,19 @@ Object.defineProperty(exports, "__esModule", {
 exports.signUp = signUp;
 exports.login = login;
 
-var _httpStatus = __webpack_require__(18);
+var _httpStatus = __webpack_require__(20);
 
 var _httpStatus2 = _interopRequireDefault(_httpStatus);
 
-var _user = __webpack_require__(2);
+var _userModel = __webpack_require__(3);
 
-var _user2 = _interopRequireDefault(_user);
+var _userModel2 = _interopRequireDefault(_userModel);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 async function signUp(req, res) {
   try {
-    const user = await _user2.default.create(req.body);
+    const user = await _userModel2.default.create(req.body);
     return res.status(_httpStatus2.default.CREATED).json(user.toAuthJSON());
   } catch (e) {
     return res.status(_httpStatus2.default.BAD_REQUEST).json(e);
@@ -473,195 +694,182 @@ function login(req, res, next) {
 }
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _express = __webpack_require__(1);
-
-var _expressValidation = __webpack_require__(16);
-
-var _expressValidation2 = _interopRequireDefault(_expressValidation);
-
-var _auth = __webpack_require__(12);
-
-var _user = __webpack_require__(10);
-
-var userController = _interopRequireWildcard(_user);
-
-var _user2 = __webpack_require__(3);
-
-var _user3 = _interopRequireDefault(_user2);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const routes = new _express.Router();
-
-routes.post('/signup', (0, _expressValidation2.default)(_user3.default.signup), userController.signUp);
-routes.post('/login', _auth.authLocal, userController.login);
-
-exports.default = routes;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.authJwt = exports.authLocal = undefined;
-
-var _passport = __webpack_require__(5);
-
-var _passport2 = _interopRequireDefault(_passport);
-
-var _passportLocal = __webpack_require__(24);
-
-var _passportLocal2 = _interopRequireDefault(_passportLocal);
-
-var _passportJwt = __webpack_require__(23);
-
-var _user = __webpack_require__(2);
-
-var _user2 = _interopRequireDefault(_user);
-
-var _constants = __webpack_require__(0);
-
-var _constants2 = _interopRequireDefault(_constants);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Local strategy
-const localOpts = {
-  usernameField: 'email'
-};
-
-const localStrategy = new _passportLocal2.default(localOpts, async (email, password, done) => {
-  try {
-    const user = await _user2.default.findOne({ email });
-    if (!user) {
-      return done(null, false);
-    } else if (!user.authenticateUser(password)) {
-      return done(null, false);
-    }
-
-    return done(null, user);
-  } catch (e) {
-    return done(e, false);
-  }
-});
-
-// Jwt strategy
-const jwtOpts = {
-  jwtFromRequest: _passportJwt.ExtractJwt.fromAuthHeader('authorization'),
-  secretOrKey: _constants2.default.JWT_SECRET
-};
-
-const jwtStrategy = new _passportJwt.Strategy(jwtOpts, async (payload, done) => {
-  try {
-    const user = await _user2.default.findById(payload._id);
-
-    if (!user) {
-      return done(null, false);
-    }
-
-    return done(null, user);
-  } catch (e) {
-    return done(e, false);
-  }
-});
-
-_passport2.default.use(localStrategy);
-_passport2.default.use(jwtStrategy);
-
-const authLocal = exports.authLocal = _passport2.default.authenticate('local', { session: false });
-const authJwt = exports.authJwt = _passport2.default.authenticate('jwt', { session: false });
-
-/***/ }),
 /* 13 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("bcrypt-nodejs");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HistorySchema = exports.CustomerSchema = undefined;
+
+var _bson = __webpack_require__(16);
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// eslint-disable-next-line no-unused-vars
+const Schema = _mongoose2.default.Schema;
+
+const CustomerSchema = exports.CustomerSchema = new Schema({
+  firstName: {
+    type: String,
+    required: "First Name is required"
+  },
+  lastName: {
+    type: String,
+    required: "Last Name is required"
+  },
+  emailAddress: {
+    type: String,
+    required: "Email address is required"
+  },
+  heathStatus: {
+    type: String
+  },
+  address: {
+    type: String
+  },
+  affliation: {
+    type: String
+  },
+  checkedin: {
+    type: Boolean,
+    default: false
+  },
+  nic: {
+    type: String,
+    required: "NIC is required"
+  },
+  mobileNumber: {
+    type: Number,
+    required: "Phone is required"
+  },
+  createdDate: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const HistorySchema = exports.HistorySchema = new Schema({
+  nic: {
+    type: String,
+    required: "NIC is required"
+  },
+  uid: {
+    type: String,
+    required: "UID is required"
+  },
+  emailAddress: {
+    type: String,
+    required: "Email address is required"
+  },
+  longitude: {
+    type: Number,
+    required: "Longitude is required"
+  },
+  latitude: {
+    type: Number,
+    required: "Latitude is required"
+  },
+  checkintime: {
+    type: String,
+    default: new Date().toLocaleTimeString()
+  },
+  checkouttime: {
+    type: String
+  },
+  date: {
+    type: String,
+    default: new Date().toLocaleDateString()
+  }
+});
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = require("body-parser");
+module.exports = require("bcrypt-nodejs");
 
 /***/ }),
 /* 15 */
 /***/ (function(module, exports) {
 
-module.exports = require("compression");
+module.exports = require("body-parser");
 
 /***/ }),
 /* 16 */
 /***/ (function(module, exports) {
 
-module.exports = require("express-validation");
+module.exports = require("bson");
 
 /***/ }),
 /* 17 */
 /***/ (function(module, exports) {
 
-module.exports = require("helmet");
+module.exports = require("compression");
 
 /***/ }),
 /* 18 */
 /***/ (function(module, exports) {
 
-module.exports = require("http-status");
+module.exports = require("express-validation");
 
 /***/ }),
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = require("joi");
+module.exports = require("helmet");
 
 /***/ }),
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = require("jsonwebtoken");
+module.exports = require("http-status");
 
 /***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose-unique-validator");
+module.exports = require("joi");
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports) {
 
-module.exports = require("morgan");
+module.exports = require("jsonwebtoken");
 
 /***/ }),
 /* 23 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-jwt");
+module.exports = require("mongoose-unique-validator");
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("morgan");
 
 /***/ }),
 /* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-jwt");
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-local");
+
+/***/ }),
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");

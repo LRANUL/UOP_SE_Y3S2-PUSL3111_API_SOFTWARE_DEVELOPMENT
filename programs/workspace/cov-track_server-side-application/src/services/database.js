@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 
-import constants from './constants';
+import constants from './config';
 
 // Remove the warning with Promise
 mongoose.Promise = global.Promise;

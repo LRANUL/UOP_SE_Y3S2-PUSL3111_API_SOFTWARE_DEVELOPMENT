@@ -1,4 +1,5 @@
-// import { Timestamp } from "bson";
+// eslint-disable-next-line no-unused-vars
+import { Timestamp } from "bson";
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
