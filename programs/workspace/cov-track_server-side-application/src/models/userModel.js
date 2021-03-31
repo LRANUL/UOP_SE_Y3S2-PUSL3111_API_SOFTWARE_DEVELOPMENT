@@ -4,7 +4,7 @@ import { hashSync, compareSync } from 'bcrypt-nodejs';
 import jwt from 'jsonwebtoken';
 import uniqueValidator from 'mongoose-unique-validator';
 
-import { passwordReg } from '../services/userValidations';
+import { passwordReg } from '../services/validations';
 import constants from '../services/config';
 
 const UserSchema = new Schema(

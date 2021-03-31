@@ -220,7 +220,7 @@ var _mongooseUniqueValidator = __webpack_require__(23);
 
 var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
-var _userValidations = __webpack_require__(4);
+var _validations = __webpack_require__(28);
 
 var _config = __webpack_require__(0);
 
@@ -264,7 +264,7 @@ const UserSchema = new _mongoose.Schema({
     minlength: [6, 'Password need to be longer!'],
     validate: {
       validator(password) {
-        return _userValidations.passwordReg.test(password);
+        return _validations.passwordReg.test(password);
       },
       message: '{VALUE} is not a valid password!'
     }
@@ -313,38 +313,7 @@ UserSchema.methods = {
 exports.default = _mongoose2.default.model('User', UserSchema);
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.passwordReg = undefined;
-
-var _joi = __webpack_require__(21);
-
-var _joi2 = _interopRequireDefault(_joi);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const passwordReg = exports.passwordReg = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-
-exports.default = {
-  signup: {
-    body: {
-      email: _joi2.default.string().email().required(),
-      password: _joi2.default.string().regex(passwordReg).required(),
-      firstName: _joi2.default.string().required(),
-      lastName: _joi2.default.string().required(),
-      userName: _joi2.default.string().required()
-    }
-  }
-};
-
-/***/ }),
+/* 4 */,
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -371,9 +340,9 @@ var _userControllers = __webpack_require__(12);
 
 var userController = _interopRequireWildcard(_userControllers);
 
-var _userValidations = __webpack_require__(4);
+var _validations = __webpack_require__(28);
 
-var _userValidations2 = _interopRequireDefault(_userValidations);
+var _validations2 = _interopRequireDefault(_validations);
 
 var _covTrackController = __webpack_require__(11);
 
@@ -389,7 +358,7 @@ const routes = app => {
   });
 
   // Auth
-  app.route("/signup").post((0, _expressValidation2.default)(_userValidations2.default.signup), userController.signUp);
+  app.route("/signup").post((0, _expressValidation2.default)(_validations2.default.signup), userController.signUp);
   app.route("/login").post(_auth.authLocal, userController.login);
 
   /** Customer Manage Routes */
@@ -873,6 +842,38 @@ module.exports = require("passport-local");
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.passwordReg = undefined;
+
+var _joi = __webpack_require__(21);
+
+var _joi2 = _interopRequireDefault(_joi);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const passwordReg = exports.passwordReg = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+
+exports.default = {
+  signup: {
+    body: {
+      email: _joi2.default.string().email().required(),
+      password: _joi2.default.string().regex(passwordReg).required(),
+      firstName: _joi2.default.string().required(),
+      lastName: _joi2.default.string().required(),
+      userName: _joi2.default.string().required()
+    }
+  }
+};
 
 /***/ })
 /******/ ]);

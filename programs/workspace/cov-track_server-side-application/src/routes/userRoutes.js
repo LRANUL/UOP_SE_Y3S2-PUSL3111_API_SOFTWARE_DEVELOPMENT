@@ -3,7 +3,7 @@ import validate from 'express-validation';
 
 import { authLocal } from '../services/auth';
 import * as userController from '../controllers/userControllers';
-import userValidation from '../services/userValidations';
+import userValidation from '../services/validations';
 
 const routes = new Router();
 

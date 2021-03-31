@@ -2,7 +2,7 @@ import validate from 'express-validation';
 
 import { authLocal, authJwt } from '../services/auth';
 import * as userController from '../controllers/userControllers';
-import userValidation from '../services/userValidations';
+import userValidation from '../services/validations';
 import {
   getCustomers,
   getCustomerFromNIC,
