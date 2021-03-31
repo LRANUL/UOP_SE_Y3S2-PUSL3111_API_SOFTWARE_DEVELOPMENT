@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -109,90 +109,6 @@ exports.default = Object.assign({}, defaultConfig, envConfig(process.env.NODE_EN
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.authJwt = exports.authLocal = undefined;
-
-var _passport = __webpack_require__(5);
-
-var _passport2 = _interopRequireDefault(_passport);
-
-var _passportLocal = __webpack_require__(24);
-
-var _passportLocal2 = _interopRequireDefault(_passportLocal);
-
-var _passportJwt = __webpack_require__(23);
-
-var _covTrackModel = __webpack_require__(3);
-
-var _covTrackModel2 = _interopRequireDefault(_covTrackModel);
-
-var _config = __webpack_require__(0);
-
-var _config2 = _interopRequireDefault(_config);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Local strategy
-const localOpts = {
-  usernameField: 'email'
-};
-
-const localStrategy = new _passportLocal2.default(localOpts, async (email, password, done) => {
-  try {
-    const user = await _covTrackModel2.default.findOne({ email });
-    if (!user) {
-      return done(null, false);
-    } else if (!user.authenticateUser(password)) {
-      return done(null, false);
-    }
-
-    return done(null, user);
-  } catch (e) {
-    return done(e, false);
-  }
-});
-
-// Jwt strategy
-const jwtOpts = {
-  jwtFromRequest: _passportJwt.ExtractJwt.fromAuthHeader('authorization'),
-  secretOrKey: _config2.default.JWT_SECRET
-};
-
-const jwtStrategy = new _passportJwt.Strategy(jwtOpts, async (payload, done) => {
-  try {
-    const user = await _covTrackModel2.default.findById(payload._id);
-
-    if (!user) {
-      return done(null, false);
-    }
-
-    return done(null, user);
-  } catch (e) {
-    return done(e, false);
-  }
-});
-
-_passport2.default.use(localStrategy);
-_passport2.default.use(jwtStrategy);
-
-const authLocal = exports.authLocal = _passport2.default.authenticate('local', { session: false });
-const authJwt = exports.authJwt = _passport2.default.authenticate('jwt', { session: false });
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -203,27 +119,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HistorySchema = exports.CustomerSchema = undefined;
 
-var _bson = __webpack_require__(14);
+var _bson = __webpack_require__(16);
 
-var _mongoose = __webpack_require__(1);
+var _mongoose = __webpack_require__(2);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _validator = __webpack_require__(25);
+var _validator = __webpack_require__(27);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _bcryptNodejs = __webpack_require__(12);
+var _bcryptNodejs = __webpack_require__(14);
 
-var _jsonwebtoken = __webpack_require__(20);
+var _jsonwebtoken = __webpack_require__(22);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _mongooseUniqueValidator = __webpack_require__(21);
+var _mongooseUniqueValidator = __webpack_require__(23);
 
 var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
-var _validations = __webpack_require__(4);
+var _validations = __webpack_require__(5);
 
 var _config = __webpack_require__(0);
 
@@ -391,7 +307,97 @@ UserSchema.methods = {
 exports.default = _mongoose2.default.model('User', UserSchema);
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.authJwt = exports.authLocal = undefined;
+
+var _passport = __webpack_require__(6);
+
+var _passport2 = _interopRequireDefault(_passport);
+
+var _passportLocal = __webpack_require__(26);
+
+var _passportLocal2 = _interopRequireDefault(_passportLocal);
+
+var _passportJwt = __webpack_require__(25);
+
+var _covTrackModel = __webpack_require__(1);
+
+var _covTrackModel2 = _interopRequireDefault(_covTrackModel);
+
+var _config = __webpack_require__(0);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Local strategy
+const localOpts = {
+  usernameField: 'email'
+};
+
+const localStrategy = new _passportLocal2.default(localOpts, async (email, password, done) => {
+  try {
+    const user = await _covTrackModel2.default.findOne({ email });
+    if (!user) {
+      return done(null, false);
+    } else if (!user.authenticateUser(password)) {
+      return done(null, false);
+    }
+
+    return done(null, user);
+  } catch (e) {
+    return done(e, false);
+  }
+});
+
+// Jwt strategy
+const jwtOpts = {
+  jwtFromRequest: _passportJwt.ExtractJwt.fromAuthHeader('authorization'),
+  secretOrKey: _config2.default.JWT_SECRET
+};
+
+const jwtStrategy = new _passportJwt.Strategy(jwtOpts, async (payload, done) => {
+  try {
+    const user = await _covTrackModel2.default.findById(payload._id);
+
+    if (!user) {
+      return done(null, false);
+    }
+
+    return done(null, user);
+  } catch (e) {
+    return done(e, false);
+  }
+});
+
+_passport2.default.use(localStrategy);
+_passport2.default.use(jwtStrategy);
+
+const authLocal = exports.authLocal = _passport2.default.authenticate('local', { session: false });
+const authJwt = exports.authJwt = _passport2.default.authenticate('jwt', { session: false });
+
+/***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -402,7 +408,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.passwordReg = undefined;
 
-var _joi = __webpack_require__(19);
+var _joi = __webpack_require__(21);
 
 var _joi2 = _interopRequireDefault(_joi);
 
@@ -423,13 +429,13 @@ exports.default = {
 };
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -439,21 +445,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _express = __webpack_require__(9);
+var _express = __webpack_require__(4);
 
-var _expressValidation = __webpack_require__(16);
+var _expressValidation = __webpack_require__(18);
 
 var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
-var _auth = __webpack_require__(2);
+var _auth = __webpack_require__(3);
 
-var _userController = __webpack_require__(26);
+var _userController = __webpack_require__(13);
 
 var userController = _interopRequireWildcard(_userController);
 
-var _covTrackController = __webpack_require__(11);
+var _covTrackController = __webpack_require__(12);
 
-var _validations = __webpack_require__(4);
+var _validations = __webpack_require__(5);
 
 var _validations2 = _interopRequireDefault(_validations);
 
@@ -493,13 +499,13 @@ routes.post("/customer-checkin", _covTrackController.setCustomerCheckIn);
 exports.default = routes;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _mongoose = __webpack_require__(1);
+var _mongoose = __webpack_require__(2);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
@@ -526,7 +532,7 @@ _mongoose2.default.connection.once('open', () => console.log('MongoDB Running'))
 });
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -536,23 +542,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _morgan = __webpack_require__(22);
+var _morgan = __webpack_require__(24);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _bodyParser = __webpack_require__(13);
+var _bodyParser = __webpack_require__(15);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _compression = __webpack_require__(15);
+var _compression = __webpack_require__(17);
 
 var _compression2 = _interopRequireDefault(_compression);
 
-var _helmet = __webpack_require__(17);
+var _helmet = __webpack_require__(19);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
-var _passport = __webpack_require__(5);
+var _passport = __webpack_require__(6);
 
 var _passport2 = _interopRequireDefault(_passport);
 
@@ -577,47 +583,50 @@ exports.default = app => {
 };
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("cors");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _express = __webpack_require__(9);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
+
+var _cors = __webpack_require__(10);
+
+var _cors2 = _interopRequireDefault(_cors);
 
 var _config = __webpack_require__(0);
 
 var _config2 = _interopRequireDefault(_config);
 
-__webpack_require__(7);
+__webpack_require__(8);
 
-var _middlewares = __webpack_require__(8);
+var _middlewares = __webpack_require__(9);
 
 var _middlewares2 = _interopRequireDefault(_middlewares);
 
-var _covTrackRoutes = __webpack_require__(6);
+var _covTrackRoutes = __webpack_require__(7);
 
 var _covTrackRoutes2 = _interopRequireDefault(_covTrackRoutes);
 
-var _auth = __webpack_require__(2);
+var _auth = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint-disable no-console */
-
 const apiRoutes = () => {
   app.use('/protected', _covTrackRoutes2.default);
-};
+}; /* eslint-disable no-console */
 
 const app = (0, _express2.default)();
+app.use((0, _cors2.default)());
 
 (0, _middlewares2.default)(app);
 
@@ -645,7 +654,7 @@ app.listen(_config2.default.PORT, err => {
 });
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -656,11 +665,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setCustomerCheckIn = exports.getCustomerCheckInStatus = exports.removeCustomerFromNIC = exports.updateCustomerFromNIC = exports.getCustomerFromNIC = exports.getCustomers = exports.addNewCustomer = undefined;
 
-var _mongoose = __webpack_require__(1);
+var _mongoose = __webpack_require__(2);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _covTrackModel = __webpack_require__(3);
+var _covTrackModel = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -709,6 +718,7 @@ const updateCustomerFromNIC = exports.updateCustomerFromNIC = (req, res) => {
 };
 /** Remove Customer by NIC */
 const removeCustomerFromNIC = exports.removeCustomerFromNIC = (req, res) => {
+  // eslint-disable-next-line no-unused-vars
   Customer.findOneAndDelete({ nic: req.params.nic }, (err, Customer) => {
     if (err) {
       res.send(err);
@@ -737,91 +747,7 @@ const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
 };
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = require("bcrypt-nodejs");
-
-/***/ }),
 /* 13 */
-/***/ (function(module, exports) {
-
-module.exports = require("body-parser");
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-module.exports = require("bson");
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("compression");
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("express-validation");
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-module.exports = require("helmet");
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-module.exports = require("http-status");
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-module.exports = require("joi");
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = require("jsonwebtoken");
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose-unique-validator");
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = require("morgan");
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = require("passport-jwt");
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = require("passport-local");
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-module.exports = require("validator");
-
-/***/ }),
-/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -833,11 +759,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.signUp = signUp;
 exports.login = login;
 
-var _httpStatus = __webpack_require__(18);
+var _httpStatus = __webpack_require__(20);
 
 var _httpStatus2 = _interopRequireDefault(_httpStatus);
 
-var _covTrackModel = __webpack_require__(3);
+var _covTrackModel = __webpack_require__(1);
 
 var _covTrackModel2 = _interopRequireDefault(_covTrackModel);
 
@@ -858,6 +784,90 @@ function login(req, res, next) {
 
   return next();
 }
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = require("bcrypt-nodejs");
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("body-parser");
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = require("bson");
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("compression");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-validation");
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("helmet");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("http-status");
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("joi");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = require("jsonwebtoken");
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose-unique-validator");
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = require("morgan");
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-jwt");
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-local");
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = require("validator");
 
 /***/ })
 /******/ ]);

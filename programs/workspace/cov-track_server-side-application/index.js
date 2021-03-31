@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import express from 'express';
+import cors from 'cors';
 
 import constants from './src/services/config';
 import './src/services/database';
@@ -13,6 +14,7 @@ const apiRoutes = () => {
 };
 
 const app = express();
+app.use(cors());
 
 middlewaresConfig(app);
 
