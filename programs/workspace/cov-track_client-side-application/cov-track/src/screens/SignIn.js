@@ -70,7 +70,14 @@ function Login(props) {
   }
 
   const showData = () => {
-    
+    try{  
+      let user = await AsyncStorage.getItem('user');  
+      alert(user);  
+    }  
+    catch(err){  
+      console.log(err)  
+    }
+    alert(token);
   }
 
   return (
