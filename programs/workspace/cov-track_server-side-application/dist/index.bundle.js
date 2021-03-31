@@ -247,7 +247,7 @@ const UserSchema = new _mongoose.Schema({
   },
   userName: {
     type: String,
-    required: [true, 'UserName is required!'],
+    required: [true, 'userName is required!'],
     trim: true,
     unique: true
   },

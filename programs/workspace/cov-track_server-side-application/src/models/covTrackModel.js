@@ -109,7 +109,7 @@ const UserSchema = new Schema(
     },
     userName: {
       type: String,
-      required: [true, 'UserName is required!'],
+      required: [true, 'userName is required!'],
       trim: true,
       unique: true,
     },
