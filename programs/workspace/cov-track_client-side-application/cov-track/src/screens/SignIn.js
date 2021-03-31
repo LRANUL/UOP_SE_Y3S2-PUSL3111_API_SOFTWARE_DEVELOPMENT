@@ -29,7 +29,7 @@ function Login(props) {
         token
       );
     } catch (error) {
-      console.log('Error saving data');
+      console.log('---\nError saving data\n---');
     }
   };
 
@@ -59,6 +59,7 @@ function Login(props) {
       if (jwt !== null) {
         props.navigation.navigate(`Dashboard`);
       }
+      storeData();
     })
     
     .catch(
@@ -66,6 +67,10 @@ function Login(props) {
       //props.navigation.navigate(`Dashboard`),
       err => console.error(err)
     );
+  }
+
+  const showData = () => {
+    
   }
 
   return (
