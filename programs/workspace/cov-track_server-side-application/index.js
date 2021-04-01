@@ -1,27 +1,42 @@
-import express from "express";
-import routes from "./src/routes/covTrackRoutes";
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-import cors from "cors";
+/* eslint-disable no-console */
+
+import express from 'express';
+import cors from 'cors';
+
+import constants from './src/services/config';
+import './src/services/database';
+import middlewaresConfig from './src/services/middlewares';
+import userRoutes from './src/routes/covTrackRoutes';
+import { authJwt } from './src/services/auth';
+
+const apiRoutes = () => {
+  app.use('/protected', userRoutes);
+};
 
 const app = express();
-const PORT = 5000;
-
 app.use(cors());
 
-mongoose.Promise = global.Promise; //allows Asynchronous Operations
+middlewaresConfig(app);
 
-mongoose.connect( // MongoDB mongoose connection
-  "mongodb+srv://developer:OWBFpoXsPEQWjKgK@covtrack-cluster-1.tpmbm.mongodb.net/CovTrack_DB_Primary?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+app.get('/', (req, res) => {
+  res.send('Running...');
+});
+app.get('/test', authJwt, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+apiRoutes(app);
+
+app.listen(constants.PORT, err => {
+  if (err) {
+    throw err;
+  } else {
+    console.log(`
+      Server running on port: ${constants.PORT}
+      ---
+      Running on ${process.env.NODE_ENV}
+      ---
+      Make something great
+    `);
   }
-);
-
-app.use(bodyParser.urlencoded({ extended: true })); // Body parse for server
-app.use(bodyParser.json());
-
-routes(app);
-
-app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
+});

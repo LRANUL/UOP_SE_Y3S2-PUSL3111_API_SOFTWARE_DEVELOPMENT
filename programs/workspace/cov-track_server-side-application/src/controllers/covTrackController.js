@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-shadow */
 import mongoose from "mongoose";
 import { CustomerSchema, HistorySchema } from "../models/covTrackModel";
 
@@ -49,6 +51,7 @@ export const updateCustomerFromNIC = (req, res) => {
 };
 /** Remove Customer by NIC */
 export const removeCustomerFromNIC = (req, res) => {
+  // eslint-disable-next-line no-unused-vars
   Customer.findOneAndDelete({ nic: req.params.nic }, (err, Customer) => {
     if (err) {
       res.send(err);
