@@ -20,13 +20,13 @@ function Login(props) {
 
   const storeData = async () => {
     try {
-      await AsyncStorage.setItem(
-        'email',
-        email
-      );
+      // await AsyncStorage.setItem(
+      //   'email',
+      //   email
+      // );
       await AsyncStorage.setItem(
         'token',
-        token
+        res.data.token
       );
     } catch (error) {
       console.log('---\nError saving data\n---');
@@ -55,6 +55,7 @@ function Login(props) {
     .then(res => {
       console.log(res);
       console.log(res.data);
+      alert(res.data.token);
       jwt = res.token;
       if (jwt !== null) {
         props.navigation.navigate(`Dashboard`);
@@ -69,16 +70,16 @@ function Login(props) {
     );
   }
 
-  const showData = () => {
-    try{  
-      let user = await AsyncStorage.getItem('user');  
-      alert(user);  
-    }  
-    catch(err){  
-      console.log(err)  
-    }
-    alert(token);
-  }
+  // const showData = () => {
+  //   try{  
+  //     let user = await AsyncStorage.getItem('user');  
+  //     alert(user);  
+  //   }  
+  //   catch(err){  
+  //     console.log(err)  
+  //   }
+  //   alert(token);
+  // }
 
   return (
     <View style={styles.container}>
