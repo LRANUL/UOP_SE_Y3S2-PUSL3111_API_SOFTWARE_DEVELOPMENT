@@ -13,6 +13,7 @@ import axios from "axios";
 import Dashboard from './Dashboard';
 
 var jwt = null;
+var isSignInRequired = true;
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -63,11 +64,12 @@ function Login(props) {
       storeData();
     })
     
-    .catch(
+    .catch( () => {
       // Uncomment 1st line to skip auth during dev
       //props.navigation.navigate(`Dashboard`),
-      err => console.error(err)
-    );
+      //err => console.error(err)
+      alert('Please check if your email and password are correct!');
+    });
   }
 
   // const showData = () => {
@@ -90,7 +92,11 @@ function Login(props) {
         style={styles.logo}
       ></Image>
       <TouchableOpacity style={styles.button} onPress={() => {
+        if (isSignInRequired === true) {
           sendData();
+        } else {
+          props.navigation.navigate(`Dashboard`);
+        }
           // if (jwt !== null) {
           //   props.navigation.navigate(`Dashboard`);
           // }
