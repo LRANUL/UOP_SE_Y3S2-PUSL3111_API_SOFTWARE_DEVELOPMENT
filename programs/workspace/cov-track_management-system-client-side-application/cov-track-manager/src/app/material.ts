@@ -8,6 +8,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
      MatNativeDateModule,
      MatSelectModule,
      MatTabsModule,
-     MatPaginatorModule
+     MatPaginatorModule,
+     MatDialogModule
   ],
   exports: [
     MatSliderModule,
@@ -31,7 +33,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatNativeDateModule,
     MatSelectModule,
     MatTabsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ]
 })
 
