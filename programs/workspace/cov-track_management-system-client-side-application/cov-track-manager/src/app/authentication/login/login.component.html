@@ -1,0 +1,44 @@
+<mat-card>
+  <div mat-card-avatar class="login-header-image"></div>
+  <br>
+  <mat-card-title style="font-weight: bolder;">Welcome Back!</mat-card-title>
+  <br>
+<mat-card-content>
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+  <mat-form-field class="login-full-width">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput placeholder="Ex. jay@gmail.com" formControlName="email">
+    <mat-error *ngIf="email.invalid && email.touched">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="email.untouched">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput formControlName="password">
+    <mat-error *ngIf="password.errors?.minlength && password.invalid">
+      Password should have atleast 8 characters
+    </mat-error>
+    <mat-error *ngIf="password.errors?.maxlength  && !password.errors?.minlength">
+      Password can only have 30 characters
+    </mat-error>
+    <mat-error *ngIf="password.invalid && !password.errors?.minlength && !password.errors?.maxlength">
+      Password is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-label style="float: right; font-size: 10px; padding-top: 0px;">Forgot Password ?</mat-label>
+  <br>
+  <br>
+  <br>
+   <div class="button">
+      <button type="submit" mat-stroked-button  style="width: 100%; color: green;" [disabled]="!loginForm.valid">Login</button>
+    </div>
+    <br>
+    <div class="button">
+      <button mat-stroked-button color="primary" style="width: 100%;" routerLink="/signup">Sign Up</button>
+    </div>
+</form>
+</mat-card-content>
+</mat-card>

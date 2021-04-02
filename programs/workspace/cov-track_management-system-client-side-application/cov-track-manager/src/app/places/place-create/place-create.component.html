@@ -1,0 +1,79 @@
+<mat-card>
+  <div mat-card-avatar class="login-header-image"></div>
+  <br>
+  <mat-card-title style="font-weight: bolder; text-align: center;">Profile Creation</mat-card-title>
+  <br>
+<mat-card-content>
+  <form class="login-form" [formGroup]="createAgentForm" (ngSubmit)="submit()" style=" margin-left: 60px;  margin-right: 60px;">
+   <mat-label style="font-weight: bolder; font-size: 20px;">Organization Details</mat-label>
+   <br>
+   <br>
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>Organization Name</mat-label>
+      <input matInput formControlName="organizationName">
+      <mat-error *ngIf="organizationName.invalid">
+        Organization Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Organization Sector</mat-label>
+    <mat-select disableRipple formControlName="organizationSector">
+      <mat-option value="Private">Private</mat-option>
+      <mat-option value="Public">Public</mat-option>
+    </mat-select>
+      <mat-error *ngIf="organizationSector.invalid">
+        Organization sector is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>Organization Phone Number</mat-label>
+      <input matInput formControlName="organizationPhone">
+      <mat-error *ngIf="organizationPhone.invalid">
+        Enter a <strong>valid</strong> phone number
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style=" margin-left: 40px">
+      <mat-label>Organization Email</mat-label>
+      <input type="email" matInput placeholder="Ex. jay@gmail.com" formControlName="organizationEmail">
+      <mat-error *ngIf="organizationEmail.invalid && organizationEmail.touched">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="organizationEmail.untouched">
+        Organization email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>Organization Address</mat-label>
+      <input matInput formControlName="organizationAddress">
+      <mat-error *ngIf="organizationAddress.invalid">
+        Organization Address is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="organizationCity">
+      <mat-error *ngIf="organizationcity">
+        City is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <br>
+   <div class="button">
+      <button type="submit" mat-stroked-button  style="width: 100%; color: green;" [disabled]="!createAgentForm.valid">Create User</button>
+   </div>
+    <br>
+    <div class="button">
+      <button mat-stroked-button style="width: 100%; color: lightcoral;" (click)="cancel()">Cancel</button>
+    </div>
+</form>
+</mat-card-content>
+</mat-card>
