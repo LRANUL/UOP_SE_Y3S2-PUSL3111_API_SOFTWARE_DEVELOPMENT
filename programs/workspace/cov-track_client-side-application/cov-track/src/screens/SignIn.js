@@ -13,25 +13,43 @@ import axios from "axios";
 import Dashboard from './Dashboard';
 
 var jwt = null;
-var isSignInRequired = true;
+//var isSignInRequired = true;
+//var isLoggedIn = _retrieveData();
+var isLoggedIn = true;
 
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const storeData = async () => {
+  const _storeData = async () => {
     try {
       // await AsyncStorage.setItem(
       //   'email',
       //   email
       // );
       await AsyncStorage.setItem(
-        'token',
+        'TOKEN',
         res.data.token
       );
     } catch (error) {
       console.log('---\nError saving data\n---');
     }
+  };
+
+  const _retrieveData = async () => {
+    try {
+      jwt = await AsyncStorage.getItem('TOKEN');
+      if (jwt !== null) {
+        // We have data!!
+        console.log(jwt);
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
+  const _logout = async () => {
+    
   };
 
   // const authNav = () => {
@@ -44,7 +62,7 @@ function Login(props) {
   //   }
   // }
 
-  const sendData = () => {
+  const _sendData = () => {
     axios
     .post(
       `http://localhost:5000/protected/login`,
@@ -61,7 +79,7 @@ function Login(props) {
       if (jwt !== null) {
         props.navigation.navigate(`Dashboard`);
       }
-      storeData();
+      _storeData();
     })
     
     .catch( () => {
@@ -92,10 +110,10 @@ function Login(props) {
         style={styles.logo}
       ></Image>
       <TouchableOpacity style={styles.button} onPress={() => {
-        if (isSignInRequired === true) {
-          sendData();
-        } else {
+        if (isLoggedIn === true) {
           props.navigation.navigate(`Dashboard`);
+        } else {
+          _sendData();
         }
           // if (jwt !== null) {
           //   props.navigation.navigate(`Dashboard`);

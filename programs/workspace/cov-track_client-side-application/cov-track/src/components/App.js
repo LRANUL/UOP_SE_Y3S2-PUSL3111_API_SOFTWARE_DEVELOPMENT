@@ -22,6 +22,7 @@ const DrawerStack = createDrawerNavigator({
   Dashboard: Dashboard,
   History: History,
   CheckIn: CheckIn,
+//  TestPage: testStore,
 });
 
 const AppStack = createStackNavigator(
@@ -32,6 +33,7 @@ const AppStack = createStackNavigator(
     Dashboard: Dashboard,
     History: History,
     CheckIn: CheckIn,
+//    TestPage: testStore,
   },
   {
     headerMode: "none"
