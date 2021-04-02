@@ -15,6 +15,7 @@ import { PlacesListComponent } from './places/places-list/places-list.component'
 import { PlaceCreateComponent } from './places/place-create/place-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
+import { QrGenerationComponent } from './places/qr-generation/qr-generation.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     CitizenViewComponent,
     PlacesListComponent,
     PlaceCreateComponent,
+    QrGenerationComponent,
   ],
   imports: [
     BrowserModule,

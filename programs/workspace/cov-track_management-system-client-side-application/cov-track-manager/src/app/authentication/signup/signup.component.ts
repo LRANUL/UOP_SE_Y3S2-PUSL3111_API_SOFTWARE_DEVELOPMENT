@@ -47,6 +47,9 @@ export class SignupComponent implements OnInit {
       address: ['',[
         Validators.required
       ]],
+      city: ['',[
+        Validators.required
+      ]],
       userType: ['',[
         Validators.required
       ]]
@@ -71,6 +74,10 @@ export class SignupComponent implements OnInit {
 
   get address() {
     return this.SignUpForm.get('address');
+  }
+
+  get city() {
+    return this.SignUpForm.get('city');
   }
 
   get userType() {

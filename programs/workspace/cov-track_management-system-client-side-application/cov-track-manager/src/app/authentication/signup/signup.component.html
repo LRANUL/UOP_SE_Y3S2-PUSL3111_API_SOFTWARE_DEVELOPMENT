@@ -100,6 +100,15 @@
   <br>
   <br>
   <mat-form-field class="login-full-width" style=" margin-left: 40px">
+    <mat-label>City</mat-label>
+    <input matInput formControlName="city">
+    <mat-error *ngIf="address.invalid">
+      city is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="login-full-width" style=" margin-left: 40px">
     <mat-label>User Type</mat-label>
   <mat-select disableRipple formControlName="userType">
     <mat-option value="PHI User">PHI User</mat-option>
