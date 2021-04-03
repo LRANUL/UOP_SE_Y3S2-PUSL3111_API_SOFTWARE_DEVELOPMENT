@@ -465,9 +465,75 @@ module.exports = require("passport");
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: C:/dev/webdev/GROUP/UOP_SE_Y3S2-PUSL3111_API_SOFTWARE_DEVELOPMENT/programs/workspace/cov-track_server-side-application/src/routes/covTrackRoutes.js: Unexpected token (6:23)\n\n\u001b[0m \u001b[90m 4 | \u001b[39m\u001b[36mimport\u001b[39m { authLocal\u001b[33m,\u001b[39m authJwt } from \u001b[32m'../services/auth'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 5 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 | \u001b[39m\u001b[36mimport\u001b[39m {signUp\u001b[33m,\u001b[39m login} as userController from \u001b[32m'../controllers/userController'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m   | \u001b[39m                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 | \u001b[39m\u001b[36mimport\u001b[39m createPlaces from \u001b[32m'../controllers/locationController'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 8 | \u001b[39m\n \u001b[90m 9 | \u001b[39m\u001b[36mimport\u001b[39m {\u001b[0m\n");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _express = __webpack_require__(4);
+
+var _expressValidation = __webpack_require__(18);
+
+var _expressValidation2 = _interopRequireDefault(_expressValidation);
+
+var _auth = __webpack_require__(3);
+
+var _userController = __webpack_require__(13);
+
+var userController = _interopRequireWildcard(_userController);
+
+var _locationController = __webpack_require__(28);
+
+var locationController = _interopRequireWildcard(_locationController);
+
+var _covTrackController = __webpack_require__(12);
+
+var _validations = __webpack_require__(5);
+
+var _validations2 = _interopRequireDefault(_validations);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const routes = new _express.Router();
+
+// JWT test route
+routes.get('/test', _auth.authJwt, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+routes.post("/places", _auth.authJwt, locationController.createPlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+// Auth
+routes.post("/signup", (0, _expressValidation2.default)(_validations2.default.signup), userController.signUp);
+routes.post("/login", _auth.authLocal, userController.login);
+
+// /** Customer Manage Routes */
+
+// For deleting customer from NIC
+routes.delete("/customer-delete/:nic", _covTrackController.removeCustomerFromNIC);
+// For updating customer from NIC
+routes.put("/customer-update/:nic", _covTrackController.updateCustomerFromNIC);
+// For getting customer from NIC
+routes.get("/customer/:nic", _covTrackController.getCustomerFromNIC);
+// For getting all customers
+routes.get("/get-customers", _covTrackController.getCustomers);
+
+/** Customer Checkin and History Routes */
+
+// For getting checkin status
+routes.get("/customer-checkin-status/:nic", _covTrackController.getCustomerCheckInStatus);
+// For checking in customer
+routes.post("/customer-checkin", _covTrackController.setCustomerCheckIn);
+
+exports.default = routes;
 
 /***/ }),
 /* 8 */
@@ -629,8 +695,138 @@ app.listen(_config2.default.PORT, err => {
 });
 
 /***/ }),
-/* 12 */,
-/* 13 */,
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setCustomerCheckIn = exports.getCustomerCheckInStatus = exports.removeCustomerFromNIC = exports.updateCustomerFromNIC = exports.getCustomerFromNIC = exports.getCustomers = exports.addNewCustomer = undefined;
+
+var _mongoose = __webpack_require__(2);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _covTrackModel = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* eslint-disable prefer-const */
+/* eslint-disable no-shadow */
+const Customer = _mongoose2.default.model("Customer", _covTrackModel.CustomerSchema);
+const History = _mongoose2.default.model("History", _covTrackModel.HistorySchema);
+
+/** Creating a New Customer */
+const addNewCustomer = exports.addNewCustomer = (req, res) => {
+  let newCustomer = new Customer(req.body);
+
+  newCustomer.save((err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer);
+  });
+};
+/** Search Customer List */
+const getCustomers = exports.getCustomers = (req, res) => {
+  Customer.find({}, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer);
+  });
+};
+/** Find Customer by NIC */
+const getCustomerFromNIC = exports.getCustomerFromNIC = (req, res) => {
+  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer);
+  });
+};
+/** Update Customer by NIC */
+const updateCustomerFromNIC = exports.updateCustomerFromNIC = (req, res) => {
+  Customer.findOne({ nic: req.params.nic }, req.body, { new: true, useFindAndModify: false }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer);
+  });
+};
+/** Remove Customer by NIC */
+const removeCustomerFromNIC = exports.removeCustomerFromNIC = (req, res) => {
+  // eslint-disable-next-line no-unused-vars
+  Customer.findOneAndDelete({ nic: req.params.nic }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json({ message: `${req.params.nic} was deleted.` });
+  });
+};
+/** Find Customer CheckIn Status */
+const getCustomerCheckInStatus = exports.getCustomerCheckInStatus = (req, res) => {
+  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Customer.checkedin);
+  });
+};
+/** Adding a New Checkin to Customer */
+const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
+  let newCheckInRecord = new History(req.body);
+  newCheckInRecord.save((err, History) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(History);
+  });
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.signUp = signUp;
+exports.login = login;
+
+var _httpStatus = __webpack_require__(20);
+
+var _httpStatus2 = _interopRequireDefault(_httpStatus);
+
+var _covTrackModel = __webpack_require__(1);
+
+var _covTrackModel2 = _interopRequireDefault(_covTrackModel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Auth */
+async function signUp(req, res) {
+  try {
+    const user = await _covTrackModel2.default.create(req.body);
+    return res.status(_httpStatus2.default.CREATED).json(user.toAuthJSON());
+  } catch (e) {
+    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);
+  }
+}
+
+function login(req, res, next) {
+  res.status(_httpStatus2.default.OK).json(req.user.toAuthJSON());
+
+  return next();
+}
+
+/***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
@@ -655,14 +851,24 @@ module.exports = require("bson");
 module.exports = require("compression");
 
 /***/ }),
-/* 18 */,
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-validation");
+
+/***/ }),
 /* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("helmet");
 
 /***/ }),
-/* 20 */,
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("http-status");
+
+/***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
@@ -703,6 +909,38 @@ module.exports = require("passport-local");
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createPlaces = undefined;
+
+var _mongoose = __webpack_require__(2);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _covTrackModel = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const places = _mongoose2.default.model("location", _covTrackModel.placesSchema);
+
+const createPlaces = exports.createPlaces = (req, res) => {
+  const newplace = new places(req.body);
+  newplace.save((err, Place) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Place);
+  });
+};
 
 /***/ })
 /******/ ]);

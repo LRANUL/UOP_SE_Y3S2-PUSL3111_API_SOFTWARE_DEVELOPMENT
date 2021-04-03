@@ -3,8 +3,8 @@ import validate from 'express-validation';
 
 import { authLocal, authJwt } from '../services/auth';
 
-import {signUp, login} as userController from '../controllers/userController';
-import createPlaces from '../controllers/locationController';
+import * as userController from '../controllers/userController';
+import * as locationController from '../controllers/locationController';
 
 import {
   getCustomerCheckInStatus,
@@ -15,7 +15,6 @@ import {
   getCustomers
 } from '../controllers/covTrackController';
 import userValidation from '../services/validations';
-import { createPlaces } from '../controllers/locationController';
 
 const routes = new Router();
 
@@ -24,13 +23,13 @@ routes.get('/test', authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
 
-routes.post("/places", authJwt, createPlaces, (req, res) => {
+routes.post("/places", authJwt, locationController.createPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
 // Auth
-routes.post("/signup", validate(userValidation.signup), signUp);
-routes.post("/login", authLocal, login);
+routes.post("/signup", validate(userValidation.signup), userController.signUp);
+routes.post("/login", authLocal, userController.login);
 
 // /** Customer Manage Routes */
 
