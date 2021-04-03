@@ -1,0 +1,65 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <!-- <button mat-icon-button (click)="toggleSideBar()">
+            <mat-icon>menu</mat-icon>
+        </button> -->
+
+        <span> CDC </span>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20px">
+                <li>
+                    <button mat-icon-button>
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                </li>
+
+                <li>
+                    <button mat-icon-button [matMenuTriggerFor]="phone">
+                        <mat-icon>phone</mat-icon>
+                    </button>
+                    <mat-menu #phone="matMenu">
+
+                        <button mat-menu-item onClick="window.open('https://covid19.gov.lk/directory.html')">
+                            <mat-icon>phone</mat-icon>
+                            COVID-19 Response Alert
+                        </button>
+
+                        <button mat-menu-item onClick="window.open('https://covid19.gov.lk/directory.html')">
+                            <mat-icon>phone</mat-icon>
+                            Government Information Center
+                        </button>
+                        <button mat-menu-item onClick="window.open('https://covid19.gov.lk/directory.html')">
+                            <mat-icon>phone</mat-icon>
+                            Directory
+                        </button>
+                        <!-- <a href="tel:+1-800-555-5555">Call 1-800-555-5555</a> -->
+                        <!-- <a href={{'tel:'+e.Phone}}>{{e.Phone | PhoneNumber}}</a> -->
+                        <!-- <strong>Phone:</strong> <i class="glyphicon glyphicon-earphone"></i> {{e.Phone | PhoneNumber}} -->
+                        
+                        
+                        
+                    </mat-menu>
+                </li>
+
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>exit_to_app</mat-icon>
+                            Sign In
+                        </button>
+
+                        <button mat-menu-item>
+                            <mat-icon>login_to_app</mat-icon>
+                            New User
+                        </button>
+                    </mat-menu>
+
+                </li>
+            </ul>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
