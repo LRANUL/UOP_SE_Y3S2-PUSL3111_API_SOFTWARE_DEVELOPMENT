@@ -3,6 +3,7 @@ import validate from 'express-validation';
 
 import { authLocal, authJwt } from '../services/auth';
 import * as userController from '../controllers/userController';
+import * as places from '../controllers/locationController';
 import {
   getCustomerCheckInStatus,
   getCustomerFromNIC,
@@ -17,6 +18,10 @@ const routes = new Router();
 
 // JWT test route
 routes.get('/test', authJwt, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+routes.post("/places", authJwt, places.createPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
