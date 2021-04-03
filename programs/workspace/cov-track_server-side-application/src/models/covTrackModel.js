@@ -83,6 +83,32 @@ export const HistorySchema = new Schema({
   },
 });
 
+export const placesSchema = new Schema({
+  QRimage: { 
+    type: String,
+    required: true
+  },
+  email: {
+     type: String,
+     required: true},
+  name: {
+     type: String,
+     required: true },
+  sector: {
+    type: String,
+    required: true },
+  phone: { 
+    type: Number,
+    required: true },
+  streetAddress: {
+    type: String,
+    required: true 
+  },
+  city: {
+     type: String,
+     required: true}
+})
+
 const UserSchema = new Schema(
   {
     email: {

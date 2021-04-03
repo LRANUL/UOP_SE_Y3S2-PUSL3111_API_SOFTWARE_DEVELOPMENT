@@ -2,8 +2,10 @@ import { Router } from 'express';
 import validate from 'express-validation';
 
 import { authLocal, authJwt } from '../services/auth';
-// import * as userController from '../controllers/userController';
-import {signUp, login} from '../controllers/userController';
+
+import {signUp, login} as userController from '../controllers/userController';
+import createPlaces from '../controllers/locationController';
+
 import {
   getCustomerCheckInStatus,
   getCustomerFromNIC,
@@ -13,11 +15,16 @@ import {
   getCustomers
 } from '../controllers/covTrackController';
 import userValidation from '../services/validations';
+import { createPlaces } from '../controllers/locationController';
 
 const routes = new Router();
 
 // JWT test route
 routes.get('/test', authJwt, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+routes.post("/places", authJwt, createPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 

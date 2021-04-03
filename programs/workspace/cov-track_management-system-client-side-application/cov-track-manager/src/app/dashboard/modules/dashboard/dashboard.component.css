@@ -1,0 +1,119 @@
+/* .stats-cards { */
+    .mat-card {
+      overflow: hidden;
+    }
+  /* } */
+  
+  table {
+    width: 100%;
+  }
+  
+  .texth1{
+    color: rgb(78, 190, 241);
+  }
+  
+  .texth3{
+    font-weight: 200;
+    color: black;
+    float: left;
+    width: 600px;
+  }
+  
+  .image{
+    /* float: right; */
+    height: 500px;
+    /* opacity: 0.6; */
+  }
+  
+  .b1{
+    height: 40px;
+    width: 500px;
+    background-color: rgb(33, 171, 206);
+    border-color:transparent;
+    
+    
+  }
+  
+  .b1:hover {
+    background-color: rgb(189, 189, 189);
+    /* //background-repeat: repeat-x; */
+    /* //border: none; */
+    cursor:pointer;
+    /* //overflow: hidden; */
+    /* //outline:none; */
+    /* //font-size: 0.8em; */
+    /* //padding: 0px; */
+  }
+  
+  .container {
+    position: relative;
+    /* //text-align: right; */
+    /* //height: 90px; */
+    color: white;
+  }
+  
+  
+  .centered {
+    position: absolute;
+    top: 50%;
+    /* //height: 20%; */
+    
+    /* //left: 80%; */
+    /* //left: 100px; */
+    right: 0px;
+    /* //height: 100px; */
+    /* //width: 0px; */
+    transform: translate(0%, -50%);
+    /* //opacity: 0.6; */
+  }
+  
+  .center {
+    position: absolute;
+    top: 0px;
+    left: 0%;
+    /* //right: 0px; */
+    transform: translate(0%, 0%);
+    opacity: 50;
+    /* //font-weight: 100; */
+    color: white;
+    margin-left: 5px;
+  }
+  
+  .button{
+    background-color: rgb(49, 133, 182);
+    border: none;
+    height: 25px;
+    /* //cursor:pointer; */
+  }
+  
+  .button:hover {
+    background-color: rgb(189, 189, 189);
+    /* //background-repeat: repeat-x; */
+    /* //border: none; */
+    cursor:pointer;
+    /* //overflow: hidden;
+    //outline:none;
+    //font-size: 0.8em;
+    //padding: 0px; */
+  }
+  
+  
+  /* // .a{
+  //   color: hotpink;
+  // } */
+  
+  a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  a:active {
+    text-decoration: underline;
+  }
