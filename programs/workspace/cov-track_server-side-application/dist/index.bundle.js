@@ -458,28 +458,26 @@ var _auth = __webpack_require__(3);
 
 var _userController = __webpack_require__(13);
 
-var userController = _interopRequireWildcard(_userController);
-
 var _covTrackController = __webpack_require__(12);
 
 var _validations = __webpack_require__(5);
 
 var _validations2 = _interopRequireDefault(_validations);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const routes = new _express.Router();
 
 // JWT test route
+
+// import * as userController from '../controllers/userController';
 routes.get('/test', _auth.authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
 
 // Auth
-routes.post("/signup", (0, _expressValidation2.default)(_validations2.default.signup), userController.signUp);
-routes.post("/login", _auth.authLocal, userController.login);
+routes.post("/signup", (0, _expressValidation2.default)(_validations2.default.signup), _userController.signUp);
+routes.post("/login", _auth.authLocal, _userController.login);
 
 // /** Customer Manage Routes */
 

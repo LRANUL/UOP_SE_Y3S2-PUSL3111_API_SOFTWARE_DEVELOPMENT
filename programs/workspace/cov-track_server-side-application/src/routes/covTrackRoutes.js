@@ -2,7 +2,8 @@ import { Router } from 'express';
 import validate from 'express-validation';
 
 import { authLocal, authJwt } from '../services/auth';
-import * as userController from '../controllers/userController';
+// import * as userController from '../controllers/userController';
+import {signUp, login} from '../controllers/userController';
 import {
   getCustomerCheckInStatus,
   getCustomerFromNIC,
@@ -21,8 +22,8 @@ routes.get('/test', authJwt, (req, res) => {
 });
 
 // Auth
-routes.post("/signup", validate(userValidation.signup), userController.signUp);
-routes.post("/login", authLocal, userController.login);
+routes.post("/signup", validate(userValidation.signup), signUp);
+routes.post("/login", authLocal, login);
 
 // /** Customer Manage Routes */
 
