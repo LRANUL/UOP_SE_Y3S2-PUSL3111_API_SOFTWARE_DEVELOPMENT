@@ -122,23 +122,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.placesSchema = exports.HistorySchema = exports.CustomerSchema = undefined;
 
-var _bson = __webpack_require__(16);
+var _bson = __webpack_require__(17);
 
 var _mongoose = __webpack_require__(2);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _validator = __webpack_require__(27);
+var _validator = __webpack_require__(28);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _bcryptNodejs = __webpack_require__(14);
+var _bcryptNodejs = __webpack_require__(15);
 
-var _jsonwebtoken = __webpack_require__(22);
+var _jsonwebtoken = __webpack_require__(23);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _mongooseUniqueValidator = __webpack_require__(23);
+var _mongooseUniqueValidator = __webpack_require__(24);
 
 var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
@@ -291,6 +291,27 @@ const UserSchema = new _mongoose.Schema({
       },
       message: '{VALUE} is not a valid password!'
     }
+  },
+  DOB: {
+    type: Date,
+    required: [true, 'Date of birth is required!']
+  },
+  phone: {
+    type: String,
+    required: [true, 'phone is required!'],
+    unique: true
+  },
+  address: {
+    type: String,
+    required: [true, 'address is required!']
+  },
+  userType: {
+    type: String,
+    required: [true, 'user Type is required!']
+  },
+  city: {
+    type: String,
+    required: [true, 'city is required!']
   }
 }, { timestamps: true });
 
@@ -357,11 +378,11 @@ var _passport = __webpack_require__(6);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportLocal = __webpack_require__(26);
+var _passportLocal = __webpack_require__(27);
 
 var _passportLocal2 = _interopRequireDefault(_passportLocal);
 
-var _passportJwt = __webpack_require__(25);
+var _passportJwt = __webpack_require__(26);
 
 var _covTrackModel = __webpack_require__(1);
 
@@ -437,7 +458,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.passwordReg = undefined;
 
-var _joi = __webpack_require__(21);
+var _joi = __webpack_require__(22);
 
 var _joi2 = _interopRequireDefault(_joi);
 
@@ -476,17 +497,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(4);
 
-var _expressValidation = __webpack_require__(18);
+var _expressValidation = __webpack_require__(19);
 
 var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
 var _auth = __webpack_require__(3);
 
-var _userController = __webpack_require__(13);
+var _userController = __webpack_require__(14);
 
 var userController = _interopRequireWildcard(_userController);
 
-var _locationController = __webpack_require__(28);
+var _locationController = __webpack_require__(13);
 
 var locationController = _interopRequireWildcard(_locationController);
 
@@ -579,19 +600,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _morgan = __webpack_require__(24);
+var _morgan = __webpack_require__(25);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _bodyParser = __webpack_require__(15);
+var _bodyParser = __webpack_require__(16);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _compression = __webpack_require__(17);
+var _compression = __webpack_require__(18);
 
 var _compression2 = _interopRequireDefault(_compression);
 
-var _helmet = __webpack_require__(19);
+var _helmet = __webpack_require__(20);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
@@ -797,10 +818,43 @@ const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.createPlaces = undefined;
+
+var _mongoose = __webpack_require__(2);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _covTrackModel = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const places = _mongoose2.default.model("location", _covTrackModel.placesSchema);
+
+// creates a new location
+const createPlaces = exports.createPlaces = (req, res) => {
+  const newplace = new places(req.body);
+  newplace.save((err, Place) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(Place);
+  });
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.signUp = signUp;
 exports.login = login;
 
-var _httpStatus = __webpack_require__(20);
+var _httpStatus = __webpack_require__(21);
 
 var _httpStatus2 = _interopRequireDefault(_httpStatus);
 
@@ -827,120 +881,88 @@ function login(req, res, next) {
 }
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt-nodejs");
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("bson");
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("compression");
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-validation");
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("helmet");
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("http-status");
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("joi");
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("jsonwebtoken");
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongoose-unique-validator");
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-jwt");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createPlaces = undefined;
-
-var _mongoose = __webpack_require__(2);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _covTrackModel = __webpack_require__(1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const places = _mongoose2.default.model("location", _covTrackModel.placesSchema);
-
-const createPlaces = exports.createPlaces = (req, res) => {
-  const newplace = new places(req.body);
-  newplace.save((err, Place) => {
-    if (err) {
-      res.send(err);
-    }
-    res.json(Place);
-  });
-};
 
 /***/ })
 /******/ ]);

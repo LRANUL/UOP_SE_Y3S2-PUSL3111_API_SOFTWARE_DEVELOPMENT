@@ -150,6 +150,27 @@ const UserSchema = new Schema(
         },
         message: '{VALUE} is not a valid password!',
       },
+    },
+    DOB: {
+      type: Date,
+      required: [true, 'Date of birth is required!'],
+    },
+    phone: {
+      type: String,
+      required: [true, 'phone is required!'],
+      unique: true,
+    },
+    address: {
+      type: String,
+      required: [true, 'address is required!'],
+    },
+    userType: {
+      type: String,
+      required: [true, 'user Type is required!'],
+    },
+    city: {
+      type: String,
+      required: [true, 'city is required!'],
     }
   },
   { timestamps: true },

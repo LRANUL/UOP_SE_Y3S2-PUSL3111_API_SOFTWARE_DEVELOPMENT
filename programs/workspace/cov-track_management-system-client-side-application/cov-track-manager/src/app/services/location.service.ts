@@ -4,15 +4,13 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationService {
+export class locationsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  signup(form)
+  createlocation(form)
   {
     console.log(form);
-    return this.httpClient.post('http://localhost:5000/protected/signup', form).subscribe((val)=> {
-      console.log(val);
-    });
+      return this.httpClient.post('http://localhost:5000/places/', form);
   }
 }

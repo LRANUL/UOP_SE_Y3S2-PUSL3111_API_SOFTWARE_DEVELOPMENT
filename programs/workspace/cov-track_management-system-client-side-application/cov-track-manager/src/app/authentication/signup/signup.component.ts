@@ -34,11 +34,6 @@ export class SignupComponent implements OnInit {
         Validators.maxLength(30),
         Validators.minLength(8)
        ]],
-       confirmPassword: ['',[
-        Validators.required,
-        Validators.maxLength(30),
-        Validators.minLength(8)
-       ]],
        phone: ['',[
         Validators.required,
         Validators.maxLength(10),
@@ -52,7 +47,8 @@ export class SignupComponent implements OnInit {
       ]],
       userType: ['',[
         Validators.required
-      ]]
+      ]],
+      userName: ['']
     });
   }
 
@@ -92,14 +88,17 @@ export class SignupComponent implements OnInit {
     return this.SignUpForm.get('password');
   }
 
-  get confirmPassword() {
-    return this.SignUpForm.get('confirmPassword');
+  get userName() {
+    return this.SignUpForm.get('userName');
   }
 
   submit()
   {
+   let Fname = this.SignUpForm.get('firstName').value;
+   let Lname = this.SignUpForm.get('lastName').value;
+   let UserName = Fname + Lname;
+   this.SignUpForm.get('userName').setValue(UserName);
    console.log(this.SignUpForm.value);
    this.signup.signup(this.SignUpForm.value);
   }
-
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { locationsService } from 'src/app/services/location.service';
 import { QrGenerationComponent } from '../qr-generation/qr-generation.component';
 
 @Component({
@@ -13,7 +14,7 @@ export class PlaceCreateComponent implements OnInit {
 
   createAgentForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router, private location: locationsService) { }
 
   code ="vsdvsvsvsvdsv";
 
@@ -45,11 +46,22 @@ export class PlaceCreateComponent implements OnInit {
   }
 
   // send the organization name and opens the qr-generation component
-  openDialog(): void {
+  openDialog(value): void {
     const dialogRef = this.dialog.open(QrGenerationComponent, {
       width: '400px',
       height: '400px',
-      data: {qrString: this.createAgentForm.get('organizationName').value}
+      data:
+      {
+        name: this.createAgentForm.get('organizationName').value,
+        address: this.createAgentForm.get('organizationAddress').value,
+        sector: this.createAgentForm.get('organizationSector').value,
+        email: this.createAgentForm.get('organizationEmail').value,
+        phone: this.createAgentForm.get('organizationPhone').value,
+        city: this.createAgentForm.get('organizationCity').value,
+        QRcode: this.createAgentForm.get('QRcode').value,
+        QRimage: '',
+      },
+      disableClose: true
     });
   }
 
@@ -74,11 +86,21 @@ export class PlaceCreateComponent implements OnInit {
     return this.createAgentForm.get(' organizationCity');
   }
 
+  get QRcode() {
+    return this.createAgentForm.get('QRcode');
+  }
+
   submit()
  {
   console.log(this.createAgentForm.value);
-  this.openDialog();
+  let random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+  let val = random.toString();
+  let code = this.createAgentForm.get('organizationName').value + val;
+  this.createAgentForm.get('QRcode').setValue(code);
+  console.log(this.createAgentForm.value);
+  this.openDialog(this.createAgentForm.value);
  }
+
 
  cancel()
  {

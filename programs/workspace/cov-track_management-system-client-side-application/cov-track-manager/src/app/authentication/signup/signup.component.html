@@ -78,16 +78,6 @@
       Password is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-  <mat-form-field class="example-full-width" style=" margin-left: 40px">
-    <mat-label>Confirm Password</mat-label>
-    <input type="password" matInput formControlName="confirmPassword">
-    <mat-error *ngIf="password != confirmPassword && confirmPassword.touched">
-      The Passwords does not Match
-    </mat-error>
-    <mat-error *ngIf="confirmPassword.invalid && !confirmPassword.errors?.minlength && !confirmPassword.errors?.maxlength">
-      Password is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
   <br>
   <br>
   <mat-form-field class="login-full-width" style=" margin-left: 40px">

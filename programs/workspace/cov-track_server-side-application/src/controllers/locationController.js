@@ -3,6 +3,7 @@ import { placesSchema } from "../models/covTrackModel";
 
 const places = mongoose.model("location", placesSchema);
 
+// creates a new location
 export const createPlaces = (req, res) => {
     const newplace = new places(req.body);
     newplace.save((err, Place) => {
