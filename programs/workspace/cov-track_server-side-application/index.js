@@ -25,10 +25,6 @@ app.get('/test', authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
 
-app.post('/places', authJwt, (req, res)=>{
-  res.send('User Created');
-})
-
 apiRoutes(app);
 
 app.listen(constants.PORT, err => {

@@ -84,6 +84,10 @@ export const HistorySchema = new Schema({
 });
 
 export const placesSchema = new Schema({
+  QRcode: { 
+    type: String,
+    required: true
+  },
   QRimage: { 
     type: String,
     required: true
@@ -100,7 +104,7 @@ export const placesSchema = new Schema({
   phone: { 
     type: Number,
     required: true },
-  streetAddress: {
+  address: {
     type: String,
     required: true 
   },

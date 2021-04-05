@@ -226,6 +226,10 @@ const HistorySchema = exports.HistorySchema = new _mongoose.Schema({
 });
 
 const placesSchema = exports.placesSchema = new _mongoose.Schema({
+  QRcode: {
+    type: String,
+    required: true
+  },
   QRimage: {
     type: String,
     required: true
@@ -242,7 +246,7 @@ const placesSchema = exports.placesSchema = new _mongoose.Schema({
   phone: {
     type: Number,
     required: true },
-  streetAddress: {
+  address: {
     type: String,
     required: true
   },
@@ -528,7 +532,13 @@ routes.get('/test', _auth.authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
 
-routes.post("/places", _auth.authJwt, locationController.createPlaces, (req, res) => {
+// need to authenticate (by adding authJwt)  but left like this until authentication is finished
+routes.post("/places", locationController.createPlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+// need to authenticate (by adding authJwt) but left like this until authentication is finished
+routes.get("/places/:type", locationController.getPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
@@ -695,10 +705,6 @@ app.get('/test', _auth.authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
 
-app.post('/places', _auth.authJwt, (req, res) => {
-  res.send('User Created');
-});
-
 apiRoutes(app);
 
 app.listen(_config2.default.PORT, err => {
@@ -818,7 +824,7 @@ const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createPlaces = undefined;
+exports.getPlaces = exports.createPlaces = undefined;
 
 var _mongoose = __webpack_require__(2);
 
@@ -838,6 +844,21 @@ const createPlaces = exports.createPlaces = (req, res) => {
       res.send(err);
     }
     res.json(Place);
+  });
+};
+
+const getPlaces = exports.getPlaces = (req, res) => {
+  places.find({ sector: req.params.type }).then(data => {
+    if (data) {
+      res.status(200).json({
+        message: "It works",
+        data
+      });
+    } else {
+      res.status(404).json({
+        message: "The user does not exist"
+      });
+    }
   });
 };
 

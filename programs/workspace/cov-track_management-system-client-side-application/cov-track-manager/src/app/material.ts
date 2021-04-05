@@ -10,6 +10,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import { HighchartsChartModule } from 'highcharts-angular';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
      MatTabsModule,
      MatPaginatorModule,
      MatDialogModule,
-     HighchartsChartModule
+     HighchartsChartModule,
+     MatGridListModule
   ],
   exports: [
     MatSliderModule,
@@ -36,7 +38,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     MatSelectModule,
     MatTabsModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
   ]
 })
 

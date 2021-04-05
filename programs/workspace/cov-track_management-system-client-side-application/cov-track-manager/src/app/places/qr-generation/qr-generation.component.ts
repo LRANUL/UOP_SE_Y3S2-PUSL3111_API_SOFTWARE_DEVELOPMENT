@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { qrCode } from 'src/app/modals/users';
+import { place } from 'src/app/modals/users';
 import { locationsService } from 'src/app/services/location.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class QrGenerationComponent implements OnInit {
   value
 
   constructor(private location: locationsService, public dialogRef: MatDialogRef<QrGenerationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: qrCode){ }
+    @Inject(MAT_DIALOG_DATA) public data: place){ }
 
   ngOnInit(): void {
     console.log(this.data.QRcode);

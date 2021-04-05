@@ -23,7 +23,13 @@ routes.get('/test', authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
 
-routes.post("/places", authJwt, locationController.createPlaces, (req, res) => {
+ // need to authenticate (by adding authJwt)  but left like this until authentication is finished
+routes.post("/places", locationController.createPlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+// need to authenticate (by adding authJwt) but left like this until authentication is finished
+routes.get("/places/:type", locationController.getPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 

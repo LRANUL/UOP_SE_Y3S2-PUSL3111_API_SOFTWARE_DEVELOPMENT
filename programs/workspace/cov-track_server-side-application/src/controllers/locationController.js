@@ -14,3 +14,20 @@ export const createPlaces = (req, res) => {
     });
   };
 
+  export const getPlaces = (req, res) => {
+  places.find({sector: req.params.type})
+  .then((data)=>{
+    if(data)
+  {
+    res.status(200).json({
+      message: "It works",
+      data
+    })
+  }else
+  {
+    res.status(404).json({
+      message: "The user does not exist"
+    })
+  } 
+  })
+}

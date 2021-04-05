@@ -3,7 +3,7 @@ export interface user
 
 }
 
-export interface qrCode
+export interface place
 {
   name: string,
   address: string,
