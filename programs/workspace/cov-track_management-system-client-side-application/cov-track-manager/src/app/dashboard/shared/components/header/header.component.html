@@ -36,9 +36,9 @@
                         <!-- <a href="tel:+1-800-555-5555">Call 1-800-555-5555</a> -->
                         <!-- <a href={{'tel:'+e.Phone}}>{{e.Phone | PhoneNumber}}</a> -->
                         <!-- <strong>Phone:</strong> <i class="glyphicon glyphicon-earphone"></i> {{e.Phone | PhoneNumber}} -->
-                        
-                        
-                        
+
+
+
                     </mat-menu>
                 </li>
 
@@ -47,7 +47,7 @@
                         <mat-icon>person_outline</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="logIn()">
                             <mat-icon>exit_to_app</mat-icon>
                             Sign In
                         </button>

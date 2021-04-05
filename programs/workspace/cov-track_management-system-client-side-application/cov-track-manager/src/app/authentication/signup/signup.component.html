@@ -3,6 +3,14 @@
   <br>
   <mat-card-title style="font-weight: bolder; text-align: center;">Sign Up</mat-card-title>
   <br>
+  <div *ngIf="error">
+    <mat-grid-list cols="1" rowHeight="16:1">
+      <mat-grid-tile>
+        <mat-label style="text-align: center; font-weight: bold; color: red;">There was a error siging up the user</mat-label>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <br>
 <mat-card-content>
   <form class="login-form" [formGroup]="SignUpForm" (ngSubmit)="submit()" style=" margin-left: 60px;  margin-right: 60px;">
     <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 40px">

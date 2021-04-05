@@ -11,6 +11,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import { HighchartsChartModule } from 'highcharts-angular';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
      MatPaginatorModule,
      MatDialogModule,
      HighchartsChartModule,
-     MatGridListModule
+     MatGridListModule,
+     MatSnackBarModule
   ],
   exports: [
     MatSliderModule,
@@ -39,7 +41,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatTabsModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSnackBarModule
   ]
 })
 

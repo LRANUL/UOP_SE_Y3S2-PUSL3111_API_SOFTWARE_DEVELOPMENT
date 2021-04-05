@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { place } from 'src/app/modals/users';
 import { locationsService } from 'src/app/services/location.service';
 
@@ -9,7 +10,7 @@ import { locationsService } from 'src/app/services/location.service';
 })
 export class PlacesListComponent implements OnInit {
 
-  constructor(private location: locationsService) { }
+  constructor(private location: locationsService, private router: Router) { }
 
   type1 = "Private";
   locationsPrivate = new Array();
@@ -87,5 +88,10 @@ export class PlacesListComponent implements OnInit {
        this.locationsPublic.push(this.dataPublic);
       }
     });
+  }
+
+  addLocation()
+  {
+    this.router.navigateByUrl("/places/create");
   }
 }
