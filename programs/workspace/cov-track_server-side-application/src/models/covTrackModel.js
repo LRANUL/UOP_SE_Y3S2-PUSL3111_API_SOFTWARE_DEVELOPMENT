@@ -214,12 +214,12 @@ UserSchema.methods = {
       token: `JWT ${this.createToken()}`,
     };
   },
-  toJSON() {
-    return {
-      _id: this._id,
-      userName: this.userName,
-    };
-  },
+  // toJSON() {  (commented out because when trying to get all the user detail values only provides username and ID)
+  //   return {
+  //     _id: this._id,
+  //     userName: this.userName,
+  //   };
+  // },
 };
 
 export default mongoose.model('User', UserSchema);

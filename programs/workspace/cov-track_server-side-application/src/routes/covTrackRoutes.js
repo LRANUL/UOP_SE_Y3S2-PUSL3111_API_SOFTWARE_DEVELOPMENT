@@ -5,7 +5,7 @@ import { authLocal, authJwt } from '../services/auth';
 
 import * as userController from '../controllers/userController';
 import * as locationController from '../controllers/locationController';
-
+import * as officersController from '../controllers/officersController';
 import {
   getCustomerCheckInStatus,
   getCustomerFromNIC,
@@ -30,6 +30,11 @@ routes.post("/places", locationController.createPlaces, (req, res) => {
 
 // need to authenticate (by adding authJwt) but left like this until authentication is finished
 routes.get("/places/:type", locationController.getPlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+// need to authenticate (by adding authJwt) but left like this until authentication is finished
+routes.get("/officers/:type", officersController.getOfficers, (req, res) => {
   res.send('Private route accessed!');
 });
 

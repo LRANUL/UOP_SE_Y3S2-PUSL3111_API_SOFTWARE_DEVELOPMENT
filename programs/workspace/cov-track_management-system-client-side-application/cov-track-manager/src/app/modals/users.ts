@@ -14,3 +14,21 @@ export interface place
   QRcode: string,
   QRimage: string
 }
+
+export interface officers{
+  firstName: string,
+  middleName: string,
+  lastName: string,
+  DOB: string,
+  email:string,
+  password: string,
+  phone: string
+  address: string,
+  city: string,
+  userType: string,
+  userName: string
+}
+
+export interface view{
+  email: string
+}

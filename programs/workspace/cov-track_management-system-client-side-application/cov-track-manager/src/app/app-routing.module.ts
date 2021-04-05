@@ -11,23 +11,25 @@ import { PlacesListComponent } from './places/places-list/places-list.component'
 
 
 import { DefaultComponent } from './dashboard/layouts/default/default.component';
-import { DashboardComponent } from './dashboard/modules/dashboard/dashboard.component' 
+import { DashboardComponent } from './dashboard/modules/dashboard/dashboard.component'
+import { OfficersListComponent } from './officers/officers-list/officers-list.component';
 
 const routes: Routes = [
   // {path:'dashboard', component:DefaultComponent},
   // {path:'dashboard', component:DashboardComponent},
-  
+
   {
     path: '', component: DefaultComponent,
     children: [
       { path: '', component: DashboardComponent },
-      
+
     ]
   },
 
 
   {path:'health-inspection' ,component:HealthInspectionComponent },
   {path:'health-inspection/:citizenId' ,component:CitizenViewComponent},
+  {path:"officers" ,component: OfficersListComponent},
   {path:"places" ,component:PlacesListComponent },
   {path:"places/create" , component:PlaceCreateComponent },
   {path:"places/edit/:placeId", component:PlaceCreateComponent },

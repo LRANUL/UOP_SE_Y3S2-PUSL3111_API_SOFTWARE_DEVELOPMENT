@@ -1,0 +1,74 @@
+<mat-tab-group animationDuration="200ms" style="margin-left: 80px; margin-right: 80px;">
+  <mat-tab label="CDC Officers">
+    <br>
+    <br>
+    <br>
+    <mat-card style="margin-left: 60px; margin-right: 60px; margin-bottom: 20px;" *ngFor="let officer of CDCofficers">
+      <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="3:1">
+          <mat-grid-tile style="width: 40px;">
+            <img src="../../../assets/profile.png">
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="button" style="padding-right: 30px;">
+                    <button mat-stroked-button style="width: 100%;" (click)="viewUser(officer.email)">View</button>
+            </div>
+            <div class="button">
+              <button mat-stroked-button style="width: 100%;">Edit</button>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <mat-label>
+              Username:  {{officer.userName}}
+                <br>
+              Email: {{officer.email}}
+                <br>
+              Name: {{officer.firstName}} {{officer.lastName}}
+                <br>
+              Phone Number: {{officer.phone}}
+                <br>
+              City: {{officer.city}}
+              </mat-label>
+              <br>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="PHI Officers">
+    <br>
+    <br>
+    <br>
+    <mat-card style="margin-left: 60px; margin-right: 60px; margin-bottom: 20px;" *ngFor="let officer of PHIofficers">
+      <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="3:1">
+          <mat-grid-tile style="width: 40px;">
+           <img src="../../../assets/profile.png">
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="button" style="padding-right: 30px;">
+                    <button mat-stroked-button style="width: 100%;" (click)="viewUser(officer.email)">View</button>
+            </div>
+            <div class="button">
+              <button mat-stroked-button style="width: 100%;">Edit</button>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <mat-label>
+              Username:  {{officer.userName}}
+                <br>
+              Email: {{officer.email}}
+                <br>
+              Name: {{officer.firstName}} {{officer.lastName}}
+                <br>
+              Phone Number: {{officer.phone}}
+                <br>
+              City: {{officer.city}}
+              </mat-label>
+              <br>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>

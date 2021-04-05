@@ -77,74 +77,31 @@ module.exports =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const devConfig = {
-  MONGO_URL: 'mongodb://developer:OWBFpoXsPEQWjKgK@covtrack-cluster-1-shard-00-00.tpmbm.mongodb.net:27017,covtrack-cluster-1-shard-00-01.tpmbm.mongodb.net:27017,covtrack-cluster-1-shard-00-02.tpmbm.mongodb.net:27017/CovTrack_DB_Primary?ssl=true&replicaSet=atlas-r45e9e-shard-0&authSource=admin&retryWrites=true&w=majority',
-  JWT_SECRET: 'thisisasecret',
-  JWT_SECRET_ADMIN: 'thisistheadminsecret',
-  JWT_SECRET_PHI: 'thisisthephisecret',
-  JWT_SECRET_CDC: 'thisisthecdcsecret'
-};
-
-const testConfig = {
-  MONGO_URL: 'mongodb://127.0.0.1:27017/server-test'
-};
-
-const prodConfig = {
-  MONGO_URL: 'mongodb://127.0.0.1:27017/server-prod'
-};
-
-const defaultConfig = {
-  PORT: process.env.PORT || 5000
-};
-
-function envConfig(env) {
-  switch (env) {
-    case 'development':
-      return devConfig;
-    case 'test':
-      return testConfig;
-    default:
-      return prodConfig;
-  }
-}
-
-exports.default = Object.assign({}, defaultConfig, envConfig(process.env.NODE_ENV));
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.placesSchema = exports.HistorySchema = exports.CustomerSchema = undefined;
 
-var _bson = __webpack_require__(17);
+var _bson = __webpack_require__(18);
 
-var _mongoose = __webpack_require__(2);
+var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _validator = __webpack_require__(28);
+var _validator = __webpack_require__(29);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _bcryptNodejs = __webpack_require__(15);
+var _bcryptNodejs = __webpack_require__(16);
 
-var _jsonwebtoken = __webpack_require__(23);
+var _jsonwebtoken = __webpack_require__(24);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _mongooseUniqueValidator = __webpack_require__(24);
+var _mongooseUniqueValidator = __webpack_require__(25);
 
 var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
 var _validations = __webpack_require__(5);
 
-var _config = __webpack_require__(0);
+var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -349,22 +306,59 @@ UserSchema.methods = {
       userName: this.userName,
       token: `JWT ${this.createToken()}`
     };
-  },
-  toJSON() {
-    return {
-      _id: this._id,
-      userName: this.userName
-    };
   }
 };
 
 exports.default = _mongoose2.default.model('User', UserSchema);
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongoose");
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+const devConfig = {
+  MONGO_URL: 'mongodb://developer:OWBFpoXsPEQWjKgK@covtrack-cluster-1-shard-00-00.tpmbm.mongodb.net:27017,covtrack-cluster-1-shard-00-01.tpmbm.mongodb.net:27017,covtrack-cluster-1-shard-00-02.tpmbm.mongodb.net:27017/CovTrack_DB_Primary?ssl=true&replicaSet=atlas-r45e9e-shard-0&authSource=admin&retryWrites=true&w=majority',
+  JWT_SECRET: 'thisisasecret',
+  JWT_SECRET_ADMIN: 'thisistheadminsecret',
+  JWT_SECRET_PHI: 'thisisthephisecret',
+  JWT_SECRET_CDC: 'thisisthecdcsecret'
+};
+
+const testConfig = {
+  MONGO_URL: 'mongodb://127.0.0.1:27017/server-test'
+};
+
+const prodConfig = {
+  MONGO_URL: 'mongodb://127.0.0.1:27017/server-prod'
+};
+
+const defaultConfig = {
+  PORT: process.env.PORT || 5000
+};
+
+function envConfig(env) {
+  switch (env) {
+    case 'development':
+      return devConfig;
+    case 'test':
+      return testConfig;
+    default:
+      return prodConfig;
+  }
+}
+
+exports.default = Object.assign({}, defaultConfig, envConfig(process.env.NODE_ENV));
 
 /***/ }),
 /* 3 */
@@ -382,17 +376,17 @@ var _passport = __webpack_require__(6);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportLocal = __webpack_require__(27);
+var _passportLocal = __webpack_require__(28);
 
 var _passportLocal2 = _interopRequireDefault(_passportLocal);
 
-var _passportJwt = __webpack_require__(26);
+var _passportJwt = __webpack_require__(27);
 
-var _covTrackModel = __webpack_require__(1);
+var _covTrackModel = __webpack_require__(0);
 
 var _covTrackModel2 = _interopRequireDefault(_covTrackModel);
 
-var _config = __webpack_require__(0);
+var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -462,7 +456,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.passwordReg = undefined;
 
-var _joi = __webpack_require__(22);
+var _joi = __webpack_require__(23);
 
 var _joi2 = _interopRequireDefault(_joi);
 
@@ -501,19 +495,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(4);
 
-var _expressValidation = __webpack_require__(19);
+var _expressValidation = __webpack_require__(20);
 
 var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
 var _auth = __webpack_require__(3);
 
-var _userController = __webpack_require__(14);
+var _userController = __webpack_require__(15);
 
 var userController = _interopRequireWildcard(_userController);
 
 var _locationController = __webpack_require__(13);
 
 var locationController = _interopRequireWildcard(_locationController);
+
+var _officersController = __webpack_require__(14);
+
+var officersController = _interopRequireWildcard(_officersController);
 
 var _covTrackController = __webpack_require__(12);
 
@@ -539,6 +537,11 @@ routes.post("/places", locationController.createPlaces, (req, res) => {
 
 // need to authenticate (by adding authJwt) but left like this until authentication is finished
 routes.get("/places/:type", locationController.getPlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+// need to authenticate (by adding authJwt) but left like this until authentication is finished
+routes.get("/officers/:type", officersController.getOfficers, (req, res) => {
   res.send('Private route accessed!');
 });
 
@@ -573,11 +576,11 @@ exports.default = routes;
 "use strict";
 
 
-var _mongoose = __webpack_require__(2);
+var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _config = __webpack_require__(0);
+var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -610,19 +613,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _morgan = __webpack_require__(25);
+var _morgan = __webpack_require__(26);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _bodyParser = __webpack_require__(16);
+var _bodyParser = __webpack_require__(17);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _compression = __webpack_require__(18);
+var _compression = __webpack_require__(19);
 
 var _compression2 = _interopRequireDefault(_compression);
 
-var _helmet = __webpack_require__(20);
+var _helmet = __webpack_require__(21);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
@@ -671,7 +674,7 @@ var _cors = __webpack_require__(10);
 
 var _cors2 = _interopRequireDefault(_cors);
 
-var _config = __webpack_require__(0);
+var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -733,11 +736,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setCustomerCheckIn = exports.getCustomerCheckInStatus = exports.removeCustomerFromNIC = exports.updateCustomerFromNIC = exports.getCustomerFromNIC = exports.getCustomers = exports.addNewCustomer = undefined;
 
-var _mongoose = __webpack_require__(2);
+var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _covTrackModel = __webpack_require__(1);
+var _covTrackModel = __webpack_require__(0);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -826,11 +829,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getPlaces = exports.createPlaces = undefined;
 
-var _mongoose = __webpack_require__(2);
+var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _covTrackModel = __webpack_require__(1);
+var _covTrackModel = __webpack_require__(0);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -872,14 +875,51 @@ const getPlaces = exports.getPlaces = (req, res) => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.getOfficers = undefined;
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _covTrackModel = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const officers = _mongoose2.default.model("User", _covTrackModel.UserSchema);
+
+const getOfficers = exports.getOfficers = (req, res) => {
+  officers.find({ userType: req.params.type }).then(data => {
+    if (data) {
+      res.status(200).json({
+        message: "It works",
+        data
+      });
+    } else {
+      res.status(404).json({
+        message: "The user does not exist"
+      });
+    }
+  });
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.signUp = signUp;
 exports.login = login;
 
-var _httpStatus = __webpack_require__(21);
+var _httpStatus = __webpack_require__(22);
 
 var _httpStatus2 = _interopRequireDefault(_httpStatus);
 
-var _covTrackModel = __webpack_require__(1);
+var _covTrackModel = __webpack_require__(0);
 
 var _covTrackModel2 = _interopRequireDefault(_covTrackModel);
 
@@ -902,85 +942,85 @@ function login(req, res, next) {
 }
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt-nodejs");
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("bson");
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("compression");
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-validation");
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("helmet");
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("http-status");
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("joi");
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("jsonwebtoken");
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongoose-unique-validator");
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-jwt");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");

@@ -45,21 +45,21 @@ export class PlacesListComponent implements OnInit {
   getPrivateLocation(type: string)
   {
     this.location.getlocationPrivate(type)
-    this.location.getTheLocationsPrivate().subscribe((tt: place)=>{
-      let value = Object.keys(tt)
+    this.location.getTheLocationsPrivate().subscribe((data: place)=>{
+      let value = Object.keys(data)
       let length = value.length;
       let counter = 0;
       for(counter; counter < length; counter++)
       {
        this.dataPrivate = {
-        name: tt[counter].name,
-        address: tt[counter].address,
-        sector: tt[counter].sector,
-        email: tt[counter].email,
-        phone: tt[counter].phone,
-        city: tt[counter].city,
-        QRcode: tt[counter].QRcode,
-        QRimage: tt[counter].QRimage
+        name: data[counter].name,
+        address: data[counter].address,
+        sector: data[counter].sector,
+        email: data[counter].email,
+        phone: data[counter].phone,
+        city: data[counter].city,
+        QRcode: data[counter].QRcode,
+        QRimage: data[counter].QRimage
        };
        this.locationsPrivate.push(this.dataPrivate);
       }
@@ -69,21 +69,21 @@ export class PlacesListComponent implements OnInit {
   getPublicLocation(type: string)
   {
     this.location.getlocationPublic(type)
-    this.location.getTheLocationsPublic().subscribe((tt: place)=>{
-      let value = Object.keys(tt)
+    this.location.getTheLocationsPublic().subscribe((data: place)=>{
+      let value = Object.keys(data)
       let length = value.length;
       let counter = 0;
       for(counter; counter < length; counter++)
       {
        this.dataPublic = {
-        name: tt[counter].name,
-        address: tt[counter].address,
-        sector: tt[counter].sector,
-        email: tt[counter].email,
-        phone: tt[counter].phone,
-        city: tt[counter].city,
-        QRcode: tt[counter].QRcode,
-        QRimage: tt[counter].QRimage
+        name: data[counter].name,
+        address: data[counter].address,
+        sector: data[counter].sector,
+        email: data[counter].email,
+        phone: data[counter].phone,
+        city: data[counter].city,
+        QRcode: data[counter].QRcode,
+        QRimage: data[counter].QRimage
        };
        this.locationsPublic.push(this.dataPublic);
       }

@@ -36,6 +36,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { HttpClientModule } from '@angular/common/http';
 //import default modules
 import { DefaultModule } from '../app/dashboard/layouts/default/default.module';
+import { OfficersListComponent } from './officers/officers-list/officers-list.component';
+import { OfficersViewComponent } from './officers/officers-view/officers-view.component';
 
 // import {}  from '../app/dashboard/shared/shared.module';
 
@@ -52,6 +54,8 @@ import { DefaultModule } from '../app/dashboard/layouts/default/default.module';
     PlacesListComponent,
     PlaceCreateComponent,
     QrGenerationComponent,
+    OfficersListComponent,
+    OfficersViewComponent,
     // LayoutsComponent,
     // DefaultComponent,
     // FooterComponent,
