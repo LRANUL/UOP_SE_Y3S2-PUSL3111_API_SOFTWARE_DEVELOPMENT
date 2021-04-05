@@ -32,3 +32,19 @@ export interface officers{
 export interface view{
   email: string
 }
+
+export interface officer{
+  firstName: string,
+  middleName: string,
+  lastName: string,
+  DOB: string,
+  email:string,
+  password: string,
+  phone: string
+  address: string,
+  city: string,
+  userType: string,
+  userName: string,
+  createdAt: string,
+  updatedAt: string
+}

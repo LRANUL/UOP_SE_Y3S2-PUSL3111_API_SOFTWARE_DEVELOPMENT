@@ -38,6 +38,11 @@ routes.get("/officers/:type", officersController.getOfficers, (req, res) => {
   res.send('Private route accessed!');
 });
 
+// need to authenticate (by adding authJwt) but left like this until authentication is finished
+routes.get("/officer/:email", officersController.getOfficer, (req, res) => {
+  res.send('Private route accessed!');
+});
+
 // Auth
 routes.post("/signup", validate(userValidation.signup), userController.signUp);
 routes.post("/login", authLocal, userController.login);

@@ -38,6 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DefaultModule } from '../app/dashboard/layouts/default/default.module';
 import { OfficersListComponent } from './officers/officers-list/officers-list.component';
 import { OfficersViewComponent } from './officers/officers-view/officers-view.component';
+import { OfficersEditComponent } from './officers/officers-edit/officers-edit.component';
 
 // import {}  from '../app/dashboard/shared/shared.module';
 
@@ -56,6 +57,7 @@ import { OfficersViewComponent } from './officers/officers-view/officers-view.co
     QrGenerationComponent,
     OfficersListComponent,
     OfficersViewComponent,
+    OfficersEditComponent,
     // LayoutsComponent,
     // DefaultComponent,
     // FooterComponent,

@@ -1,1 +1,86 @@
-<p>officers-view works!</p>
+<div>
+   <mat-grid-list cols="1" rowHeight="9:1">
+     <mat-grid-tile>
+       <img mat-card-avatar style="height: 130px; width: 130px;" src="../../../assets/images/addUser.jpg">
+     </mat-grid-tile>
+   </mat-grid-list>
+  <br>
+  <mat-card-title style="font-weight: bolder; text-align: center;">The Officer Details</mat-card-title>
+  <br>
+  <br>
+</div>
+<form>
+  <mat-form-field class="login-full-width" style="padding-right: 60px; margin-left: 100px">
+    <mat-label>First Name</mat-label>
+    <input matInput disabled value="{{officerDetails.firstName}}">
+  </mat-form-field>
+  <mat-form-field class="login-full-width" style="padding-right: 60px;  margin-left: 100px">
+    <mat-label>Middle Name</mat-label>
+    <input matInput disabled value="{{officerDetails.middleName}}">
+  </mat-form-field>
+  <mat-form-field class="login-full-width"  style="padding-right: 60px;  margin-left: 100px">
+    <mat-label>Last Name</mat-label>
+    <input matInput disabled value="{{officerDetails.lastName}}">
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="login-full-width" style=" margin-left: 100px">
+    <mat-label>Date Of Birth</mat-label>
+    <input matInput disabled value="{{officerDetails.userName}}">
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="login-full-width" style=" margin-left: 100px">
+    <mat-label>Date Of Birth</mat-label>
+    <input matInput disabled value="{{officerDetails.DOB}}">
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="login-full-width" style=" margin-left: 100px">
+    <mat-label>Phone Number</mat-label>
+    <input matInput disabled value="{{officerDetails.phone}}">
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="login-full-width" style=" margin-left: 100px">
+    <mat-label>Email</mat-label>
+    <input matInput disabled value="{{officerDetails.email}}">
+  </mat-form-field>
+<br>
+<br>
+<mat-form-field class="login-full-width" style=" margin-left: 100px">
+  <mat-label>Address</mat-label>
+  <input matInput disabled value="{{officerDetails.address}}">
+</mat-form-field>
+<br>
+<br>
+<mat-form-field class="login-full-width" style=" margin-left: 100px">
+  <mat-label>City</mat-label>
+  <input matInput disabled value="{{officerDetails.city}}">
+</mat-form-field>
+<br>
+<br>
+<mat-form-field class="login-full-width" style=" margin-left: 100px">
+  <mat-label>User Type</mat-label>
+  <input matInput disabled value="{{officerDetails.userType}}">
+</mat-form-field>
+<br>
+<br>
+<mat-form-field class="login-full-width" style=" margin-left: 100px">
+  <mat-label>Created At</mat-label>
+  <input matInput disabled value="{{officerDetails.createdAt}}">
+</mat-form-field>
+<br>
+<br>
+<mat-form-field class="login-full-width" style=" margin-left: 100px">
+  <mat-label>Updated At</mat-label>
+  <input matInput disabled value="{{officerDetails.updatedAt}}">
+</mat-form-field>
+  <div class="button">
+    <mat-grid-list cols="1" rowHeight="9:1">
+      <mat-grid-tile>
+        <button mat-stroked-button style="width: 40%; color: lightcoral;" (click)="close()" >close</button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</form>

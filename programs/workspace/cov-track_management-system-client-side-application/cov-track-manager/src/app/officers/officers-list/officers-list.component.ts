@@ -109,7 +109,8 @@ export class OfficersListComponent implements OnInit {
   viewUser(value: string)
   {
     const dialogRef = this.dialog.open(OfficersViewComponent, {
-      width: '250px',
+      width: '90%',
+      height: '90%',
       data: {email: value}
     });
   }

@@ -545,6 +545,11 @@ routes.get("/officers/:type", officersController.getOfficers, (req, res) => {
   res.send('Private route accessed!');
 });
 
+// need to authenticate (by adding authJwt) but left like this until authentication is finished
+routes.get("/officer/:email", officersController.getOfficer, (req, res) => {
+  res.send('Private route accessed!');
+});
+
 // Auth
 routes.post("/signup", (0, _expressValidation2.default)(_validations2.default.signup), userController.signUp);
 routes.post("/login", _auth.authLocal, userController.login);
@@ -875,7 +880,7 @@ const getPlaces = exports.getPlaces = (req, res) => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getOfficers = undefined;
+exports.getOfficer = exports.getOfficers = undefined;
 
 var _mongoose = __webpack_require__(1);
 
@@ -889,6 +894,21 @@ const officers = _mongoose2.default.model("User", _covTrackModel.UserSchema);
 
 const getOfficers = exports.getOfficers = (req, res) => {
   officers.find({ userType: req.params.type }).then(data => {
+    if (data) {
+      res.status(200).json({
+        message: "It works",
+        data
+      });
+    } else {
+      res.status(404).json({
+        message: "The user does not exist"
+      });
+    }
+  });
+};
+
+const getOfficer = exports.getOfficer = (req, res) => {
+  officers.findOne({ email: req.params.email }).then(data => {
     if (data) {
       res.status(200).json({
         message: "It works",

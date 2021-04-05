@@ -9,6 +9,26 @@ export class OfficersService {
 
   constructor(private httpClient: HttpClient) { }
 
+  public UpdatedOfficer = {
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    DOB: '',
+    email: '',
+    password: '',
+     phone: '',
+    address: '',
+    city: '',
+    userType: '',
+    userName: ''
+    };
+    private Officer = new Subject();
+
+    getTheOfficer()
+    {
+      return this.Officer.asObservable();
+    }
+
   public CDCUpdatedOfficers = {
     firstName: '',
     middleName: '',
@@ -55,16 +75,23 @@ export class OfficersService {
         console.log(res.data);
         this.CDCUpdatedOfficers = res.data;
         this.CDCOfficers.next(this.CDCUpdatedOfficers);
-     });;
+     });
   }
 
   getPHIOfficers(type)
   {
-    console.log(type);
       return this.httpClient.get<{message : string, data : any}>('http://localhost:5000/protected/officers/' + type).subscribe(res=>{
         console.log(res.data);
         this.PHIUpdatedOfficers = res.data;
         this.PHIOfficers.next(this.PHIUpdatedOfficers);
+     });
+  }
+
+  getOfficer(email)
+  {
+      return this.httpClient.get<{message : string, data : any}>('http://localhost:5000/protected/officer/' + email).subscribe(res=>{
+        this.UpdatedOfficer = res.data;
+        this.Officer.next(this.UpdatedOfficer);
      });;
   }
 }
