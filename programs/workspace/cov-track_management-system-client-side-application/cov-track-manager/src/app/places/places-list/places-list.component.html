@@ -15,7 +15,8 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="button" style="padding-right: 30px;">
-                    <button mat-stroked-button style="width: 100%;">Edit</button>
+                    <button mat-stroked-button style="width: 100%;" [routerLink]="['/','places','edit_place']"  >Edit</button>
+                    <!-- <button mat-stroked-button style="width: 100%;" href="./places/edit_place"  >Edit</button> -->
             </div>
             <div class="button">
               <button mat-stroked-button style="width: 100%;">Delete</button>
@@ -55,7 +56,8 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="button" style="padding-right: 30px;">
-                    <button mat-stroked-button style="width: 100%;">Edit</button>
+                    <button mat-stroked-button style="width: 100%;" [routerLink]="['/','places','edit_place']"   >Edit</button>
+                    <!-- <button mat-stroked-button style="width: 100%;" href="./places/edit_place"  >Edit</button> -->
             </div>
             <div class="button">
               <button mat-stroked-button style="width: 100%;">Delete</button>

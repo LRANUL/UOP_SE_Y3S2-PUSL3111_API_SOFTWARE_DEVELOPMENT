@@ -2,10 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+import { place } from '../modals/users'
+
 @Injectable({
   providedIn: 'root'
 })
 export class locationsService {
+
+  selectedPlace: place;
+  Place: place[];
 
   constructor(private httpClient: HttpClient) { }
 
@@ -68,4 +73,15 @@ export class locationsService {
         this.locationPublic.next(this.locationUpdatedPublic);
      });;
   }
+
+
+  //stifi
+  getlocation()
+  {
+    return this.httpClient.get<{message : string, data : any}>('http://localhost:5000/protected/places/vsdvsvsvsvdsv')
+
+  }
+
+
+
 }

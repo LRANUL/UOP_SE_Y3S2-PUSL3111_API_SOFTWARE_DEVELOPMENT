@@ -8,6 +8,7 @@ import { CitizenViewComponent } from './health-inspection/citizen-view/citizen-v
 import { HealthInspectionComponent } from './health-inspection/health-inspection.component';
 import { PlaceCreateComponent } from './places/place-create/place-create.component';
 import { PlacesListComponent } from './places/places-list/places-list.component';
+import { PlacesEditComponent } from './places/places-edit/places-edit.component'
 
 
 import { DefaultComponent } from './dashboard/layouts/default/default.component';
@@ -34,7 +35,9 @@ const routes: Routes = [
   {path:"places/create" , component:PlaceCreateComponent },
   {path:"places/edit/:placeId", component:PlaceCreateComponent },
   {path:"login", component:LoginComponent},
-  {path:"signup" , component: SignupComponent}
+  {path:"signup" , component: SignupComponent},
+  {path:"places/edit_place" , component: PlacesEditComponent}
+
 ];
 
 @NgModule({

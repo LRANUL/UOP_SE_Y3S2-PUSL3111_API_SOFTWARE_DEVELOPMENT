@@ -94,4 +94,6 @@ export class PlacesListComponent implements OnInit {
   {
     this.router.navigateByUrl("/places/create");
   }
+
+
 }

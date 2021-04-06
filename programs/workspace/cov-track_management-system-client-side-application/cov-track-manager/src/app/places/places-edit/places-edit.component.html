@@ -1,0 +1,83 @@
+<!-- <p>places-edit works!</p> -->
+
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content white-text">
+                <div class="row">
+                    <div class="col s5">
+                        <form #placesUpdate="ngForm" (ngSubmit)="onSubmit(placesUpdate)">
+                            <!-- <input type="text" name="email" email="ngModel" [(ngModel)]="location.selectedPlace.email"> -->
+                            
+                            <div class="input-field col s12">
+                                <input type="text" name="name" #email="ngModel" [(ngModel)]="location.selectedPlace.name" placeholder="Name">
+                                <label>Name :  
+                                    <label class="red-text">*</label>
+                                </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input type="text" name="email" #email="ngModel" [(ngModel)]="location.selectedPlace.email" placeholder="Email">
+                                <label>Email :  
+                                    <label class="red-text">*</label>
+                                </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input type="text" name="phone" #email="ngModel" [(ngModel)]="location.selectedPlace.phone" placeholder="Phone">
+                                <label>Phone :  
+                                    <label class="red-text">*</label>
+                                </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input type="text" name="address" #email="ngModel" [(ngModel)]="location.selectedPlace.address" placeholder="Address">
+                                <label>Address :  
+                                    <label class="red-text">*</label>
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn btn-custom right" type="button" (click)="resetForm(placesUpdate)">Reset</button>
+                                    <!-- <button class="btn btn-custom right" type="submit" [disabled]="!placesUpdate.Vsalid">Update</button> -->
+                                    <button class="btn btn-custom right" type="submit" >Update</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="col s7">
+                        <table class="responsive-table highlight">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                </tr>
+                            </thead>
+                            <tr *ngFor="let list of location.Place">
+                                <td>{{list.name}}</td>
+                                <td>{{list.email}}</td>
+                                <td>{{list.phone}}</td>
+                                <td>{{list.address}}</td>
+                                <td>
+                                    <a class="action-btn" (click)="onEdit(list)">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+
+                                    <a class="action-btn">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -3,6 +3,7 @@ export interface user
 
 }
 
+//places
 export interface place
 {
   name: string,
