@@ -51,33 +51,33 @@ export class DashboardService {
 
   pieChart() {
     return [{
-      name: 'Chrome',
+      name: 'Colombo General Hospital - කොළඹ මහ රෝහල',
       y: 1,
       sliced: true,
       selected: true
     }, {
-      name: 'Internet Explorer',
+      name: 'PGH – Badulla - පළාත් මහ රෝහල - බදුල්ල',
       y: 1
     }, {
-      name: 'Firefox',
+      name: 'DGH – Polonnaruwa - දිස්ත්‍රික් මහ රෝහල - පොලොන්නරුව',
       y: 2
     }, {
-      name: 'Edge',
+      name: 'Base Hospital- Hambantota - මූලික රෝහල - හම්බන්තොට',
       y: 4.67
     }, {
-      name: 'Safari',
+      name: 'DGH-Kalutara - දිස්ත්‍රික් මහ රෝහල',
       y: 4.18
     }, {
-      name: 'Sogou Explorer',
+      name: 'Base Hospital Mulleriyawa - මූලික රෝහල - මුල්ලේරියාව',
       y: 1.64
     }, {
-      name: 'Opera',
+      name: 'DGH- Gampaha - දිස්ත්‍රික් මහ රෝහල - ගම්පහ',
       y: 1.6
     }, {
-      name: 'QQ',
+      name: 'Base Hospital - Monaragala - මූලික රෝහල - මොනරාගල',
       y: 1.2
     }, {
-      name: 'Other',
+      name: 'TH - Anuradhapura - ශික්ෂණ රෝහල - අනුරාධපුර',
       y: 2.61
     }];
   }

@@ -12,6 +12,10 @@ export class locationsService {
   selectedPlace: place;
   Place: place[];
 
+
+  // selectedEmployee: Employee;
+  // employees: Employee[];
+
   constructor(private httpClient: HttpClient) { }
 
   public locationUpdatedPrivate = {
@@ -76,12 +80,17 @@ export class locationsService {
 
 
   //stifi
-  getlocation()
-  {
-    return this.httpClient.get<{message : string, data : any}>('http://localhost:5000/protected/places/vsdvsvsvsvdsv')
-
+  getlocation()  {
+    return this.httpClient.get('http://localhost:5000/protected/places/');
   }
 
+  putLocation(place: place){
+    return this.httpClient.put('http://localhost:5000/protected/places/'+`${place.email}`,place)
+  }
+
+  deleteLocation(email:string){
+    return this.httpClient.delete('http://localhost:5000/protected/places/delete/'+`${email}`)
+  }
 
 
 }

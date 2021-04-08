@@ -33,6 +33,21 @@ routes.get("/places/:type", locationController.getPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
+
+//stifi....... // need to authenticate (by adding authJwt)  but left like this until authentication is finished
+ routes.get("/places", locationController.getAllPlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+routes.put("/places/:email", locationController.updateLocation, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+routes.delete("/places/delete/:email", locationController.deleteLocation, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+
 // need to authenticate (by adding authJwt) but left like this until authentication is finished
 routes.get("/officers/:type", officersController.getOfficers, (req, res) => {
   res.send('Private route accessed!');

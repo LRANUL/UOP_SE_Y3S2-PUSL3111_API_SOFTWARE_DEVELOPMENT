@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -89,7 +89,7 @@ var _validator = __webpack_require__(29);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _bcryptNodejs = __webpack_require__(16);
+var _bcryptNodejs = __webpack_require__(17);
 
 var _jsonwebtoken = __webpack_require__(24);
 
@@ -372,7 +372,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.authJwt = exports.authLocal = undefined;
 
-var _passport = __webpack_require__(6);
+var _passport = __webpack_require__(7);
 
 var _passport2 = _interopRequireDefault(_passport);
 
@@ -480,10 +480,16 @@ exports.default = {
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport");
+module.exports = require("body-parser");
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport");
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -501,19 +507,19 @@ var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
 var _auth = __webpack_require__(3);
 
-var _userController = __webpack_require__(15);
+var _userController = __webpack_require__(16);
 
 var userController = _interopRequireWildcard(_userController);
 
-var _locationController = __webpack_require__(13);
+var _locationController = __webpack_require__(14);
 
 var locationController = _interopRequireWildcard(_locationController);
 
-var _officersController = __webpack_require__(14);
+var _officersController = __webpack_require__(15);
 
 var officersController = _interopRequireWildcard(_officersController);
 
-var _covTrackController = __webpack_require__(12);
+var _covTrackController = __webpack_require__(13);
 
 var _validations = __webpack_require__(5);
 
@@ -537,6 +543,19 @@ routes.post("/places", locationController.createPlaces, (req, res) => {
 
 // need to authenticate (by adding authJwt) but left like this until authentication is finished
 routes.get("/places/:type", locationController.getPlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+//stifi....... // need to authenticate (by adding authJwt)  but left like this until authentication is finished
+routes.get("/places", locationController.getAllPlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+routes.put("/places/:email", locationController.updateLocation, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+routes.delete("/places/delete/:email", locationController.deleteLocation, (req, res) => {
   res.send('Private route accessed!');
 });
 
@@ -575,7 +594,7 @@ routes.post("/customer-checkin", _covTrackController.setCustomerCheckIn);
 exports.default = routes;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -608,7 +627,7 @@ _mongoose2.default.connection.once('open', () => console.log('MongoDB Running'))
 });
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -622,7 +641,7 @@ var _morgan = __webpack_require__(26);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _bodyParser = __webpack_require__(17);
+var _bodyParser = __webpack_require__(6);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
@@ -634,7 +653,7 @@ var _helmet = __webpack_require__(21);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
-var _passport = __webpack_require__(6);
+var _passport = __webpack_require__(7);
 
 var _passport2 = _interopRequireDefault(_passport);
 
@@ -659,13 +678,13 @@ exports.default = app => {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("cors");
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -675,7 +694,7 @@ var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _cors = __webpack_require__(10);
+var _cors = __webpack_require__(11);
 
 var _cors2 = _interopRequireDefault(_cors);
 
@@ -683,13 +702,13 @@ var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
-__webpack_require__(8);
+__webpack_require__(9);
 
-var _middlewares = __webpack_require__(9);
+var _middlewares = __webpack_require__(10);
 
 var _middlewares2 = _interopRequireDefault(_middlewares);
 
-var _covTrackRoutes = __webpack_require__(7);
+var _covTrackRoutes = __webpack_require__(8);
 
 var _covTrackRoutes2 = _interopRequireDefault(_covTrackRoutes);
 
@@ -730,7 +749,7 @@ app.listen(_config2.default.PORT, err => {
 });
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -823,7 +842,7 @@ const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -832,7 +851,9 @@ const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getPlaces = exports.createPlaces = undefined;
+exports.deleteLocation = exports.updateLocation = exports.getAllPlaces = exports.getPlaces = exports.createPlaces = undefined;
+
+var _bodyParser = __webpack_require__(6);
 
 var _mongoose = __webpack_require__(1);
 
@@ -870,8 +891,40 @@ const getPlaces = exports.getPlaces = (req, res) => {
   });
 };
 
+//get location details
+const getAllPlaces = exports.getAllPlaces = (req, res) => {
+  places.find((err, docs) => {
+    if (!err) {
+      res.send(docs);
+    } else {
+      console.log('Error in Retrieving Places : ' + JSON.stringify(err, undefined, 2));
+    }
+  });
+};
+
+//edit location
+const updateLocation = exports.updateLocation = (req, res) => {
+  //var location = { name: req.body.name, email: req.body.email, phone: req.body.phone, address: req.body.address };
+  places.update({ email: req.params.email }, req.body, { new: true, useFindAndModify: false }, (err, places) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(places);
+  });
+};
+
+//remove location
+const deleteLocation = exports.deleteLocation = (req, res) => {
+  places.deleteOne({ email: req.params.email }, (err, places) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json({ message: `${req.params.nic} was deleted.` });
+  });
+};
+
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -923,7 +976,7 @@ const getOfficer = exports.getOfficer = (req, res) => {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -962,16 +1015,10 @@ function login(req, res, next) {
 }
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("bcrypt-nodejs");
-
-/***/ }),
 /* 17 */
 /***/ (function(module, exports) {
 
-module.exports = require("body-parser");
+module.exports = require("bcrypt-nodejs");
 
 /***/ }),
 /* 18 */

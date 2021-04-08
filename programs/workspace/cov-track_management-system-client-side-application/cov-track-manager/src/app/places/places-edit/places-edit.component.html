@@ -1,53 +1,20 @@
 <!-- <p>places-edit works!</p> -->
 
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
 <div class="row">
     <div class="col s12">
         <div class="card">
             <div class="card-content white-text">
                 <div class="row">
-                    <div class="col s5">
-                        <form #placesUpdate="ngForm" (ngSubmit)="onSubmit(placesUpdate)">
-                            <!-- <input type="text" name="email" email="ngModel" [(ngModel)]="location.selectedPlace.email"> -->
-                            
-                            <div class="input-field col s12">
-                                <input type="text" name="name" #email="ngModel" [(ngModel)]="location.selectedPlace.name" placeholder="Name">
-                                <label>Name :  
-                                    <label class="red-text">*</label>
-                                </label>
-                            </div>
 
-                            <div class="input-field col s12">
-                                <input type="text" name="email" #email="ngModel" [(ngModel)]="location.selectedPlace.email" placeholder="Email">
-                                <label>Email :  
-                                    <label class="red-text">*</label>
-                                </label>
-                            </div>
 
-                            <div class="input-field col s12">
-                                <input type="text" name="phone" #email="ngModel" [(ngModel)]="location.selectedPlace.phone" placeholder="Phone">
-                                <label>Phone :  
-                                    <label class="red-text">*</label>
-                                </label>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <input type="text" name="address" #email="ngModel" [(ngModel)]="location.selectedPlace.address" placeholder="Address">
-                                <label>Address :  
-                                    <label class="red-text">*</label>
-                                </label>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <button class="btn btn-custom right" type="button" (click)="resetForm(placesUpdate)">Reset</button>
-                                    <!-- <button class="btn btn-custom right" type="submit" [disabled]="!placesUpdate.Vsalid">Update</button> -->
-                                    <button class="btn btn-custom right" type="submit" >Update</button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                    <div class="col s7">
+                    <div class="col s6">
                         <table class="responsive-table highlight">
                             <thead>
                                 <tr>
@@ -55,6 +22,9 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Address</th>
+                                    <!-- <th>Address</th>
+                                    <th>Address</th>
+                                    <th>Address</th> -->
                                 </tr>
                             </thead>
                             <tr *ngFor="let list of location.Place">
@@ -62,18 +32,68 @@
                                 <td>{{list.email}}</td>
                                 <td>{{list.phone}}</td>
                                 <td>{{list.address}}</td>
+                                <!-- <td>{{list.QRimage}}</td>
+                                <td>{{list.city}}</td>
+                                <td>{{list.sector}}</td>
+                                <td>{{list._id}}</td> -->
                                 <td>
-                                    <a class="action-btn" (click)="onEdit(list)">
+                                    <a style="margin-right: 20px;" class="action-btn" (click)="onEdit(list)">
                                         <i class="material-icons">edit</i>
                                     </a>
 
-                                    <a class="action-btn">
+                                    <a class="action-btn" (click)="onDelete(list.email,placesUpdate)">
                                         <i class="material-icons">delete</i>
                                     </a>
                                 </td>
                             </tr>
                         </table>
                     </div>
+                    <div class="col s5">
+                        <form #placesUpdate="ngForm" (ngSubmit)="onSubmit(placesUpdate)">
+                            <!-- <input type="text" name="email" email="ngModel" [(ngModel)]="location.selectedPlace.email"> -->
+                            
+                            <div class="input-field col s12">
+                                <input style="margin: 20px;" type="text" name="name" #name="ngModel" [(ngModel)]="location.selectedPlace.name" placeholder="Name">
+                                <label >Name :  
+                                    <label class="red-text">*</label>
+                                </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input style="margin: 20px;" type="text" name="email" #name="ngModel" [(ngModel)]="location.selectedPlace.email" placeholder="Email">
+                                <label>Email :  
+                                    <label class="red-text">*</label>
+                                </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input style="margin: 20px;" type="text" name="phone" #name="ngModel" [(ngModel)]="location.selectedPlace.phone" placeholder="Phone">
+                                <label>Phone :  
+                                    <label class="red-text">*</label>
+                                </label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input style="margin: 20px;" type="text" name="address" #name="ngModel" [(ngModel)]="location.selectedPlace.address" placeholder="Address">
+                                <label>Address :  
+                                    <label class="red-text">*</label>
+                                </label>
+                            </div>
+                            
+
+                            <div class="row">
+                                <div class="input-field col s9">
+                                    <button class="btn btn-custom right" type="button" (click)="resetForm(placesUpdate)">Reset</button>
+                                    <button class="btn btn-custom right" type="submit" [disabled]="!placesUpdate.valid" >Update</button>
+                                    <!-- <button class="btn btn-custom right" type="submit" >Update</button> -->
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                 
+                    
                 </div>
             </div>
         </div>
