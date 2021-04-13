@@ -25,8 +25,7 @@ export class locationsService {
     email: '',
     phone: '',
     city: '',
-    QRcode: '',
-    QRimage: ''
+    QRcode: ''
     };
     private locationPrivate = new Subject();
 
@@ -42,8 +41,7 @@ export class locationsService {
       email: '',
       phone: '',
       city: '',
-      QRcode: '',
-      QRimage: ''
+      QRcode: ''
       };
       private locationPublic = new Subject();
 
@@ -51,6 +49,22 @@ export class locationsService {
       {
         return this.locationPublic.asObservable();
       }
+
+      public locationUpdated = {
+        name: '',
+        address: '',
+        sector: '',
+        email: '',
+        phone: '',
+        city: '',
+        QRcode: ''
+        };
+        private location = new Subject();
+
+        getOneLocation()
+        {
+          return this.location.asObservable();
+        }
 
 
   createlocation(form)
@@ -78,6 +92,14 @@ export class locationsService {
      });;
   }
 
+  getSinglelocation(code)  {
+    return this.httpClient.get<{message : string, data : any}>('http://localhost:5000/protected/one/place/' + code).subscribe(res=>{
+      console.log(res.data);
+      this.locationUpdated = res.data;
+      this.location.next(this.locationUpdated);
+   });
+  }
+
 
   //stifi
   getlocation()  {
@@ -91,6 +113,4 @@ export class locationsService {
   deleteLocation(email:string){
     return this.httpClient.delete('http://localhost:5000/protected/places/delete/'+`${email}`)
   }
-
-
 }

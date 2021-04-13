@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { place } from 'src/app/modals/users';
 import { locationsService } from 'src/app/services/location.service';
+import { PlacesViewComponent } from '../places-view/places-view.component';
 
 @Component({
   selector: 'app-places-list',
@@ -10,7 +12,7 @@ import { locationsService } from 'src/app/services/location.service';
 })
 export class PlacesListComponent implements OnInit {
 
-  constructor(private location: locationsService, private router: Router) { }
+  constructor(private location: locationsService, private router: Router, public dialog: MatDialog) { }
 
   type1 = "Private";
   locationsPrivate = new Array();
@@ -21,8 +23,7 @@ export class PlacesListComponent implements OnInit {
     email: '',
     phone: '',
     city: '',
-    QRcode: '',
-    QRimage: ''
+    QRcode: ''
   };
 
   type2 = "Public";
@@ -34,8 +35,7 @@ export class PlacesListComponent implements OnInit {
     email: '',
     phone: '',
     city: '',
-    QRcode: '',
-    QRimage: ''
+    QRcode: ''
   };
   ngOnInit(): void {
     this.getPrivateLocation(this.type1);
@@ -58,8 +58,7 @@ export class PlacesListComponent implements OnInit {
         email: data[counter].email,
         phone: data[counter].phone,
         city: data[counter].city,
-        QRcode: data[counter].QRcode,
-        QRimage: data[counter].QRimage
+        QRcode: data[counter].QRcode
        };
        this.locationsPrivate.push(this.dataPrivate);
       }
@@ -82,8 +81,7 @@ export class PlacesListComponent implements OnInit {
         email: data[counter].email,
         phone: data[counter].phone,
         city: data[counter].city,
-        QRcode: data[counter].QRcode,
-        QRimage: data[counter].QRimage
+        QRcode: data[counter].QRcode
        };
        this.locationsPublic.push(this.dataPublic);
       }
@@ -95,5 +93,39 @@ export class PlacesListComponent implements OnInit {
     this.router.navigateByUrl("/places/create");
   }
 
+  viewUser(value: string)
+  {
+    const dialogRef = this.dialog.open(PlacesViewComponent, {
+      width: '50%',
+      height: '85%',
+      data: {qrCode: value}
+    });
+  }
 
+  downloadQR(code) {
+    const parentElement =  code.el.nativeElement.querySelector("img").src;
+    let blobData = this.convertBase64ToBlob(parentElement);
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveOrOpenBlob(blobData, 'Qrcode');
+    } else {
+      const blob = new Blob([blobData], { type: "image/png" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Qrcode';
+      link.click();
+    }
+  }
+
+  private convertBase64ToBlob(Base64Image: any) {
+    const parts = Base64Image.split(';base64,');
+    let link = parts[1]
+    const imageType = parts[0].split(':')[1];
+    const decodedData = window.atob(parts[1]);
+    const uInt8Array = new Uint8Array(decodedData.length);
+    for (let i = 0; i < decodedData.length; ++i) {
+      uInt8Array[i] = decodedData.charCodeAt(i);
+    }
+    return new Blob([uInt8Array], { type: imageType });
+  }
 }

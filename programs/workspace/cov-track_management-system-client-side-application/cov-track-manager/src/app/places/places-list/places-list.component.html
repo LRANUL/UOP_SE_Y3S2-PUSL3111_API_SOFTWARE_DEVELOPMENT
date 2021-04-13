@@ -11,28 +11,27 @@
       <mat-card-content>
         <mat-grid-list cols="3" rowHeight="3:1">
           <mat-grid-tile style="width: 40px;">
-            <qrcode #parent [qrdata]="location.QRcode" [size]="120"></qrcode>
+            <qrcode #codePrivate [qrdata]="location.QRcode" [size]="120"></qrcode>
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="button" style="padding-right: 30px;">
                     <button mat-stroked-button style="width: 100%;" [routerLink]="['/','places','edit_place']"  >Edit</button>
                     <!-- <button mat-stroked-button style="width: 100%;" href="./places/edit_place"  >Edit</button> -->
             </div>
+            <div class="button" style="padding-right: 30px;">
+              <button mat-stroked-button style="width: 100%;" (click)=" viewUser(location.QRcode)">View</button>
+            </div>
             <div class="button">
-              <button mat-stroked-button style="width: 100%;">Delete</button>
+              <button mat-stroked-button style="width: 100%;"  (click)="downloadQR(codePrivate)">Download QR</button>
             </div>
           </mat-grid-tile>
           <mat-grid-tile>
               <mat-label>
                 Name: {{location.name}}
-                 <br>
-                Sector: {{location.sector}}
                 <br>
                 Email: {{location.email}}
                 <br>
-                Phone Number: {{location.phone}}
-                <br>
-                Address: {{location.address}}
+                City: {{location.city}}
               </mat-label>
               <br>
           </mat-grid-tile>
@@ -52,28 +51,27 @@
       <mat-card-content>
         <mat-grid-list cols="3" rowHeight="3:1">
           <mat-grid-tile style="width: 40px;">
-            <qrcode #parent [qrdata]="location.QRcode" [size]="120"></qrcode>
+            <qrcode #codePublic [qrdata]="location.QRcode" [size]="120"></qrcode>
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="button" style="padding-right: 30px;">
                     <button mat-stroked-button style="width: 100%;" [routerLink]="['/','places','edit_place']"   >Edit</button>
                     <!-- <button mat-stroked-button style="width: 100%;" href="./places/edit_place"  >Edit</button> -->
             </div>
+            <div class="button" style="padding-right: 30px;">
+              <button mat-stroked-button style="width: 100%;" (click)=" viewUser(location.QRcode)">View</button>
+            </div>
             <div class="button">
-              <button mat-stroked-button style="width: 100%;">Delete</button>
+              <button mat-stroked-button style="width: 100%;"  (click)="downloadQR(codePublic)">Download QR</button>
             </div>
           </mat-grid-tile>
           <mat-grid-tile>
               <mat-label>
                 Name: {{location.name}}
-                 <br>
-                Sector: {{location.sector}}
                 <br>
                 Email: {{location.email}}
                 <br>
-                Phone Number: {{location.phone}}
-                <br>
-                Address: {{location.address}}
+                City: {{location.city}}
               </mat-label>
               <br>
           </mat-grid-tile>

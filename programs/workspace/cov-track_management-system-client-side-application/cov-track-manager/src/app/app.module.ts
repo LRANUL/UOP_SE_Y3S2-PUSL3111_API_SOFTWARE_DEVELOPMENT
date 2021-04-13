@@ -40,6 +40,7 @@ import { OfficersListComponent } from './officers/officers-list/officers-list.co
 import { OfficersViewComponent } from './officers/officers-view/officers-view.component';
 import { OfficersEditComponent } from './officers/officers-edit/officers-edit.component';
 import { PlacesEditComponent } from './places/places-edit/places-edit.component';
+import { PlacesViewComponent } from './places/places-view/places-view.component';
 
 // import {}  from '../app/dashboard/shared/shared.module';
 
@@ -60,6 +61,7 @@ import { PlacesEditComponent } from './places/places-edit/places-edit.component'
     OfficersViewComponent,
     OfficersEditComponent,
     PlacesEditComponent,
+    PlacesViewComponent,
     // LayoutsComponent,
     // DefaultComponent,
     // FooterComponent,

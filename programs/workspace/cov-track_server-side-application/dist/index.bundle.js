@@ -187,10 +187,6 @@ const placesSchema = exports.placesSchema = new _mongoose.Schema({
     type: String,
     required: true
   },
-  QRimage: {
-    type: String,
-    required: true
-  },
   email: {
     type: String,
     required: true },
@@ -546,7 +542,11 @@ routes.get("/places/:type", locationController.getPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
-//stifi....... // need to authenticate (by adding authJwt)  but left like this until authentication is finished
+routes.get("/one/place/:code", locationController.getSinglePlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
+
+// stifi....... // need to authenticate (by adding authJwt)  but left like this until authentication is finished
 routes.get("/places", locationController.getAllPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
@@ -851,7 +851,7 @@ const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteLocation = exports.updateLocation = exports.getAllPlaces = exports.getPlaces = exports.createPlaces = undefined;
+exports.deleteLocation = exports.updateLocation = exports.getAllPlaces = exports.getSinglePlaces = exports.getPlaces = exports.createPlaces = undefined;
 
 var _bodyParser = __webpack_require__(6);
 
@@ -891,7 +891,22 @@ const getPlaces = exports.getPlaces = (req, res) => {
   });
 };
 
-//get location details
+const getSinglePlaces = exports.getSinglePlaces = (req, res) => {
+  places.findOne({ QRcode: req.params.code }).then(data => {
+    if (data) {
+      res.status(200).json({
+        message: "It works",
+        data
+      });
+    } else {
+      res.status(404).json({
+        message: "The user does not exist"
+      });
+    }
+  });
+};
+
+// get location details
 const getAllPlaces = exports.getAllPlaces = (req, res) => {
   places.find((err, docs) => {
     if (!err) {
@@ -902,9 +917,9 @@ const getAllPlaces = exports.getAllPlaces = (req, res) => {
   });
 };
 
-//edit location
+// edit location
 const updateLocation = exports.updateLocation = (req, res) => {
-  //var location = { name: req.body.name, email: req.body.email, phone: req.body.phone, address: req.body.address };
+  // var location = { name: req.body.name, email: req.body.email, phone: req.body.phone, address: req.body.address };
   places.update({ email: req.params.email }, req.body, { new: true, useFindAndModify: false }, (err, places) => {
     if (err) {
       res.send(err);
@@ -913,7 +928,7 @@ const updateLocation = exports.updateLocation = (req, res) => {
   });
 };
 
-//remove location
+// remove location
 const deleteLocation = exports.deleteLocation = (req, res) => {
   places.deleteOne({ email: req.params.email }, (err, places) => {
     if (err) {

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { place } from 'src/app/modals/users';
 import { locationsService } from 'src/app/services/location.service';
 
@@ -12,19 +13,17 @@ export class QrGenerationComponent implements OnInit {
 
   value
 
-  constructor(private location: locationsService, public dialogRef: MatDialogRef<QrGenerationComponent>,
+  constructor(private location: locationsService, private router: Router, public dialogRef: MatDialogRef<QrGenerationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: place){ }
 
   ngOnInit(): void {
     console.log(this.data.QRcode);
   }
 
-  close(parent){
-    const parentElement =  parent.el.nativeElement.querySelector("img").src;
-    let blobData = this.convertBase64ToBlob(parentElement);
-    console.log(this.data);
+  close(){
     this.location.createlocation(this.data);
     this.dialogRef.close();
+    this.router.navigateByUrl("/places");
   }
 
   saveAsImage(parent) {
@@ -48,7 +47,6 @@ export class QrGenerationComponent implements OnInit {
   private convertBase64ToBlob(Base64Image: any) {
     const parts = Base64Image.split(';base64,');
     let link = parts[1]
-    this.data.QRimage = link;
     const imageType = parts[0].split(':')[1];
     const decodedData = window.atob(parts[1]);
     const uInt8Array = new Uint8Array(decodedData.length);

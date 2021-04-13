@@ -88,10 +88,6 @@ export const placesSchema = new Schema({
     type: String,
     required: true
   },
-  QRimage: { 
-    type: String,
-    required: true
-  },
   email: {
      type: String,
      required: true},

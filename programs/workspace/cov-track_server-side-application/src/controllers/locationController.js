@@ -31,8 +31,25 @@ export const getPlaces = (req, res) => {
     })
 }
 
+export const getSinglePlaces = (req, res) => {
+  places.findOne({ QRcode : req.params.code })
+    .then((data) => {
+      if (data) {
+        res.status(200).json({
+          message: "It works",
+          data
+        })
+      } else {
+        res.status(404).json({
+          message: "The user does not exist"
+        })
+      }
+    })
+}
 
-//get location details
+
+
+// get location details
 export const getAllPlaces = (req, res) => {
   places.find((err, docs) => {
     if (!err) { res.send(docs); }
@@ -43,9 +60,9 @@ export const getAllPlaces = (req, res) => {
 
 }
 
-//edit location
+// edit location
 export const updateLocation = (req, res) => {
-  //var location = { name: req.body.name, email: req.body.email, phone: req.body.phone, address: req.body.address };
+  // var location = { name: req.body.name, email: req.body.email, phone: req.body.phone, address: req.body.address };
   places.update(
     {email: req.params.email}, 
     req.body,
@@ -59,7 +76,7 @@ export const updateLocation = (req, res) => {
   );
 };
 
-//remove location
+// remove location
 export const deleteLocation = (req, res) => {
   places.deleteOne({ email: req.params.email }, (err, places) => {
     if (err) {

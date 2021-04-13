@@ -12,8 +12,7 @@ export interface place
   email: string,
   phone:string,
   city: string,
-  QRcode: string,
-  QRimage: string
+  QRcode: string
 }
 
 export interface officers{
@@ -32,6 +31,10 @@ export interface officers{
 
 export interface view{
   email: string
+}
+
+export interface singleLocation{
+  qrCode: string
 }
 
 export interface officer{

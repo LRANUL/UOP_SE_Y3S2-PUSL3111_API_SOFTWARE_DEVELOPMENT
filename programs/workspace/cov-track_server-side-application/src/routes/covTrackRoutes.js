@@ -33,8 +33,12 @@ routes.get("/places/:type", locationController.getPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
+routes.get("/one/place/:code", locationController.getSinglePlaces, (req, res) => {
+  res.send('Private route accessed!');
+});
 
-//stifi....... // need to authenticate (by adding authJwt)  but left like this until authentication is finished
+
+// stifi....... // need to authenticate (by adding authJwt)  but left like this until authentication is finished
  routes.get("/places", locationController.getAllPlaces, (req, res) => {
   res.send('Private route accessed!');
 });

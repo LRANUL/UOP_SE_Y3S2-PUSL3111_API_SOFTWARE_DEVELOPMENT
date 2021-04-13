@@ -35,9 +35,7 @@ export class PlacesEditComponent implements OnInit {
       email: "",
       phone: "",
       city: "",
-      QRcode: "",
-      QRimage: "",
-
+      QRcode: ""
     }
 
     this.getInfo.getlocation().subscribe(res => {
@@ -75,7 +73,7 @@ export class PlacesEditComponent implements OnInit {
   }
 
   onDelete(email: string, form: NgForm){
-    if(confirm('Are you sure want to delete')==true){ 
+    if(confirm('Are you sure want to delete')==true){
       this.location.deleteLocation(email).subscribe((res)=>{
         this.refreshLocationList();
         this.resetForm(form);
