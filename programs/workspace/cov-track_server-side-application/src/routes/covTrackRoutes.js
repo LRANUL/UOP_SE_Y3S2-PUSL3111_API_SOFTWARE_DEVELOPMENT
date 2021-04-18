@@ -3,10 +3,11 @@ import validate from 'express-validation';
 
 import { authLocal, authJwt } from '../services/auth';
 
-import * as userController from '../controllers/userController';
+import { userController } from '../controllers/userController';
 import * as locationController from '../controllers/locationController';
 import * as officersController from '../controllers/officersController';
 import {
+  getCustomerHistory,
   getCustomerCheckInStatus,
   getCustomerFromNIC,
   updateCustomerFromNIC,
@@ -23,7 +24,7 @@ routes.get('/test', authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
 
- // need to authenticate (by adding authJwt)  but left like this until authentication is finished
+// need to authenticate (by adding authJwt)  but left like this until authentication is finished
 routes.post("/places", locationController.createPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
@@ -39,7 +40,7 @@ routes.get("/one/place/:code", locationController.getSinglePlaces, (req, res) =>
 
 
 // stifi....... // need to authenticate (by adding authJwt)  but left like this until authentication is finished
- routes.get("/places", locationController.getAllPlaces, (req, res) => {
+routes.get("/places", locationController.getAllPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
@@ -83,5 +84,7 @@ routes.get("/get-customers", getCustomers);
 routes.get("/customer-checkin-status/:nic", getCustomerCheckInStatus);
 // For checking in customer
 routes.post("/customer-checkin", setCustomerCheckIn);
+// For getting in customer history
+routes.post("/customer-history", getCustomerHistory);
 
 export default routes;
