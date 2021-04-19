@@ -88,6 +88,6 @@ routes.get("/customer-checkin-status/:nic", getCustomerCheckInStatus);
 // For checking in customer
 routes.post("/customer-checkin", setCustomerCheckIn);
 // For getting in customer history
-routes.post("/customer-history", getCustomerHistory);
+routes.get("/customer-history/:nic", getCustomerHistory);
 
 export default routes;

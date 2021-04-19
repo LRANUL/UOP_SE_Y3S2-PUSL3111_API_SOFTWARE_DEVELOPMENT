@@ -594,7 +594,7 @@ routes.get("/customer-checkin-status/:nic", _covTrackController.getCustomerCheck
 // For checking in customer
 routes.post("/customer-checkin", _covTrackController.setCustomerCheckIn);
 // For getting in customer history
-routes.post("/customer-history", _covTrackController.getCustomerHistory);
+routes.get("/customer-history/:nic", _covTrackController.getCustomerHistory);
 
 exports.default = routes;
 
@@ -866,7 +866,7 @@ const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
  * @param {string} nic to find customer histroy records by provided NIC
  * */
 const getCustomerHistory = exports.getCustomerHistory = (req, res) => {
-  History.findOne({ nic: req.params.nic }, (err, History) => {
+  History.find({ nic: req.params.nic }, (err, History) => {
     if (err) {
       res.send(err);
     }

@@ -99,7 +99,7 @@ export const setCustomerCheckIn = (req, res) => {
  * @param {string} nic to find customer histroy records by provided NIC
  * */
 export const getCustomerHistory = (req, res) => {
-  History.findOne({ nic: req.params.nic }, (err, History) => {
+  History.find({ nic: req.params.nic }, (err, History) => {
     if (err) {
       res.send(err);
     }
