@@ -15,6 +15,8 @@ import { DefaultComponent } from './dashboard/layouts/default/default.component'
 import { DashboardComponent } from './dashboard/modules/dashboard/dashboard.component'
 import { OfficersListComponent } from './officers/officers-list/officers-list.component';
 
+import { NotificationComponent } from './notification/notification.component'
+
 const routes: Routes = [
   // {path:'dashboard', component:DefaultComponent},
   // {path:'dashboard', component:DashboardComponent},
@@ -36,7 +38,8 @@ const routes: Routes = [
   {path:"places/edit/:placeId", component:PlaceCreateComponent },
   {path:"login", component:LoginComponent},
   {path:"signup" , component: SignupComponent},
-  {path:"places/edit_place" , component: PlacesEditComponent}
+  {path:"places/edit_place" , component: PlacesEditComponent},
+  {path:"notifications" , component: NotificationComponent}
 
 ];
 

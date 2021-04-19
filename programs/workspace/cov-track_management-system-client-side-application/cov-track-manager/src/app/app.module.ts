@@ -4,12 +4,19 @@ import { NgModule } from '@angular/core';
 import { ChartModule } from 'angular-highcharts'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MaterialModule} from './material';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MaterialModule } from './material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
 
+import { MessagingService } from './services/messaging.service';
+import { environment } from '../environments/environment';
+import { AsyncPipe } from '../../node_modules/@angular/common';
 
 import { HeaderComponent } from './header/header.component';
 import { CitizenListComponent } from './health-inspection/citizen-list/citizen-list.component';
@@ -41,6 +48,12 @@ import { OfficersViewComponent } from './officers/officers-view/officers-view.co
 import { OfficersEditComponent } from './officers/officers-edit/officers-edit.component';
 import { PlacesEditComponent } from './places/places-edit/places-edit.component';
 import { PlacesViewComponent } from './places/places-view/places-view.component';
+import { NotificationComponent } from './notification/notification.component';
+
+import { MatDialogModule } from '@angular/material/dialog'
+
+import { NotifierModule } from 'angular-notifier';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // import {}  from '../app/dashboard/shared/shared.module';
 
@@ -62,6 +75,10 @@ import { PlacesViewComponent } from './places/places-view/places-view.component'
     OfficersEditComponent,
     PlacesEditComponent,
     PlacesViewComponent,
+    NotificationComponent,
+
+
+
     // LayoutsComponent,
     // DefaultComponent,
     // FooterComponent,
@@ -70,6 +87,7 @@ import { PlacesViewComponent } from './places/places-view/places-view.component'
     // CardComponent,
     // PieComponent,
   ],
+  // entryComponents:[NotificationComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -82,9 +100,14 @@ import { PlacesViewComponent } from './places/places-view/places-view.component'
     MatDividerModule,
     MatSidenavModule,
     ChartModule,
-    DefaultModule
+    DefaultModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    MatDialogModule
   ],
-  providers: [],
+  providers: [MessagingService,AsyncPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
