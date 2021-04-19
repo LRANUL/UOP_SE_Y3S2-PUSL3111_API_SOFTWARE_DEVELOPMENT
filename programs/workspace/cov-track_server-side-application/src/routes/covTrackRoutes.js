@@ -3,7 +3,7 @@ import validate from 'express-validation';
 
 import { authLocal, authJwt } from '../services/auth';
 
-import { userController } from '../controllers/userController';
+import * as userController from '../controllers/userController';
 import * as locationController from '../controllers/locationController';
 import * as officersController from '../controllers/officersController';
 import {
@@ -76,7 +76,10 @@ routes.put("/customer-update/:nic", updateCustomerFromNIC);
 // For getting customer from NIC
 routes.get("/customer/:nic", getCustomerFromNIC);
 // For getting all customers
-routes.get("/get-customers", getCustomers);
+routes.get("/get-customers", authJwt, getCustomers);
+// routes.get('/get-customers', authJwt, (req, res) => {
+//   res.send('Private route accessed!');
+// });
 
 /** Customer Checkin and History Routes */
 
