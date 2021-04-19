@@ -582,7 +582,10 @@ routes.put("/customer-update/:nic", _covTrackController.updateCustomerFromNIC);
 // For getting customer from NIC
 routes.get("/customer/:nic", _covTrackController.getCustomerFromNIC);
 // For getting all customers
-routes.get("/get-customers", _covTrackController.getCustomers);
+routes.get("/get-customers", _auth.authJwt, _covTrackController.getCustomers);
+// routes.get('/get-customers', authJwt, (req, res) => {
+//   res.send('Private route accessed!');
+// });
 
 /** Customer Checkin and History Routes */
 
@@ -590,6 +593,8 @@ routes.get("/get-customers", _covTrackController.getCustomers);
 routes.get("/customer-checkin-status/:nic", _covTrackController.getCustomerCheckInStatus);
 // For checking in customer
 routes.post("/customer-checkin", _covTrackController.setCustomerCheckIn);
+// For getting in customer history
+routes.post("/customer-history", _covTrackController.getCustomerHistory);
 
 exports.default = routes;
 
@@ -758,7 +763,7 @@ app.listen(_config2.default.PORT, err => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setCustomerCheckIn = exports.getCustomerCheckInStatus = exports.removeCustomerFromNIC = exports.updateCustomerFromNIC = exports.getCustomerFromNIC = exports.getCustomers = exports.addNewCustomer = undefined;
+exports.getCustomerHistory = exports.setCustomerCheckIn = exports.getCustomerCheckInStatus = exports.removeCustomerFromNIC = exports.updateCustomerFromNIC = exports.getCustomerFromNIC = exports.getCustomers = exports.addNewCustomer = undefined;
 
 var _mongoose = __webpack_require__(1);
 
@@ -793,7 +798,10 @@ const getCustomers = exports.getCustomers = (req, res) => {
     res.json(Customer);
   });
 };
-/** Find Customer by NIC */
+/** 
+ * Find Customer by NIC 
+ * @param {string} nic requests provides NIC to find customer
+*/
 const getCustomerFromNIC = exports.getCustomerFromNIC = (req, res) => {
   Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
     if (err) {
@@ -802,7 +810,11 @@ const getCustomerFromNIC = exports.getCustomerFromNIC = (req, res) => {
     res.json(Customer);
   });
 };
-/** Update Customer by NIC */
+/** 
+ * Update Customer by NIC 
+ * @param {string} nic requests provides NIC to update customer data
+ * @param {string} body consists data as a JSON object to update existing Profile
+*/
 const updateCustomerFromNIC = exports.updateCustomerFromNIC = (req, res) => {
   Customer.findOne({ nic: req.params.nic }, req.body, { new: true, useFindAndModify: false }, (err, Customer) => {
     if (err) {
@@ -811,7 +823,10 @@ const updateCustomerFromNIC = exports.updateCustomerFromNIC = (req, res) => {
     res.json(Customer);
   });
 };
-/** Remove Customer by NIC */
+/** 
+ * Remove Customer by NIC 
+ * @param {string} nic remove customer by provided NIC
+*/
 const removeCustomerFromNIC = exports.removeCustomerFromNIC = (req, res) => {
   // eslint-disable-next-line no-unused-vars
   Customer.findOneAndDelete({ nic: req.params.nic }, (err, Customer) => {
@@ -821,7 +836,10 @@ const removeCustomerFromNIC = exports.removeCustomerFromNIC = (req, res) => {
     res.json({ message: `${req.params.nic} was deleted.` });
   });
 };
-/** Find Customer CheckIn Status */
+/** 
+ * Find Customer CheckIn Status 
+ * @param {string} nic to find customer checkin status by provided NIC
+ * */
 const getCustomerCheckInStatus = exports.getCustomerCheckInStatus = (req, res) => {
   Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
     if (err) {
@@ -830,10 +848,25 @@ const getCustomerCheckInStatus = exports.getCustomerCheckInStatus = (req, res) =
     res.json(Customer.checkedin);
   });
 };
-/** Adding a New Checkin to Customer */
+/** 
+ * Adding a New Checkin to Customer 
+ * @param {Object} body records customer activity to database
+ * */
 const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
   let newCheckInRecord = new History(req.body);
   newCheckInRecord.save((err, History) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(History);
+  });
+};
+/** 
+ * Find records of History per customer 
+ * @param {string} nic to find customer histroy records by provided NIC
+ * */
+const getCustomerHistory = exports.getCustomerHistory = (req, res) => {
+  History.findOne({ nic: req.params.nic }, (err, History) => {
     if (err) {
       res.send(err);
     }
