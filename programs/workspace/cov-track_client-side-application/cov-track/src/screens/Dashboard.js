@@ -14,7 +14,7 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 function Dashboard(props) {
   let mobileView = true
   if (Platform.OS === 'web') {
-    // mobileView = false
+    mobileView = false
     // setting to true during development
     // @RyanCargon and @hvlhasanka comment line 17 to after testing
   }

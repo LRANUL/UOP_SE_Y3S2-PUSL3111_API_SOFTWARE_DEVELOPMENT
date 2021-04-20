@@ -35,6 +35,9 @@ export const CustomerSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  historyID: {
+    type: String,
+  },
   nic: {
     type: String,
     required: "NIC is required",
@@ -62,11 +65,19 @@ export const HistorySchema = new Schema({
     type: String,
     required: "Email address is required",
   },
-  longitude: {
+  checkinlongitude: {
     type: Number,
     required: "Longitude is required",
   },
-  latitude: {
+  checkinlatitude: {
+    type: Number,
+    required: "Latitude is required",
+  },
+  checkoutlongitude: {
+    type: Number,
+    required: "Longitude is required",
+  },
+  checkoutlatitude: {
     type: Number,
     required: "Latitude is required",
   },
@@ -84,29 +95,34 @@ export const HistorySchema = new Schema({
 });
 
 export const placesSchema = new Schema({
-  QRcode: { 
+  QRcode: {
     type: String,
     required: true
   },
   email: {
-     type: String,
-     required: true},
+    type: String,
+    required: true
+  },
   name: {
-     type: String,
-     required: true },
+    type: String,
+    required: true
+  },
   sector: {
     type: String,
-    required: true },
-  phone: { 
+    required: true
+  },
+  phone: {
     type: Number,
-    required: true },
+    required: true
+  },
   address: {
     type: String,
-    required: true 
+    required: true
   },
   city: {
-     type: String,
-     required: true}
+    type: String,
+    required: true
+  }
 })
 
 const UserSchema = new Schema(
@@ -180,7 +196,7 @@ UserSchema.plugin(uniqueValidator, {
   message: '{VALUE} already taken!',
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
   if (this.isModified('password')) {
     this.password = this._hashPassword(this.password);
   }

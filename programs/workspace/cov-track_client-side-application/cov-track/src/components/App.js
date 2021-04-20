@@ -18,8 +18,8 @@ import SignInScreen from "../screens/SignIn";
 import testStore from '../screens/testStore';
 
 const DrawerStack = createDrawerNavigator({
-//  Login: Login,
-//  Register: Register,
+ Login: Login,
+ Register: Register,
   Dashboard: Dashboard,
   History: History,
   CheckIn: CheckIn,
@@ -70,26 +70,31 @@ const AppContainer = createAppContainer(
   )
 );
 
-function App(){
-  return (
-    <AppContainer />
-  );
-}
-
-// function App() {
-//   const [isLoadingComplete, setLoadingComplete] = useState(false);
-//   if (!isLoadingComplete) {
-//     return (
-//       <AppLoading
-//         startAsync={loadResourcesAsync}
-//         onError={handleLoadingError}
-//         onFinish={() => handleFinishLoading(setLoadingComplete)}
-//       />
-//     );
-//   } else {
-//     return isLoadingComplete ? <AppContainer /> : <AppLoading />;
-//   }
+// function App(){
+//   return (
+//     <AppContainer />
+//   );
 // }
+
+function App() {
+  const [isLoadingComplete, setLoadingComplete] = useState(false);
+  if (!isLoadingComplete) {
+    <AppContainer />
+
+    return (
+
+      <AppLoading
+        startAsync={loadResourcesAsync}
+        onError={handleLoadingError}
+        onFinish={() => handleFinishLoading(setLoadingComplete)}
+        
+      />
+      
+    );
+  } else {
+    return isLoadingComplete ? <AppContainer /> : <AppLoading />;
+  }
+}
 async function loadResourcesAsync() {
   await Promise.all([
     Font.loadAsync({
