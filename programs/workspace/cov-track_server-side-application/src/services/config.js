@@ -15,7 +15,7 @@ const prodConfig = {
 };
 
 const defaultConfig = {
-  PORT: process.env.PORT || 5000,
+  PORT: process.env.PORT || 8081,
 };
 
 function envConfig(env) {
