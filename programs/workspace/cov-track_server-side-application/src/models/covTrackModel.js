@@ -81,11 +81,9 @@ export const HistorySchema = new Schema({
   },
   checkoutlongitude: {
     type: Number,
-    required: "Longitude is required",
   },
   checkoutlatitude: {
     type: Number,
-    required: "Latitude is required",
   },
   checkintime: {
     type: String,
@@ -93,7 +91,6 @@ export const HistorySchema = new Schema({
   },
   checkouttime: {
     type: String,
-    default: new Date().toLocaleTimeString(),
   },
   date: {
     type: String,
