@@ -1,11 +1,11 @@
 /* eslint-disable prefer-const */
 /* eslint-disable no-shadow */
 import mongoose from "mongoose";
-import { CitizenSchema, HistorySchema } from "../models/covTrackModel";
+import { CitizenSchema, HistorySchema, placesSchema } from "../models/covTrackModel";
 
 const Citizen = mongoose.model("Citizen", CitizenSchema);
 const History = mongoose.model("History", HistorySchema);
-
+const Business = mongoose.model("Business", placesSchema);
 /** Creating a New Citizen */
 export const addNewCitizen = (req, res) => {
   let newCitizen = new Citizen(req.body);
@@ -111,5 +111,18 @@ export const getCitizenHistory = (req, res) => {
       res.send(err);
     }
     res.json(History);
+  });
+};
+
+/** 
+ * Identify Authenticity of a UID - Citizen App Request
+ * @param {string} uid contains the unique identifier to track each business
+ */
+ export const getUIDAuthenticity = (req, res) => {
+  Business.findOne({ uid: req.params.uid }, (err, Business) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(true);
   });
 };

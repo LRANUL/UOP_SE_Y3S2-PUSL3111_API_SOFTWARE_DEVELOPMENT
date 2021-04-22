@@ -49,34 +49,55 @@ export default function App() {
     // Check CheckIn Status
     UserService.checkInStatus()
       .then(response => {
-        if (response.data == false) {
-          // CheckIn User
-          let checkInData = {
-            checkinlongitude,
-            checkinlatitude,
-            uid,
-            nic,
-            date,
-            emailAddress,
-          }
-          UserService.checkIn(checkInData)
-            .then(response => {
-              checkinAlert();
-              const checkinAlert = () => Alert.alert(
-                "Checkin Complete",
-                "You may enter now..",
+        if (response == false) {
+          // User has not checkined and validate qr code
+          UserService.validatedQRCode(uid).then(response => {
+            if (response == true) {
+              let checkInData = {
+                checkinlongitude,
+                checkinlatitude,
+                uid,
+                nic,
+                date,
+                emailAddress,
+              }
+
+              UserService.checkIn(checkInData)
+                .then(response => {
+                  checkinAlert();
+                  const checkinAlert = () => Alert.alert(
+                    "Checkin Complete",
+                    "You may enter now..",
+                    [
+                      {
+                        text: "Close",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                      },
+                    ],
+                  )
+                    .catch(error => {
+                      console.log(error);
+                    })
+                })
+            }
+            else {
+              invalidAlert();
+              const invalidAlert = () => Alert.alert(
+                "No Check In",
+                "Invalid QR Code Scanned",
                 [
                   {
                     text: "Close",
                     onPress: () => console.log("Cancel Pressed"),
                     style: "cancel"
                   },
+                  ,
+                  { text: "Try Again", onPress: () => setScanned(false) }
                 ],
               )
-                .catch(error => {
-                  console.log(error);
-                })
-            })
+            }
+          })
         }
         else if (response.data == true) {
           checkedinAlert();
@@ -92,24 +113,7 @@ export default function App() {
             ],
           )
         }
-        else {
-          invalidAlert();
-          const invalidAlert = () => Alert.alert(
-            "No Check In",
-            "Invalid Scan",
-            [
-              {
-                text: "Close",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel"
-              },
-              ,
-              { text: "Try Again", onPress: () => setScanned(false) }
-            ],
-          )
-        }
-      }
-      )
+      })
   };
   if (hasPermission === null) {
     return <Text>Requesting for camera permission to scan QR code</Text>;

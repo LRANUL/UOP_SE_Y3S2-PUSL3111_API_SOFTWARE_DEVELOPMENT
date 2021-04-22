@@ -7,6 +7,7 @@ import * as userController from '../controllers/userController';
 import * as locationController from '../controllers/locationController';
 import * as officersController from '../controllers/officersController';
 import {
+  getUIDAuthenticity,
   addNewCitizen,
   getCitizenHistory,
   getCitizenCheckInStatus,
@@ -54,6 +55,8 @@ routes.get("/citizens", authJwt, getCitizens);
 
 // For getting checkin status
 routes.get("/citizens/:nic/checkinstatus", getCitizenCheckInStatus);
+// For validating in Business or Place QRCode
+routes.get("/citizens/checkin/validate/:uid", getUIDAuthenticity);
 // For checking in Citizen
 routes.post("/citizens/checkin", setCitizenCheckIn);
 // For getting in Citizen history
