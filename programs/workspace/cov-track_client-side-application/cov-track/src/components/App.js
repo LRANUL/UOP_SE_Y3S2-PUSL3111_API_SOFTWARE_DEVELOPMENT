@@ -15,17 +15,19 @@ import History from "../screens/History";
 import CheckIn from "../components/QRCheckIn";
 import AuthLoadingScreen from "../screens/AuthLoading";
 import SignInScreen from "../screens/SignIn";
+import About from '../screens/About';
+import CheckOut from '../screens/CheckOut';
 import { testStore } from '../screens/testStore';
 import { testFetch } from '../screens/testFetch';
 import { PersistGate } from 'zustand-persist';
-import About from '../screens/About';
 
 const DrawerStack = createDrawerNavigator({
   Login: Login,
   Register: Register,
   Dashboard: Dashboard,
-  History: History,
   CheckIn: CheckIn,
+  CheckOut: CheckOut,
+  History: History,
   About: About,
   TestPage: testFetch,
   TestPage2: testStore
