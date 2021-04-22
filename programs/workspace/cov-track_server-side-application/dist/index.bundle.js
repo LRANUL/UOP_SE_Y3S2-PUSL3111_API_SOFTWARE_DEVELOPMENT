@@ -360,7 +360,7 @@ const prodConfig = {
 };
 
 const defaultConfig = {
-  PORT: process.env.PORT || 5000
+  PORT: process.env.PORT || 8081
 };
 
 function envConfig(env) {
@@ -581,6 +581,8 @@ routes.get("/citizens", _auth.authJwt, _citizensController.getCitizens);
 
 // For getting checkin status
 routes.get("/citizens/:nic/checkinstatus", _citizensController.getCitizenCheckInStatus);
+// For validating in Business or Place QRCode
+routes.get("/citizens/checkin/validate/:uid", _citizensController.getUIDAuthenticity);
 // For checking in Citizen
 routes.post("/citizens/checkin", _citizensController.setCitizenCheckIn);
 // For getting in Citizen history
@@ -754,7 +756,7 @@ var _auth = __webpack_require__(3);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const apiRoutes = () => {
-  app.use('/protected', _covTrackRoutes2.default);
+  app.use('/api', _covTrackRoutes2.default);
 }; /* eslint-disable no-console */
 
 const app = (0, _express2.default)();
@@ -795,7 +797,7 @@ app.listen(_config2.default.PORT, err => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getCitizenHistory = exports.setCitizenCheckIn = exports.getCitizenCheckInStatus = exports.removeCitizenFromNIC = exports.updateCitizenFromNIC = exports.getCitizenFromNIC = exports.getCitizens = exports.addNewCitizen = undefined;
+exports.getUIDAuthenticity = exports.getCitizenHistory = exports.setCitizenCheckIn = exports.getCitizenCheckInStatus = exports.removeCitizenFromNIC = exports.updateCitizenFromNIC = exports.getCitizenFromNIC = exports.getCitizens = exports.addNewCitizen = undefined;
 
 var _mongoose = __webpack_require__(1);
 
@@ -809,16 +811,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint-disable no-shadow */
 const Citizen = _mongoose2.default.model("Citizen", _covTrackModel.CitizenSchema);
 const History = _mongoose2.default.model("History", _covTrackModel.HistorySchema);
-
+const Business = _mongoose2.default.model("Business", _covTrackModel.placesSchema);
 /** Creating a New Citizen */
 const addNewCitizen = exports.addNewCitizen = (req, res) => {
   let newCitizen = new Citizen(req.body);
 
   newCitizen.save((err, Citizen) => {
     if (err) {
-      res.send(err);
+      res.sendStatus(err);
     }
-    res.json(Citizen);
+    res.json({ message: `Citizen Registered` });
   });
 };
 /** Search Citizen List */
@@ -852,7 +854,7 @@ const updateCitizenFromNIC = exports.updateCitizenFromNIC = (req, res) => {
     if (err) {
       res.send(err);
     }
-    res.json(Citizen);
+    res.json({ message: `Citizen with NIC: ${req.params.nic} was updated.` });
   });
 };
 /** 
@@ -865,7 +867,7 @@ const removeCitizenFromNIC = exports.removeCitizenFromNIC = (req, res) => {
     if (err) {
       res.send(err);
     }
-    res.json({ message: `${req.params.nic} was deleted.` });
+    res.json({ message: `Citizen with NIC: ${req.params.nic} was deleted.` });
   });
 };
 /** 
@@ -894,7 +896,7 @@ const setCitizenCheckIn = exports.setCitizenCheckIn = (req, res) => {
         if (err) {
           res.send(err);
         }
-        res.json("Checkin Complete");
+        res.json({ message: `Citizen with NIC: ${req.params.nic} was checked-in.` });
       });
     }
   });
@@ -909,6 +911,19 @@ const getCitizenHistory = exports.getCitizenHistory = (req, res) => {
       res.send(err);
     }
     res.json(History);
+  });
+};
+
+/** 
+ * Identify Authenticity of a UID - Citizen App Request
+ * @param {string} uid contains the unique identifier to track each business
+ */
+const getUIDAuthenticity = exports.getUIDAuthenticity = (req, res) => {
+  Business.findOne({ uid: req.params.uid }, (err, Business) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(true);
   });
 };
 

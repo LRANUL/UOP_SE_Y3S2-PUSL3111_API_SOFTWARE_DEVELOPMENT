@@ -12,9 +12,9 @@ export const addNewCitizen = (req, res) => {
 
   newCitizen.save((err, Citizen) => {
     if (err) {
-      res.send(err);
+      res.sendStatus(err);
     }
-    res.json(Citizen);
+    res.json({ message: `Citizen Registered` });
   });
 };
 /** Search Citizen List */
@@ -52,7 +52,7 @@ export const updateCitizenFromNIC = (req, res) => {
       if (err) {
         res.send(err);
       }
-      res.json(Citizen);
+      res.json({ message: `Citizen with NIC: ${req.params.nic} was updated.` });
     }
   );
 };
@@ -66,7 +66,7 @@ export const removeCitizenFromNIC = (req, res) => {
     if (err) {
       res.send(err);
     }
-    res.json({ message: `${req.params.nic} was deleted.` });
+    res.json({ message: `Citizen with NIC: ${req.params.nic} was deleted.` });
   });
 };
 /** 
@@ -96,7 +96,7 @@ export const setCitizenCheckIn = (req, res) => {
         if (err) {
           res.send(err);
         }
-        res.json("Checkin Complete");
+    res.json({ message: `Citizen with NIC: ${req.params.nic} was checked-in.` });
       });
     }
   });
