@@ -71,7 +71,7 @@ export class OfficersService {
 
   getCDCOfficers(type)
   {
-      return this.httpClient.get<{message : string, data : any}>('http://localhost:5000/protected/officers/' + type).subscribe(res=>{
+      return this.httpClient.get<{message : string, data : any}>('http://localhost:8081/api/officers/' + type).subscribe(res=>{
         console.log(res.data);
         this.CDCUpdatedOfficers = res.data;
         this.CDCOfficers.next(this.CDCUpdatedOfficers);
@@ -80,7 +80,7 @@ export class OfficersService {
 
   getPHIOfficers(type)
   {
-      return this.httpClient.get<{message : string, data : any}>('http://localhost:5000/protected/officers/' + type).subscribe(res=>{
+      return this.httpClient.get<{message : string, data : any}>('http://localhost:8081/api/officers/' + type).subscribe(res=>{
         console.log(res.data);
         this.PHIUpdatedOfficers = res.data;
         this.PHIOfficers.next(this.PHIUpdatedOfficers);
@@ -89,7 +89,7 @@ export class OfficersService {
 
   getOfficer(email)
   {
-      return this.httpClient.get<{message : string, data : any}>('http://localhost:5000/protected/officer/' + email).subscribe(res=>{
+      return this.httpClient.get<{message : string, data : any}>('http://localhost:8081/api/officer/' + email).subscribe(res=>{
         this.UpdatedOfficer = res.data;
         this.Officer.next(this.UpdatedOfficer);
      });;

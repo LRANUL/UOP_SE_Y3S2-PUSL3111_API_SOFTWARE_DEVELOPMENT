@@ -4,7 +4,7 @@ import validate from 'express-validation';
 import { authLocal, authJwt } from '../services/auth';
 
 import * as userController from '../controllers/userController';
-import * as locationController from '../controllers/locationController';
+import * as placesController from '../controllers/placesController';
 import * as officersController from '../controllers/officersController';
 import {
   getUIDAuthenticity,
@@ -71,30 +71,30 @@ routes.get("/citizens/:nic/history", getCitizenHistory);
  * */
 
 // need to authenticate (by adding authJwt)  but left like this until authentication is finished
-routes.post("/places", locationController.createPlaces, (req, res) => {
+routes.post("/places", placesController.createPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
 // need to authenticate (by adding authJwt) but left like this until authentication is finished
-routes.get("/places/:type", locationController.getPlaces, (req, res) => {
+routes.get("/places/:type", placesController.getPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
-routes.get("/one/place/:code", locationController.getSinglePlaces, (req, res) => {
+routes.get("/one/place/:code", placesController.getSinglePlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
 
 // stifi....... // need to authenticate (by adding authJwt)  but left like this until authentication is finished
-routes.get("/places", locationController.getAllPlaces, (req, res) => {
+routes.get("/places", placesController.getAllPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
-routes.put("/places/:email", locationController.updateLocation, (req, res) => {
+routes.put("/places/:email", placesController.updateLocation, (req, res) => {
   res.send('Private route accessed!');
 });
 
-routes.delete("/places/delete/:email", locationController.deleteLocation, (req, res) => {
+routes.delete("/places/delete/:email", placesController.deleteLocation, (req, res) => {
   res.send('Private route accessed!');
 });
 

@@ -2,7 +2,7 @@
   <mat-tab label="Private Businesses">
     <br>
     <div class="button">
-      <button mat-stroked-button style="float: right; color: lightgreen;"  (click)="addLocation()">Add New Agent</button>
+      <button mat-stroked-button style="float: right; color: lightgreen;"  (click)="addLocation()">Add New Business</button>
     </div>
     <br>
     <br>
@@ -11,7 +11,7 @@
       <mat-card-content>
         <mat-grid-list cols="3" rowHeight="3:1">
           <mat-grid-tile style="width: 40px;">
-            <qrcode #codePrivate [qrdata]="location.QRcode" [size]="120"></qrcode>
+            <qrcode #codePrivate [qrdata]="location.uid" [size]="120"></qrcode>
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="button" style="padding-right: 30px;">
@@ -19,7 +19,7 @@
                     <!-- <button mat-stroked-button style="width: 100%;" href="./places/edit_place"  >Edit</button> -->
             </div>
             <div class="button" style="padding-right: 30px;">
-              <button mat-stroked-button style="width: 100%;" (click)=" viewUser(location.QRcode)">View</button>
+              <button mat-stroked-button style="width: 100%;" (click)=" viewUser(location.uid)">View</button>
             </div>
             <div class="button">
               <button mat-stroked-button style="width: 100%;"  (click)="downloadQR(codePrivate)">Download QR</button>
@@ -42,7 +42,7 @@
   <mat-tab label="Public Businesses">
     <br>
     <div class="button">
-      <button mat-stroked-button style="float: right; color: lightgreen;" (click)="addLocation()">Add New Agent</button>
+      <button mat-stroked-button style="float: right; color: lightgreen;" (click)="addLocation()">Add New Business</button>
     </div>
     <br>
     <br>
@@ -51,7 +51,7 @@
       <mat-card-content>
         <mat-grid-list cols="3" rowHeight="3:1">
           <mat-grid-tile style="width: 40px;">
-            <qrcode #codePublic [qrdata]="location.QRcode" [size]="120"></qrcode>
+            <qrcode #codePublic [qrdata]="location.uid" [size]="120"></qrcode>
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="button" style="padding-right: 30px;">
@@ -59,7 +59,7 @@
                     <!-- <button mat-stroked-button style="width: 100%;" href="./places/edit_place"  >Edit</button> -->
             </div>
             <div class="button" style="padding-right: 30px;">
-              <button mat-stroked-button style="width: 100%;" (click)=" viewUser(location.QRcode)">View</button>
+              <button mat-stroked-button style="width: 100%;" (click)=" viewUser(location.uid)">View</button>
             </div>
             <div class="button">
               <button mat-stroked-button style="width: 100%;"  (click)="downloadQR(codePublic)">Download QR</button>

@@ -17,17 +17,18 @@ export class PlacesViewComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: singleLocation) { }
 
   ngOnInit(): void {
-    this.getUser(this.data.qrCode);
+    console.log(this.data.uid);
+    this.getUser(this.data.uid);
   }
 
   placeDetails: place ={
+    uid: '',
     name: '',
     address: '',
     sector: '',
     email: '',
     phone: '',
-    city: '',
-    QRcode: ''
+    city: ''
   };
 
   getUser(code)
@@ -35,13 +36,13 @@ export class PlacesViewComponent implements OnInit {
   this.places.getSinglelocation(code);
   this.places.getOneLocation().subscribe((data: place)=>{
     this.placeDetails ={
+      uid: data.uid,
       name: data.name,
       address: data.address,
       sector: data.sector,
       email: data.email,
       phone: data.phone,
       city: data.city,
-      QRcode: data.QRcode
     };
   })
 }

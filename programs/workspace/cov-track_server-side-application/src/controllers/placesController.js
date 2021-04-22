@@ -2,7 +2,7 @@ import { json } from "body-parser";
 import mongoose from "mongoose";
 import { placesSchema } from "../models/covTrackModel";
 
-const places = mongoose.model("location", placesSchema);
+const places = mongoose.model("place", placesSchema);
 
 // creates a new location
 export const createPlaces = (req, res) => {
@@ -32,7 +32,7 @@ export const getPlaces = (req, res) => {
 }
 
 export const getSinglePlaces = (req, res) => {
-  places.findOne({ QRcode : req.params.code })
+  places.findOne({ uid : req.params.code })
     .then((data) => {
       if (data) {
         res.status(200).json({

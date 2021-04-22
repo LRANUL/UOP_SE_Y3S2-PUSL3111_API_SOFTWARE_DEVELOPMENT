@@ -16,7 +16,6 @@ export class PlaceCreateComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router, private location: locationsService) { }
 
-  code ="vsdvsvsvsvdsv";
 
   ngOnInit(): void {
     this.createAgentForm = this.formBuilder.group({
@@ -41,7 +40,7 @@ export class PlaceCreateComponent implements OnInit {
         Validators.maxLength(10),
         Validators.minLength(10)
       ]],
-      QRcode: ['']
+      uid: ['']
     });
   }
 
@@ -58,8 +57,7 @@ export class PlaceCreateComponent implements OnInit {
         email: this.createAgentForm.get('organizationEmail').value,
         phone: this.createAgentForm.get('organizationPhone').value,
         city: this.createAgentForm.get('organizationCity').value,
-        QRcode: this.createAgentForm.get('QRcode').value,
-        QRimage: '',
+        uid: this.createAgentForm.get('uid').value,
       },
       disableClose: true
     });
@@ -83,11 +81,11 @@ export class PlaceCreateComponent implements OnInit {
   }
 
   get organizationcity() {
-    return this.createAgentForm.get(' organizationCity');
+    return this.createAgentForm.get('organizationCity');
   }
 
   get QRcode() {
-    return this.createAgentForm.get('QRcode');
+    return this.createAgentForm.get('uid');
   }
 
   submit()
@@ -96,7 +94,7 @@ export class PlaceCreateComponent implements OnInit {
   let random = Math.floor(Math.random() * (999999 - 100000)) + 100000;
   let val = random.toString();
   let code = this.createAgentForm.get('organizationName').value + val;
-  this.createAgentForm.get('QRcode').setValue(code);
+  this.createAgentForm.get('uid').setValue(code);
   console.log(this.createAgentForm.value);
   this.openDialog(this.createAgentForm.value);
  }

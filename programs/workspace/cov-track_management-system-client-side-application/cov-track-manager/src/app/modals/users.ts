@@ -6,13 +6,13 @@ export interface user
 //places
 export interface place
 {
+  uid: string,
   name: string,
   address: string,
   sector: string,
   email: string,
   phone:string,
-  city: string,
-  QRcode: string
+  city: string
 }
 
 export interface officers{
@@ -34,7 +34,7 @@ export interface view{
 }
 
 export interface singleLocation{
-  qrCode: string
+  uid: string
 }
 
 export interface officer{

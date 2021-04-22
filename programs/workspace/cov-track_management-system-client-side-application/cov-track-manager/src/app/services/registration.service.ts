@@ -11,6 +11,6 @@ export class RegistrationService {
   signup(form)
   {
     console.log(form);
-    return this.httpClient.post('http://localhost:5000/protected/signup', form)
+    return this.httpClient.post('http://localhost:8081/api/signup', form)
   }
 }

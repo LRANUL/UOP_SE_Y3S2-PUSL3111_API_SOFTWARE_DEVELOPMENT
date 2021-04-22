@@ -99,7 +99,7 @@ export const HistorySchema = new Schema({
 });
 
 export const placesSchema = new Schema({
-  QRcode: {
+  uid: {
     type: String,
     required: true
   },

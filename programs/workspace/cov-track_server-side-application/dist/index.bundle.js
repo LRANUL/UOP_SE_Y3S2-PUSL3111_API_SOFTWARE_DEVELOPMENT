@@ -198,7 +198,7 @@ const HistorySchema = exports.HistorySchema = new _mongoose.Schema({
 });
 
 const placesSchema = exports.placesSchema = new _mongoose.Schema({
-  QRcode: {
+  uid: {
     type: String,
     required: true
   },
@@ -527,11 +527,11 @@ var _userController = __webpack_require__(16);
 
 var userController = _interopRequireWildcard(_userController);
 
-var _locationController = __webpack_require__(14);
+var _placesController = __webpack_require__(15);
 
-var locationController = _interopRequireWildcard(_locationController);
+var placesController = _interopRequireWildcard(_placesController);
 
-var _officersController = __webpack_require__(15);
+var _officersController = __webpack_require__(14);
 
 var officersController = _interopRequireWildcard(_officersController);
 
@@ -594,29 +594,29 @@ routes.get("/citizens/:nic/history", _citizensController.getCitizenHistory);
  * */
 
 // need to authenticate (by adding authJwt)  but left like this until authentication is finished
-routes.post("/places", locationController.createPlaces, (req, res) => {
+routes.post("/places", placesController.createPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
 // need to authenticate (by adding authJwt) but left like this until authentication is finished
-routes.get("/places/:type", locationController.getPlaces, (req, res) => {
+routes.get("/places/:type", placesController.getPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
-routes.get("/one/place/:code", locationController.getSinglePlaces, (req, res) => {
+routes.get("/one/place/:code", placesController.getSinglePlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
 // stifi....... // need to authenticate (by adding authJwt)  but left like this until authentication is finished
-routes.get("/places", locationController.getAllPlaces, (req, res) => {
+routes.get("/places", placesController.getAllPlaces, (req, res) => {
   res.send('Private route accessed!');
 });
 
-routes.put("/places/:email", locationController.updateLocation, (req, res) => {
+routes.put("/places/:email", placesController.updateLocation, (req, res) => {
   res.send('Private route accessed!');
 });
 
-routes.delete("/places/delete/:email", locationController.deleteLocation, (req, res) => {
+routes.delete("/places/delete/:email", placesController.deleteLocation, (req, res) => {
   res.send('Private route accessed!');
 });
 
@@ -937,6 +937,58 @@ const getUIDAuthenticity = exports.getUIDAuthenticity = (req, res) => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.getOfficer = exports.getOfficers = undefined;
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _covTrackModel = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const officers = _mongoose2.default.model("User", _covTrackModel.UserSchema);
+
+const getOfficers = exports.getOfficers = (req, res) => {
+  officers.find({ userType: req.params.type }).then(data => {
+    if (data) {
+      res.status(200).json({
+        message: "It works",
+        data
+      });
+    } else {
+      res.status(404).json({
+        message: "The user does not exist"
+      });
+    }
+  });
+};
+
+const getOfficer = exports.getOfficer = (req, res) => {
+  officers.findOne({ email: req.params.email }).then(data => {
+    if (data) {
+      res.status(200).json({
+        message: "It works",
+        data
+      });
+    } else {
+      res.status(404).json({
+        message: "The user does not exist"
+      });
+    }
+  });
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.deleteLocation = exports.updateLocation = exports.getAllPlaces = exports.getSinglePlaces = exports.getPlaces = exports.createPlaces = undefined;
 
 var _bodyParser = __webpack_require__(6);
@@ -949,7 +1001,7 @@ var _covTrackModel = __webpack_require__(0);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const places = _mongoose2.default.model("location", _covTrackModel.placesSchema);
+const places = _mongoose2.default.model("place", _covTrackModel.placesSchema);
 
 // creates a new location
 const createPlaces = exports.createPlaces = (req, res) => {
@@ -978,7 +1030,7 @@ const getPlaces = exports.getPlaces = (req, res) => {
 };
 
 const getSinglePlaces = exports.getSinglePlaces = (req, res) => {
-  places.findOne({ QRcode: req.params.code }).then(data => {
+  places.findOne({ uid: req.params.code }).then(data => {
     if (data) {
       res.status(200).json({
         message: "It works",
@@ -1021,58 +1073,6 @@ const deleteLocation = exports.deleteLocation = (req, res) => {
       res.send(err);
     }
     res.json({ message: `${req.params.nic} was deleted.` });
-  });
-};
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getOfficer = exports.getOfficers = undefined;
-
-var _mongoose = __webpack_require__(1);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _covTrackModel = __webpack_require__(0);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const officers = _mongoose2.default.model("User", _covTrackModel.UserSchema);
-
-const getOfficers = exports.getOfficers = (req, res) => {
-  officers.find({ userType: req.params.type }).then(data => {
-    if (data) {
-      res.status(200).json({
-        message: "It works",
-        data
-      });
-    } else {
-      res.status(404).json({
-        message: "The user does not exist"
-      });
-    }
-  });
-};
-
-const getOfficer = exports.getOfficer = (req, res) => {
-  officers.findOne({ email: req.params.email }).then(data => {
-    if (data) {
-      res.status(200).json({
-        message: "It works",
-        data
-      });
-    } else {
-      res.status(404).json({
-        message: "The user does not exist"
-      });
-    }
   });
 };
 

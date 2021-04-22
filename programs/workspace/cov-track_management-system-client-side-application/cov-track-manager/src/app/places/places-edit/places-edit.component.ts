@@ -29,13 +29,13 @@ export class PlacesEditComponent implements OnInit {
     //   form.reset();
 
     this.location.selectedPlace = {
+      uid: "",
       name: "",
       address: "",
       sector: "",
       email: "",
       phone: "",
-      city: "",
-      QRcode: ""
+      city: ""
     }
 
     this.getInfo.getlocation().subscribe(res => {

@@ -17,25 +17,25 @@ export class PlacesListComponent implements OnInit {
   type1 = "Private";
   locationsPrivate = new Array();
   dataPrivate : place = {
+    uid: '',
     name: '',
     address: '',
     sector: '',
     email: '',
     phone: '',
-    city: '',
-    QRcode: ''
+    city: ''
   };
 
   type2 = "Public";
   locationsPublic = new Array();
   dataPublic : place = {
+    uid: '',
     name: '',
     address: '',
     sector: '',
     email: '',
     phone: '',
-    city: '',
-    QRcode: ''
+    city: ''
   };
   ngOnInit(): void {
     this.getPrivateLocation(this.type1);
@@ -52,13 +52,13 @@ export class PlacesListComponent implements OnInit {
       for(counter; counter < length; counter++)
       {
        this.dataPrivate = {
+        uid: data[counter].uid,
         name: data[counter].name,
         address: data[counter].address,
         sector: data[counter].sector,
         email: data[counter].email,
         phone: data[counter].phone,
-        city: data[counter].city,
-        QRcode: data[counter].QRcode
+        city: data[counter].city
        };
        this.locationsPrivate.push(this.dataPrivate);
       }
@@ -75,13 +75,13 @@ export class PlacesListComponent implements OnInit {
       for(counter; counter < length; counter++)
       {
        this.dataPublic = {
+        uid: data[counter].uid,
         name: data[counter].name,
         address: data[counter].address,
         sector: data[counter].sector,
         email: data[counter].email,
         phone: data[counter].phone,
         city: data[counter].city,
-        QRcode: data[counter].QRcode
        };
        this.locationsPublic.push(this.dataPublic);
       }
@@ -98,7 +98,7 @@ export class PlacesListComponent implements OnInit {
     const dialogRef = this.dialog.open(PlacesViewComponent, {
       width: '50%',
       height: '85%',
-      data: {qrCode: value}
+      data: {uid: value}
     });
   }
 

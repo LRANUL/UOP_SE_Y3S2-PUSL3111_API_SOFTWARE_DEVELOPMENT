@@ -17,7 +17,7 @@ export class QrGenerationComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: place){ }
 
   ngOnInit(): void {
-    console.log(this.data.QRcode);
+    console.log(this.data.uid);
   }
 
   close(){
