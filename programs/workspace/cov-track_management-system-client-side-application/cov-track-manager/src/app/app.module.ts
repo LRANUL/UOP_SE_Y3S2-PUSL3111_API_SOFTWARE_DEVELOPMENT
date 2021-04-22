@@ -53,6 +53,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { MatDialogModule } from '@angular/material/dialog'
 
 import { NotifierModule } from 'angular-notifier';
+import { ProfileComponent } from './profile/profile.component';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // import {}  from '../app/dashboard/shared/shared.module';
@@ -76,6 +77,7 @@ import { NotifierModule } from 'angular-notifier';
     PlacesEditComponent,
     PlacesViewComponent,
     NotificationComponent,
+    ProfileComponent,
 
 
 

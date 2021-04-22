@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/modules/dashboard/dashboard.comp
 import { OfficersListComponent } from './officers/officers-list/officers-list.component';
 
 import { NotificationComponent } from './notification/notification.component'
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   // {path:'dashboard', component:DefaultComponent},
@@ -39,7 +40,8 @@ const routes: Routes = [
   {path:"login", component:LoginComponent},
   {path:"signup" , component: SignupComponent},
   {path:"places/edit_place" , component: PlacesEditComponent},
-  {path:"notifications" , component: NotificationComponent}
+  {path:"notifications" , component: NotificationComponent},
+  {path:"profile" , component: ProfileComponent}
 
 ];
 
