@@ -9,7 +9,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 import { passwordReg } from '../services/validations';
 import constants from '../services/config';
 
-export const CustomerSchema = new Schema({
+export const CitizenSchema = new Schema({
   firstName: {
     type: String,
     required: "First Name is required",
@@ -36,6 +36,12 @@ export const CustomerSchema = new Schema({
     default: false,
   },
   historyID: {
+    type: String,
+  },
+  lastCheckedLongitude: {
+    type: String,
+  },
+  lastCheckedLatitude: {
     type: String,
   },
   nic: {
@@ -87,6 +93,7 @@ export const HistorySchema = new Schema({
   },
   checkouttime: {
     type: String,
+    default: new Date().toLocaleTimeString(),
   },
   date: {
     type: String,

@@ -7,14 +7,15 @@ import * as userController from '../controllers/userController';
 import * as locationController from '../controllers/locationController';
 import * as officersController from '../controllers/officersController';
 import {
-  getCustomerHistory,
-  getCustomerCheckInStatus,
-  getCustomerFromNIC,
-  updateCustomerFromNIC,
-  removeCustomerFromNIC,
-  setCustomerCheckIn,
-  getCustomers
-} from '../controllers/covTrackController';
+  addNewCitizen,
+  getCitizenHistory,
+  getCitizenCheckInStatus,
+  getCitizenFromNIC,
+  updateCitizenFromNIC,
+  removeCitizenFromNIC,
+  setCitizenCheckIn,
+  getCitizens
+} from '../controllers/citizensController';
 import userValidation from '../services/validations';
 
 const routes = new Router();
@@ -23,6 +24,45 @@ const routes = new Router();
 routes.get('/test', authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
+/** 
+ * AUTHENTICATION 
+ * */
+// Auth
+routes.post("/signup", validate(userValidation.signup), userController.signUp);
+routes.post("/login", authLocal, userController.login);
+
+/**
+ * REACT MOBILE APP ROUTES 
+ * */
+
+/** Citizen Manage Routes  */
+// For creating a Citizen 
+routes.post("/citizens", addNewCitizen);
+// For deleting Citizen from NIC
+routes.delete("/citizens/:nic", removeCitizenFromNIC);
+// For updating Citizen from NIC
+routes.put("/citizens/:nic", updateCitizenFromNIC);
+// For getting Citizen from NIC
+routes.get("/citizens/:nic", getCitizenFromNIC);
+// For getting all Citizens
+routes.get("/citizens", authJwt, getCitizens);
+// routes.get('/get-Citizens', authJwt, (req, res) => {
+//   res.send('Private route accessed!');
+// });
+
+/** Citizen Checkin and History Routes */
+
+// For getting checkin status
+routes.get("/citizens/:nic/checkinstatus", getCitizenCheckInStatus);
+// For checking in Citizen
+routes.post("/citizens/checkin", setCitizenCheckIn);
+// For getting in Citizen history
+routes.get("/citizens/:nic/history", getCitizenHistory);
+
+/** 
+ * ANGULAR APP ROUTES 
+ * 
+ * */
 
 // need to authenticate (by adding authJwt)  but left like this until authentication is finished
 routes.post("/places", locationController.createPlaces, (req, res) => {
@@ -63,31 +103,6 @@ routes.get("/officer/:email", officersController.getOfficer, (req, res) => {
   res.send('Private route accessed!');
 });
 
-// Auth
-routes.post("/signup", validate(userValidation.signup), userController.signUp);
-routes.post("/login", authLocal, userController.login);
 
-// /** Customer Manage Routes */
-
-// For deleting customer from NIC
-routes.delete("/customer-delete/:nic", removeCustomerFromNIC);
-// For updating customer from NIC
-routes.put("/customer-update/:nic", updateCustomerFromNIC);
-// For getting customer from NIC
-routes.get("/customer/:nic", getCustomerFromNIC);
-// For getting all customers
-routes.get("/get-customers", authJwt, getCustomers);
-// routes.get('/get-customers', authJwt, (req, res) => {
-//   res.send('Private route accessed!');
-// });
-
-/** Customer Checkin and History Routes */
-
-// For getting checkin status
-routes.get("/customer-checkin-status/:nic", getCustomerCheckInStatus);
-// For checking in customer
-routes.post("/customer-checkin", setCustomerCheckIn);
-// For getting in customer history
-routes.get("/customer-history/:nic", getCustomerHistory);
 
 export default routes;

@@ -63,6 +63,7 @@ export default function App() {
           UserService.checkIn(checkInData)
             .then(response => {
               console.log(response.data);
+              reponse.uid
               Alert.alert(
                 "Checkin Complete",
                 "You may enter now..",

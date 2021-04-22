@@ -7,6 +7,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon dist/index.bundle.js",
+    "dist": "cross-env NODE_ENV=development nodemon dist/index.bundle.js",
     "web": "cross-env NODE_ENV=development nodemon dist/index.bundle.js",
     "build": "yarn run clean && webpack -w",
     "clean": "rimraf dist",
@@ -37,6 +38,8 @@
     "yarn": "^1.22.10"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",

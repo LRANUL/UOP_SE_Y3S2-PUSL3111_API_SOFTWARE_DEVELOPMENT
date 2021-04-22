@@ -77,7 +77,7 @@ module.exports =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.placesSchema = exports.HistorySchema = exports.CustomerSchema = undefined;
+exports.placesSchema = exports.HistorySchema = exports.CitizenSchema = undefined;
 
 var _bson = __webpack_require__(18);
 
@@ -108,7 +108,7 @@ var _config2 = _interopRequireDefault(_config);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // eslint-disable-next-line no-unused-vars
-const CustomerSchema = exports.CustomerSchema = new _mongoose.Schema({
+const CitizenSchema = exports.CitizenSchema = new _mongoose.Schema({
   firstName: {
     type: String,
     required: "First Name is required"
@@ -133,6 +133,15 @@ const CustomerSchema = exports.CustomerSchema = new _mongoose.Schema({
   checkedin: {
     type: Boolean,
     default: false
+  },
+  historyID: {
+    type: String
+  },
+  lastCheckedLongitude: {
+    type: String
+  },
+  lastCheckedLatitude: {
+    type: String
   },
   nic: {
     type: String,
@@ -161,11 +170,19 @@ const HistorySchema = exports.HistorySchema = new _mongoose.Schema({
     type: String,
     required: "Email address is required"
   },
-  longitude: {
+  checkinlongitude: {
     type: Number,
     required: "Longitude is required"
   },
-  latitude: {
+  checkinlatitude: {
+    type: Number,
+    required: "Latitude is required"
+  },
+  checkoutlongitude: {
+    type: Number,
+    required: "Longitude is required"
+  },
+  checkoutlatitude: {
     type: Number,
     required: "Latitude is required"
   },
@@ -174,7 +191,8 @@ const HistorySchema = exports.HistorySchema = new _mongoose.Schema({
     default: new Date().toLocaleTimeString()
   },
   checkouttime: {
-    type: String
+    type: String,
+    default: new Date().toLocaleTimeString()
   },
   date: {
     type: String,
@@ -189,23 +207,28 @@ const placesSchema = exports.placesSchema = new _mongoose.Schema({
   },
   email: {
     type: String,
-    required: true },
+    required: true
+  },
   name: {
     type: String,
-    required: true },
+    required: true
+  },
   sector: {
     type: String,
-    required: true },
+    required: true
+  },
   phone: {
     type: Number,
-    required: true },
+    required: true
+  },
   address: {
     type: String,
     required: true
   },
   city: {
     type: String,
-    required: true }
+    required: true
+  }
 });
 
 const UserSchema = new _mongoose.Schema({
@@ -515,7 +538,7 @@ var _officersController = __webpack_require__(15);
 
 var officersController = _interopRequireWildcard(_officersController);
 
-var _covTrackController = __webpack_require__(13);
+var _citizensController = __webpack_require__(13);
 
 var _validations = __webpack_require__(5);
 
@@ -531,6 +554,45 @@ const routes = new _express.Router();
 routes.get('/test', _auth.authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
+/** 
+ * AUTHENTICATION 
+ * */
+// Auth
+routes.post("/signup", (0, _expressValidation2.default)(_validations2.default.signup), userController.signUp);
+routes.post("/login", _auth.authLocal, userController.login);
+
+/**
+ * REACT MOBILE APP ROUTES 
+ * */
+
+/** Citizen Manage Routes  */
+// For creating a Citizen 
+routes.post("/citizens", _citizensController.addNewCitizen);
+// For deleting Citizen from NIC
+routes.delete("/citizens/:nic", _citizensController.removeCitizenFromNIC);
+// For updating Citizen from NIC
+routes.put("/citizens/:nic", _citizensController.updateCitizenFromNIC);
+// For getting Citizen from NIC
+routes.get("/citizens/:nic", _citizensController.getCitizenFromNIC);
+// For getting all Citizens
+routes.get("/citizens", _auth.authJwt, _citizensController.getCitizens);
+// routes.get('/get-Citizens', authJwt, (req, res) => {
+//   res.send('Private route accessed!');
+// });
+
+/** Citizen Checkin and History Routes */
+
+// For getting checkin status
+routes.get("/citizens/:nic/checkinstatus", _citizensController.getCitizenCheckInStatus);
+// For checking in Citizen
+routes.post("/citizens/checkin", _citizensController.setCitizenCheckIn);
+// For getting in Citizen history
+routes.get("/citizens/:nic/history", _citizensController.getCitizenHistory);
+
+/** 
+ * ANGULAR APP ROUTES 
+ * 
+ * */
 
 // need to authenticate (by adding authJwt)  but left like this until authentication is finished
 routes.post("/places", locationController.createPlaces, (req, res) => {
@@ -568,33 +630,6 @@ routes.get("/officers/:type", officersController.getOfficers, (req, res) => {
 routes.get("/officer/:email", officersController.getOfficer, (req, res) => {
   res.send('Private route accessed!');
 });
-
-// Auth
-routes.post("/signup", (0, _expressValidation2.default)(_validations2.default.signup), userController.signUp);
-routes.post("/login", _auth.authLocal, userController.login);
-
-// /** Customer Manage Routes */
-
-// For deleting customer from NIC
-routes.delete("/customer-delete/:nic", _covTrackController.removeCustomerFromNIC);
-// For updating customer from NIC
-routes.put("/customer-update/:nic", _covTrackController.updateCustomerFromNIC);
-// For getting customer from NIC
-routes.get("/customer/:nic", _covTrackController.getCustomerFromNIC);
-// For getting all customers
-routes.get("/get-customers", _auth.authJwt, _covTrackController.getCustomers);
-// routes.get('/get-customers', authJwt, (req, res) => {
-//   res.send('Private route accessed!');
-// });
-
-/** Customer Checkin and History Routes */
-
-// For getting checkin status
-routes.get("/customer-checkin-status/:nic", _covTrackController.getCustomerCheckInStatus);
-// For checking in customer
-routes.post("/customer-checkin", _covTrackController.setCustomerCheckIn);
-// For getting in customer history
-routes.get("/customer-history/:nic", _covTrackController.getCustomerHistory);
 
 exports.default = routes;
 
@@ -763,7 +798,7 @@ app.listen(_config2.default.PORT, err => {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getCustomerHistory = exports.setCustomerCheckIn = exports.getCustomerCheckInStatus = exports.removeCustomerFromNIC = exports.updateCustomerFromNIC = exports.getCustomerFromNIC = exports.getCustomers = exports.addNewCustomer = undefined;
+exports.getCitizenHistory = exports.setCitizenCheckIn = exports.getCitizenCheckInStatus = exports.removeCitizenFromNIC = exports.updateCitizenFromNIC = exports.getCitizenFromNIC = exports.getCitizens = exports.addNewCitizen = undefined;
 
 var _mongoose = __webpack_require__(1);
 
@@ -775,61 +810,61 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /* eslint-disable prefer-const */
 /* eslint-disable no-shadow */
-const Customer = _mongoose2.default.model("Customer", _covTrackModel.CustomerSchema);
+const Citizen = _mongoose2.default.model("Citizen", _covTrackModel.CitizenSchema);
 const History = _mongoose2.default.model("History", _covTrackModel.HistorySchema);
 
-/** Creating a New Customer */
-const addNewCustomer = exports.addNewCustomer = (req, res) => {
-  let newCustomer = new Customer(req.body);
+/** Creating a New Citizen */
+const addNewCitizen = exports.addNewCitizen = (req, res) => {
+  let newCitizen = new Citizen(req.body);
 
-  newCustomer.save((err, Customer) => {
+  newCitizen.save((err, Citizen) => {
     if (err) {
       res.send(err);
     }
-    res.json(Customer);
+    res.json(Citizen);
   });
 };
-/** Search Customer List */
-const getCustomers = exports.getCustomers = (req, res) => {
-  Customer.find({}, (err, Customer) => {
+/** Search Citizen List */
+const getCitizens = exports.getCitizens = (req, res) => {
+  Citizen.find({}, (err, Citizen) => {
     if (err) {
       res.send(err);
     }
-    res.json(Customer);
+    res.json(Citizen);
   });
 };
 /** 
- * Find Customer by NIC 
- * @param {string} nic requests provides NIC to find customer
+ * Find Citizen by NIC 
+ * @param {string} nic requests provides NIC to find Citizen
 */
-const getCustomerFromNIC = exports.getCustomerFromNIC = (req, res) => {
-  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
+const getCitizenFromNIC = exports.getCitizenFromNIC = (req, res) => {
+  Citizen.findOne({ nic: req.params.nic }, (err, Citizen) => {
     if (err) {
       res.send(err);
     }
-    res.json(Customer);
+    res.json(Citizen);
   });
 };
 /** 
- * Update Customer by NIC 
- * @param {string} nic requests provides NIC to update customer data
+ * Update Citizen by NIC 
+ * @param {string} nic requests provides NIC to update Citizen data
  * @param {string} body consists data as a JSON object to update existing Profile
 */
-const updateCustomerFromNIC = exports.updateCustomerFromNIC = (req, res) => {
-  Customer.findOne({ nic: req.params.nic }, req.body, { new: true, useFindAndModify: false }, (err, Customer) => {
+const updateCitizenFromNIC = exports.updateCitizenFromNIC = (req, res) => {
+  Citizen.findOne({ nic: req.params.nic }, req.body, { new: true, useFindAndModify: false }, (err, Citizen) => {
     if (err) {
       res.send(err);
     }
-    res.json(Customer);
+    res.json(Citizen);
   });
 };
 /** 
- * Remove Customer by NIC 
- * @param {string} nic remove customer by provided NIC
+ * Remove Citizen by NIC 
+ * @param {string} nic remove Citizen by provided NIC
 */
-const removeCustomerFromNIC = exports.removeCustomerFromNIC = (req, res) => {
+const removeCitizenFromNIC = exports.removeCitizenFromNIC = (req, res) => {
   // eslint-disable-next-line no-unused-vars
-  Customer.findOneAndDelete({ nic: req.params.nic }, (err, Customer) => {
+  Citizen.findOneAndDelete({ nic: req.params.nic }, (err, Citizen) => {
     if (err) {
       res.send(err);
     }
@@ -837,22 +872,22 @@ const removeCustomerFromNIC = exports.removeCustomerFromNIC = (req, res) => {
   });
 };
 /** 
- * Find Customer CheckIn Status 
- * @param {string} nic to find customer checkin status by provided NIC
+ * Find Citizen CheckIn Status 
+ * @param {string} nic to find Citizen checkin status by provided NIC
  * */
-const getCustomerCheckInStatus = exports.getCustomerCheckInStatus = (req, res) => {
-  Customer.findOne({ nic: req.params.nic }, (err, Customer) => {
+const getCitizenCheckInStatus = exports.getCitizenCheckInStatus = (req, res) => {
+  Citizen.findOne({ nic: req.params.nic }, (err, Citizen) => {
     if (err) {
       res.send(err);
     }
-    res.json(Customer.checkedin);
+    res.json(Citizen.checkedin);
   });
 };
 /** 
- * Adding a New Checkin to Customer 
- * @param {Object} body records customer activity to database
+ * Adding a New Checkin to Citizen 
+ * @param {Object} body records Citizen activity to database
  * */
-const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
+const setCitizenCheckIn = exports.setCitizenCheckIn = (req, res) => {
   let newCheckInRecord = new History(req.body);
   newCheckInRecord.save((err, History) => {
     if (err) {
@@ -862,10 +897,10 @@ const setCustomerCheckIn = exports.setCustomerCheckIn = (req, res) => {
   });
 };
 /** 
- * Find records of History per customer 
- * @param {string} nic to find customer histroy records by provided NIC
+ * Find records of History per Citizen 
+ * @param {string} nic to find Citizen histroy records by provided NIC
  * */
-const getCustomerHistory = exports.getCustomerHistory = (req, res) => {
+const getCitizenHistory = exports.getCitizenHistory = (req, res) => {
   History.find({ nic: req.params.nic }, (err, History) => {
     if (err) {
       res.send(err);
