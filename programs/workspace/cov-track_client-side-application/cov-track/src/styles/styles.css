@@ -1,0 +1,49 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+  }
+  
+  .section {
+    margin-bottom: 32px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .auth {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .auth button {
+    margin-right: 16px;
+  }
+  
+  .todo-item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 16px;
+    border-bottom: 1px solid lightgrey;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  
+  .todo-item.new input[type='text'] {
+    padding: 8px 12px;
+    flex: 1;
+    margin-right: 8px;
+  }
+  
+  .todo-item-text {
+    flex: 1;
+    margin-right: 8px;
+  }
+  
+  .todo-item.completed .todo-item-text {
+    text-decoration: line-through;
+    color: grey;
+  }
+  

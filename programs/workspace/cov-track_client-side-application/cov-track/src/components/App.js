@@ -15,15 +15,18 @@ import History from "../screens/History";
 import CheckIn from "../components/QRCheckIn";
 import AuthLoadingScreen from "../screens/AuthLoading";
 import SignInScreen from "../screens/SignIn";
-import testStore from '../screens/testStore';
+import { testStore } from '../screens/testStore';
+import { testFetch } from '../screens/testFetch';
+import { PersistGate } from 'zustand-persist';
 
 const DrawerStack = createDrawerNavigator({
- Login: Login,
- Register: Register,
+  Login: Login,
+  Register: Register,
   Dashboard: Dashboard,
   History: History,
   CheckIn: CheckIn,
-  TestPage: testStore,
+  TestPage: testFetch,
+  TestPage2: testStore,
 });
 
 const AppStack = createStackNavigator(
@@ -34,7 +37,7 @@ const AppStack = createStackNavigator(
     Dashboard: Dashboard,
     History: History,
     CheckIn: CheckIn,
-//    TestPage: testStore,
+    //    TestPage: testStore,
   },
   {
     headerMode: "none"
@@ -61,7 +64,7 @@ const AppContainer = createAppContainer(
             interpolation="easeIn"
           />
           <Transition.In type="fade" durationMs={500} />
-        </Transition.Together> 
+        </Transition.Together>
       )
     },
     {
@@ -82,14 +85,14 @@ function App() {
     <AppContainer />
 
     return (
+      <PersistGate>
+        <AppLoading
+          startAsync={loadResourcesAsync}
+          onError={handleLoadingError}
+          onFinish={() => handleFinishLoading(setLoadingComplete)}
+        />
+      </PersistGate>
 
-      <AppLoading
-        startAsync={loadResourcesAsync}
-        onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
-        
-      />
-      
     );
   } else {
     return isLoadingComplete ? <AppContainer /> : <AppLoading />;
