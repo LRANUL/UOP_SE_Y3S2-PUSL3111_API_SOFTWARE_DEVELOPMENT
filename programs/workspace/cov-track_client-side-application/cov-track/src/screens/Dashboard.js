@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -15,15 +15,23 @@ const userIcon = require('../assets/images/user-icon.png');
 const backgroundImage = require('../assets/images/4324939.jpg'); 
 
 function Dashboard(props) {
-  let mobileView = true
+
+  let mobileView = true;
+
+  const [healthStatus, setHealthStatus] = useState(null);
+
   if (Platform.OS === 'web') {
-    mobileView = false
+   // mobileView = false
     // setting to true during development
     // @RyanCargon and @hvlhasanka comment line 17 to after testing
   }
   else if (Platform.OS === 'ios' || Platform.OS === 'android') {
     mobileView = true;
   }
+
+  useEffect(() => {
+    setHealthStatus('negative');
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -55,6 +63,51 @@ function Dashboard(props) {
         imageStyle={styles.secondBlock}
       >
         <View style={styles.tileBlock}>
+          {healthStatus == 'negative' ? 
+            <View style={styles.healthStatusBlockHealthy}>
+              <Text style={styles.healthStatusText}>
+                HEALTH STATUS
+              </Text>
+              <View style={styles.healthStatusResultBlock}>
+                <MaterialCommunityIconsIcon 
+                  name="check-outline" style={styles.healthStatusIcon}>
+                </MaterialCommunityIconsIcon>
+                <Text style={styles.healthStatus}>
+                  HEALTHY
+                </Text>
+              </View>
+            </View>
+          : null}
+          {healthStatus == 'positive' || healthStatus == 'deceased' ? 
+            <View style={styles.healthStatusBlockInfected}>
+              <Text style={styles.healthStatusText}>
+                HEALTH STATUS
+              </Text>
+              <View style={styles.healthStatusResultBlock}>
+                <MaterialCommunityIconsIcon 
+                  name="close-outline" style={styles.healthStatusIcon}>
+                </MaterialCommunityIconsIcon>
+                <Text style={styles.healthStatus}>
+                  {healthStatus == 'positive' ? 'INFECTED' : 'DECEASED' }
+                </Text>
+              </View>
+            </View>
+          : null}
+          {healthStatus == 'compromised' ? 
+            <View style={styles.healthStatusBlockPotentiallyInfected}>
+              <Text style={styles.healthStatusText}>
+                HEALTH STATUS
+              </Text>
+              <View style={styles.healthStatusResultBlock}>
+                <MaterialCommunityIconsIcon 
+                  name="alert-box-outline" style={styles.healthStatusIcon}>
+                </MaterialCommunityIconsIcon>
+                <Text style={styles.healthStatus}>
+                  POTENTIALLY{"\n"} INFECTED
+                </Text>
+              </View>
+            </View>
+          : null}
           {mobileView ? 
             <TouchableOpacity
               onPress={() => props.navigation.navigate('CheckIn')}>
@@ -72,7 +125,7 @@ function Dashboard(props) {
             : null}
           {mobileView ? 
             <TouchableOpacity 
-              onPress={() => {}}>
+              onPress={() => props.navigation.navigate('CheckOut')}>
               <View style={styles.checkOutTile}>
                 <View style={styles.tileIcon}>
                   <MaterialCommunityIconsIcon 
@@ -204,7 +257,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: '6%',
+    paddingTop: '1%',
     minHeight: '80%',
     borderTopLeftRadius: 40, 
     borderTopRightRadius: 40,
@@ -219,6 +272,63 @@ const styles = StyleSheet.create({
   },
   tileBlock: {
     flex: 1,
+    minHeight: '100%'
+  },
+  healthStatusBlockHealthy: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '60%',
+    minHeight: '15vh',
+    backgroundColor: '#098F69',
+    borderRadius: 15,
+    flex: 1,
+    borderColor: '#01D095',
+    borderWidth: 5
+  },
+  healthStatusBlockInfected: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '60%',
+    minHeight: '15vh',
+    backgroundColor: '#BA3303',
+    borderRadius: 15,
+    flex: 1,
+    borderColor: '#EE5721',
+    borderWidth: 5
+  },
+  healthStatusBlockPotentiallyInfected: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '60%',
+    minHeight: '15vh',
+    backgroundColor: '#C19400',
+    borderRadius: 15,
+    flex: 1,
+    borderColor: '#F2C226',
+    borderWidth: 5
+  },
+  healthStatusText: {
+    fontSize: 20,
+    color: '#ffffff',
+  },
+  healthStatusResultBlock: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  healthStatusIcon: {
+    width: 50,
+    height: 50,
+    fontSize: 40,
+    color: '#ffffff'
+  },
+  healthStatus: {
+    color: '#ffffff',
+    fontWeight: 500,
+    fontSize: 25,
+    letterSpacing: 2,
+    paddingBottom: '6%'
   },
   tileIcon: {
     fontSize: 60,
