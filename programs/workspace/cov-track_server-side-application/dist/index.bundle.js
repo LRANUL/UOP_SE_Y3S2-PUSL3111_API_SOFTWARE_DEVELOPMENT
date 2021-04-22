@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,27 +79,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.placesSchema = exports.HistorySchema = exports.CitizenSchema = undefined;
 
-var _bson = __webpack_require__(18);
+var _bson = __webpack_require__(20);
 
 var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _validator = __webpack_require__(29);
+var _validator = __webpack_require__(31);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _bcryptNodejs = __webpack_require__(17);
+var _bcryptNodejs = __webpack_require__(19);
 
-var _jsonwebtoken = __webpack_require__(24);
+var _jsonwebtoken = __webpack_require__(26);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _mongooseUniqueValidator = __webpack_require__(25);
+var _mongooseUniqueValidator = __webpack_require__(27);
 
 var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
-var _validations = __webpack_require__(5);
+var _validations = __webpack_require__(6);
 
 var _config = __webpack_require__(2);
 
@@ -388,15 +388,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.authJwt = exports.authLocal = undefined;
 
-var _passport = __webpack_require__(7);
+var _passport = __webpack_require__(8);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportLocal = __webpack_require__(28);
+var _passportLocal = __webpack_require__(30);
 
 var _passportLocal2 = _interopRequireDefault(_passportLocal);
 
-var _passportJwt = __webpack_require__(27);
+var _passportJwt = __webpack_require__(29);
 
 var _covTrackModel = __webpack_require__(0);
 
@@ -462,6 +462,12 @@ module.exports = require("express");
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -472,7 +478,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.passwordReg = undefined;
 
-var _joi = __webpack_require__(23);
+var _joi = __webpack_require__(25);
 
 var _joi2 = _interopRequireDefault(_joi);
 
@@ -493,19 +499,19 @@ exports.default = {
 };
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport");
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -517,27 +523,31 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(4);
 
-var _expressValidation = __webpack_require__(20);
+var _expressValidation = __webpack_require__(22);
 
 var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
 var _auth = __webpack_require__(3);
 
-var _userController = __webpack_require__(16);
+var _userController = __webpack_require__(18);
 
 var userController = _interopRequireWildcard(_userController);
 
-var _placesController = __webpack_require__(15);
+var _placesController = __webpack_require__(16);
 
 var placesController = _interopRequireWildcard(_placesController);
 
-var _officersController = __webpack_require__(14);
+var _officersController = __webpack_require__(15);
 
 var officersController = _interopRequireWildcard(_officersController);
 
-var _citizensController = __webpack_require__(13);
+var _queryController = __webpack_require__(17);
 
-var _validations = __webpack_require__(5);
+var queryController = _interopRequireWildcard(_queryController);
+
+var _citizensController = __webpack_require__(14);
+
+var _validations = __webpack_require__(6);
 
 var _validations2 = _interopRequireDefault(_validations);
 
@@ -588,6 +598,35 @@ routes.post("/citizens/checkin", _citizensController.setCitizenCheckIn);
 // For getting in Citizen history
 routes.get("/citizens/:nic/history", _citizensController.getCitizenHistory);
 
+// History stuff
+const fs = __webpack_require__(5);
+
+routes.get('/fs/json', (req, res) => {
+  fs.readFile('../../data/db.json', (err, json) => {
+    const obj = JSON.parse(json);
+    res.json(obj);
+  });
+});
+
+// routes.get('/citizen-list', (req, res) => {
+//   const citizenMap = queryController.AllUsers;
+//   console.log(citizenMap);
+//   res.send(citizenMap);
+// });
+// import mongoose from "mongoose";
+// import { CitizenSchema } from "../models/covTrackModel";
+
+// const Citizen = mongoose.model("Citizen", CitizenSchema);
+// routes.get('/citizen-list', async function (req, res) {
+//   await Citizen.find({}, function (err, citizens) {
+//     console.log('-----------------------------------------------------------------------');
+//     console.log(citizens);
+//     console.log('-----------------------------------------------------------------------');
+//     res.render('/citizen-list', { citizens: citizens });
+//   });
+
+// });
+
 /** 
  * ANGULAR APP ROUTES 
  * 
@@ -633,7 +672,7 @@ routes.get("/officer/:email", officersController.getOfficer, (req, res) => {
 exports.default = routes;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -666,7 +705,7 @@ _mongoose2.default.connection.once('open', () => console.log('MongoDB Running'))
 });
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -676,23 +715,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _morgan = __webpack_require__(26);
+var _morgan = __webpack_require__(28);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _bodyParser = __webpack_require__(6);
+var _bodyParser = __webpack_require__(7);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _compression = __webpack_require__(19);
+var _compression = __webpack_require__(21);
 
 var _compression2 = _interopRequireDefault(_compression);
 
-var _helmet = __webpack_require__(21);
+var _helmet = __webpack_require__(23);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
-var _passport = __webpack_require__(7);
+var _passport = __webpack_require__(8);
 
 var _passport2 = _interopRequireDefault(_passport);
 
@@ -717,13 +756,13 @@ exports.default = app => {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("cors");
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -733,7 +772,7 @@ var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _cors = __webpack_require__(11);
+var _cors = __webpack_require__(12);
 
 var _cors2 = _interopRequireDefault(_cors);
 
@@ -741,23 +780,34 @@ var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
-__webpack_require__(9);
+__webpack_require__(10);
 
-var _middlewares = __webpack_require__(10);
+var _middlewares = __webpack_require__(11);
 
 var _middlewares2 = _interopRequireDefault(_middlewares);
 
-var _covTrackRoutes = __webpack_require__(8);
+var _covTrackRoutes = __webpack_require__(9);
 
 var _covTrackRoutes2 = _interopRequireDefault(_covTrackRoutes);
 
 var _auth = __webpack_require__(3);
 
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _covTrackModel = __webpack_require__(0);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Temp
+const Citizen = _mongoose2.default.model("Citizen", _covTrackModel.CitizenSchema); /* eslint-disable no-console */
+
+const fs = __webpack_require__(5);
 
 const apiRoutes = () => {
   app.use('/api', _covTrackRoutes2.default);
-}; /* eslint-disable no-console */
+};
 
 const app = (0, _express2.default)();
 app.use((0, _cors2.default)());
@@ -767,6 +817,30 @@ app.use((0, _cors2.default)());
 app.get('/', (req, res) => {
   res.send('Running...');
 });
+
+// Setup express static middleware to look for files in the api directory for all requests starting with /api
+app.use('/data', _auth.authJwt, _express2.default.static('data'), (req, res) => {
+  // Optional 404 handler
+  res.status(404);
+  res.json({ error: { code: 404 } });
+});
+
+// const content = 'Some content!'
+
+const fileWrite = content => {
+  fs.writeFile('./data/newtest.txt', content, err => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  });
+};
+
+app.get('/writedata', (req, res) => {
+  fileWrite("???");
+  res.send('File written!');
+});
+
 app.get('/test', _auth.authJwt, (req, res) => {
   res.send('Private route accessed!');
 });
@@ -788,7 +862,7 @@ app.listen(_config2.default.PORT, err => {
 });
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -928,7 +1002,7 @@ const getUIDAuthenticity = exports.getUIDAuthenticity = (req, res) => {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -980,7 +1054,7 @@ const getOfficer = exports.getOfficer = (req, res) => {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -991,7 +1065,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.deleteLocation = exports.updateLocation = exports.getAllPlaces = exports.getSinglePlaces = exports.getPlaces = exports.createPlaces = undefined;
 
-var _bodyParser = __webpack_require__(6);
+var _bodyParser = __webpack_require__(7);
 
 var _mongoose = __webpack_require__(1);
 
@@ -1077,7 +1151,76 @@ const deleteLocation = exports.deleteLocation = (req, res) => {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+        value: true
+});
+exports.AllUsers = AllUsers;
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _covTrackModel = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Citizen = _mongoose2.default.model("Citizen", _covTrackModel.CitizenSchema);
+// const History = mongoose.model("History", HistorySchema);
+// const Business = mongoose.model("Business", placesSchema);
+
+// export async function query(req, res) {
+//     const data = await User.create(req.body);
+//     return res.json(data);
+// }
+
+// const ids = [
+//     '4ed3ede8844f0f351100000c',
+//     '4ed3f117a844e0471100000d',
+//     '4ed3f18132f50c491100000e',
+// ];
+
+// export async function query(req, res) {
+//     const data = await History.find({ '_id': { $in: ids } }, () => {
+
+//     });
+//     return res.json(data);
+// }
+
+function AllUsers() {
+        Citizen.find({}, function (err, citizens) {
+
+                const citizenMap = {};
+
+                citizens.forEach(function (citizen) {
+
+                        citizenMap[citizen._id] = citizen;
+                });
+                return citizenMap;
+        });
+}
+
+// export const queryInfected = (req, res) => {
+//     History.findOne(
+//       { nic: req.params.nic },
+//       req.body,
+//       { new: true, useFindAndModify: false },
+//       (err, Customer) => {
+//         if (err) {
+//           res.send(err);
+//         }
+//         res.json(Customer);
+//       }
+//     );
+//   };
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1089,7 +1232,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.signUp = signUp;
 exports.login = login;
 
-var _httpStatus = __webpack_require__(22);
+var _httpStatus = __webpack_require__(24);
 
 var _httpStatus2 = _interopRequireDefault(_httpStatus);
 
@@ -1116,79 +1259,79 @@ function login(req, res, next) {
 }
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcrypt-nodejs");
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("bson");
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("compression");
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-validation");
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("helmet");
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("http-status");
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("joi");
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("jsonwebtoken");
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongoose-unique-validator");
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-jwt");
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");

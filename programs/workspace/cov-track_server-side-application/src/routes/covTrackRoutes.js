@@ -6,6 +6,7 @@ import { authLocal, authJwt } from '../services/auth';
 import * as userController from '../controllers/userController';
 import * as placesController from '../controllers/placesController';
 import * as officersController from '../controllers/officersController';
+import * as queryController from '../controllers/queryController';
 import {
   getUIDAuthenticity,
   addNewCitizen,
@@ -62,8 +63,34 @@ routes.post("/citizens/checkin", setCitizenCheckIn);
 // For getting in Citizen history
 routes.get("/citizens/:nic/history", getCitizenHistory);
 
+// History stuff
+const fs = require('fs');
 
+routes.get('/fs/json', (req, res) => {
+  fs.readFile('../../data/db.json', (err, json) => {
+    const obj = JSON.parse(json);
+    res.json(obj);
+  });
+});
 
+// routes.get('/citizen-list', (req, res) => {
+//   const citizenMap = queryController.AllUsers;
+//   console.log(citizenMap);
+//   res.send(citizenMap);
+// });
+// import mongoose from "mongoose";
+// import { CitizenSchema } from "../models/covTrackModel";
+
+// const Citizen = mongoose.model("Citizen", CitizenSchema);
+// routes.get('/citizen-list', async function (req, res) {
+//   await Citizen.find({}, function (err, citizens) {
+//     console.log('-----------------------------------------------------------------------');
+//     console.log(citizens);
+//     console.log('-----------------------------------------------------------------------');
+//     res.render('/citizen-list', { citizens: citizens });
+//   });
+
+// });
 
 /** 
  * ANGULAR APP ROUTES 

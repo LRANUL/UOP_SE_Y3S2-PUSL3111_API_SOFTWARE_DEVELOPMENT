@@ -7,8 +7,9 @@ export class testFetch extends Component {
     }
 
     componentDidMount() {
-        fetch('https://mocki.io/v1/f7dad1f2-4283-4d3c-b152-185336cdb07f')
+        fetch('http://localhost:8081/data/db.json')
             .then(res => res.json())
+            .then(console.log())
             .then((data) => {
                 this.setState({ contacts: data })
             })
