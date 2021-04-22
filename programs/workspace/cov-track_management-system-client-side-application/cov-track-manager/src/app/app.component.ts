@@ -18,4 +18,7 @@ export class AppComponent {
     this.message = this.messagingService.currentMessage
   }
 
+
+  
+
 }

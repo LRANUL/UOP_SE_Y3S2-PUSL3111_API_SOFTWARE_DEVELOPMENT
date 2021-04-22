@@ -25,7 +25,7 @@ export class PieComponent implements OnInit {
         type: 'pie'
       },
       title: {
-        text: 'RANDOM DATA'
+        text: 'Patients Precentage'
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
