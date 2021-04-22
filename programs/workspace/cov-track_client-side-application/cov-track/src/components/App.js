@@ -18,6 +18,7 @@ import SignInScreen from "../screens/SignIn";
 import { testStore } from '../screens/testStore';
 import { testFetch } from '../screens/testFetch';
 import { PersistGate } from 'zustand-persist';
+import About from '../screens/About';
 
 const DrawerStack = createDrawerNavigator({
   Login: Login,
@@ -25,8 +26,9 @@ const DrawerStack = createDrawerNavigator({
   Dashboard: Dashboard,
   History: History,
   CheckIn: CheckIn,
+  About: About,
   TestPage: testFetch,
-  TestPage2: testStore,
+  TestPage2: testStore
 });
 
 const AppStack = createStackNavigator(
