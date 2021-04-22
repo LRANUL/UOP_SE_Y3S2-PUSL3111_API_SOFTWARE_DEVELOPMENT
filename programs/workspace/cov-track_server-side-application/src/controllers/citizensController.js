@@ -91,7 +91,14 @@ export const setCitizenCheckIn = (req, res) => {
     if (err) {
       res.send(err);
     }
-    res.json(History);
+    else{
+      Citizen.findOneAndUpdate({ nic: req.body.nic },{checkedin: true,historyID: History.id}, (err, Citizen) => {
+        if (err) {
+          res.send(err);
+        }
+        res.json("Checkin Complete");
+      });
+    }
   });
 };
 /** 

@@ -29,8 +29,8 @@ export default function App() {
   if (errorMsg) {
     console.log(errorMsg);
   } else if (location) {
-    longitude = JSON.stringify(location.coords.longitude);
-    latitude = JSON.stringify(location.coords.latitude);
+    checkinlongitude = JSON.stringify(location.coords.longitude);
+    checkinlatitude = JSON.stringify(location.coords.latitude);
   }
 
   // Permission for Camera
@@ -49,12 +49,11 @@ export default function App() {
     // Check CheckIn Status
     UserService.checkInStatus()
       .then(response => {
-        console.log(response.data);
         if (response.data == false) {
           // CheckIn User
           let checkInData = {
-            longitude,
-            latitude,
+            checkinlongitude,
+            checkinlatitude,
             uid,
             nic,
             date,
@@ -62,9 +61,8 @@ export default function App() {
           }
           UserService.checkIn(checkInData)
             .then(response => {
-              console.log(response.data);
-              reponse.uid
-              Alert.alert(
+              checkinAlert();
+              const checkinAlert = () => Alert.alert(
                 "Checkin Complete",
                 "You may enter now..",
                 [
@@ -78,11 +76,11 @@ export default function App() {
                 .catch(error => {
                   console.log(error);
                 })
-            }
-            )
+            })
         }
         else if (response.data == true) {
-          Alert.alert(
+          checkedinAlert();
+          const checkedinAlert = () => Alert.alert(
             "Already Checked In",
             "Checked In",
             [
@@ -95,7 +93,8 @@ export default function App() {
           )
         }
         else {
-          Alert.alert(
+          invalidAlert();
+          const invalidAlert = () => Alert.alert(
             "No Check In",
             "Invalid Scan",
             [

@@ -59,6 +59,9 @@ routes.post("/citizens/checkin", setCitizenCheckIn);
 // For getting in Citizen history
 routes.get("/citizens/:nic/history", getCitizenHistory);
 
+
+
+
 /** 
  * ANGULAR APP ROUTES 
  * 

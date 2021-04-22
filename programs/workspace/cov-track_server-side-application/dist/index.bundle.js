@@ -179,20 +179,17 @@ const HistorySchema = exports.HistorySchema = new _mongoose.Schema({
     required: "Latitude is required"
   },
   checkoutlongitude: {
-    type: Number,
-    required: "Longitude is required"
+    type: Number
   },
   checkoutlatitude: {
-    type: Number,
-    required: "Latitude is required"
+    type: Number
   },
   checkintime: {
     type: String,
     default: new Date().toLocaleTimeString()
   },
   checkouttime: {
-    type: String,
-    default: new Date().toLocaleTimeString()
+    type: String
   },
   date: {
     type: String,
@@ -892,8 +889,14 @@ const setCitizenCheckIn = exports.setCitizenCheckIn = (req, res) => {
   newCheckInRecord.save((err, History) => {
     if (err) {
       res.send(err);
+    } else {
+      Citizen.findOneAndUpdate({ nic: req.body.nic }, { checkedin: true, historyID: History.id }, (err, Citizen) => {
+        if (err) {
+          res.send(err);
+        }
+        res.json("Checkin Complete");
+      });
     }
-    res.json(History);
   });
 };
 /** 
