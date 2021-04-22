@@ -10,7 +10,9 @@ import {
   Platform
 } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+
 const userIcon = require('../assets/images/user-icon.png'); 
+const backgroundImage = require('../assets/images/4324939.jpg'); 
 
 function Dashboard(props) {
   let mobileView = true
@@ -23,13 +25,13 @@ function Dashboard(props) {
     mobileView = true;
   }
 
-
   return (
     <View style={styles.container}>
       <StatusBar animated />
       <View style={styles.firstBlock}>
         <View style={styles.menuIconBlock}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {}}>
             <MaterialCommunityIconsIcon 
               name="menu" style={styles.menuIcon}>
             </MaterialCommunityIconsIcon>
@@ -47,7 +49,7 @@ function Dashboard(props) {
         </View>
       </View>
       <ImageBackground
-        source={require("../assets/images/4324939.jpg")}
+        source={backgroundImage}
         resizeMode="cover"
         style={styles.secondBlock}
         imageStyle={styles.secondBlock}
@@ -111,6 +113,19 @@ function Dashboard(props) {
           </TouchableOpacity>
         </View>
       </ImageBackground>
+      <TouchableOpacity 
+        onPress={() => props.navigation.navigate('About')}>
+        <View style={styles.aboutButton}>
+          <View>
+            <MaterialCommunityIconsIcon 
+              name="information-outline" style={styles.aboutIcon}>
+            </MaterialCommunityIconsIcon>
+          </View>
+          <View>
+            <Text style={styles.aboutText}>ABOUT</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     </View> 
   );
 }
@@ -140,19 +155,19 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     fontSize: 40,
-    color: 'white'
+    color: '#ffffff'
   },
   userBanner: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: '5%'
+    paddingLeft: 80
   },
   profileIconBlock: {
     width: 100,
     height: 100,
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     borderRadius: 10,
     shadowColor: '#00000',
     shadowOffset: {
@@ -163,7 +178,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10.32,
     elevation: 16,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   userIcon: {
     width: 100,
@@ -182,7 +197,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     letterSpacing: 2,
-    color: 'white'
+    color: '#ffffff'
   },
   /* SECOND BLOCK */
   secondBlock: {
@@ -290,6 +305,31 @@ const styles = StyleSheet.create({
     shadowRadius: 6.27,
     elevation: 10,
     padding: 0
+  },
+  aboutButton: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    marginBottom: '1%',
+    marginLeft: '1%',
+    height: 40,
+    width: 90,
+    borderRadius: 20,
+    backgroundColor: '#ffffff',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2767F1'
+  },
+  aboutIcon: {
+    fontSize: 18,
+    color: '#ffffff'
+  },
+  aboutText: {
+    fontSize: 18,
+    paddingLeft: 2,
+    color: '#ffffff'
   }
 
 });

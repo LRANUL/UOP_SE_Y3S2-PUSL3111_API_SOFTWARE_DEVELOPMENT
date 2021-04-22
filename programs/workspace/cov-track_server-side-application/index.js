@@ -10,7 +10,7 @@ import userRoutes from './src/routes/covTrackRoutes';
 import { authJwt } from './src/services/auth';
 
 const apiRoutes = () => {
-  app.use('/protected', userRoutes);
+  app.use('/api', userRoutes);
 };
 
 const app = express();

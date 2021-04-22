@@ -65,7 +65,7 @@ function Login(props) {
   const _sendData = () => {
     axios
     .post(
-      `http://localhost:5000/protected/login`,
+      `http://localhost:5000/api/login`,
       {
         email: email,
         password: password
