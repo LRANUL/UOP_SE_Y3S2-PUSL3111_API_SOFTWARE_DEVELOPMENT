@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import validate from 'express-validation';
-
 import { authLocal, authJwt } from '../services/auth';
 
 import * as userController from '../controllers/userController';

@@ -6,6 +6,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
+    "go":"yarn run clean && webpack & cross-env NODE_ENV=development nodemon dist/index.bundle.js",
     "start": "cross-env NODE_ENV=development nodemon dist/index.bundle.js",
     "dist": "cross-env NODE_ENV=development nodemon dist/index.bundle.js",
     "web": "cross-env NODE_ENV=development nodemon dist/index.bundle.js",
@@ -24,6 +25,7 @@
     "cross-env": "^5.0.0",
     "express": "^4.15.3",
     "express-validation": "^1.0.2",
+    "express-xml-bodyparser": "^0.3.0",
     "helmet": "^3.6.0",
     "http-status": "^1.0.1",
     "joi": "^10.5.0",
@@ -35,15 +37,16 @@
     "passport-local": "^1.0.0",
     "slug": "^0.9.1",
     "validator": "^7.0.0",
+    "xml2js": "^0.4.23",
     "yarn": "^1.22.10"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-stage-0": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.4.0",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^3.19.0",
     "eslint-config-equimper": "^2.0.5",
     "eslint-config-prettier": "^2.1.1",
