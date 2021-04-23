@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { FormControl, Validators, FormBuilder, FormGroup} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private route:Router) { }
 
   loginForm: FormGroup;
 
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   submit()
   {
-   console.log(this.loginForm.value);
+   this.route.navigate(['/health-inspection']);
   }
 
 }
