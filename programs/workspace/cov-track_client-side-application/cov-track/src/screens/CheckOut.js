@@ -3,11 +3,9 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
-  Image
+  TouchableOpacity
 } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-import { Button } from 'react-native-paper';
 
 function CheckOut(props) {
   return (
@@ -267,7 +265,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     letterSpacing: 2,
     paddingTop: 25
-  },
+  }
 });
 
 export default CheckOut;

@@ -15,6 +15,7 @@ import History from "../screens/History";
 import CheckIn from "../components/QRCheckIn";
 import AuthLoadingScreen from "../screens/AuthLoading";
 import SignInScreen from "../screens/SignIn";
+import Profile from '../screens/Profile';
 import About from '../screens/About';
 import CheckOut from '../screens/CheckOut';
 import { testStore } from '../screens/testStore';
@@ -28,6 +29,7 @@ const DrawerStack = createDrawerNavigator({
   CheckIn: CheckIn,
   CheckOut: CheckOut,
   History: History,
+  Profile: Profile,
   About: About,
   TestPage: testFetch,
   TestPage2: testStore

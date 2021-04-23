@@ -152,7 +152,7 @@ function Dashboard(props) {
             </View>
           </TouchableOpacity>
           <TouchableOpacity 
-            onPress={() => {}}>
+            onPress={() => props.navigation.navigate('Profile')}>
             <View style={styles.profileTile}>
               <View style={styles.tileIcon}>
                 <MaterialCommunityIconsIcon 
