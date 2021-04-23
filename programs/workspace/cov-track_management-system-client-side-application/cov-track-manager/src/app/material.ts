@@ -12,23 +12,31 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { HighchartsChartModule } from 'highcharts-angular';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
   imports: [
-     MatSliderModule,
-     MatCardModule,
-     MatInputModule,
-     MatButtonModule,
-     MatDatepickerModule,
-     MatNativeDateModule,
-     MatSelectModule,
-     MatTabsModule,
-     MatPaginatorModule,
-     MatDialogModule,
-     HighchartsChartModule,
-     MatGridListModule,
-     MatSnackBarModule
+    MatSliderModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatTabsModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    HighchartsChartModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatFormFieldModule
   ],
   exports: [
     MatSliderModule,
@@ -42,7 +50,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatPaginatorModule,
     MatDialogModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatMenuModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatFormFieldModule
   ]
 })
 

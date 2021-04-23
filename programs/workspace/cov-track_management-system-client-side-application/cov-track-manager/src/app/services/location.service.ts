@@ -11,6 +11,7 @@ export class locationsService {
 
   selectedPlace: place;
   Place: place[];
+  private serverPort:string = "http://localhost:8081/";
 
 
   // selectedEmployee: Employee;
@@ -70,14 +71,14 @@ export class locationsService {
   createlocation(form)
   {
     console.log(form);
-      return this.httpClient.post('http://localhost:8081/api/places', form).subscribe((result)=>{
+      return this.httpClient.post(this.serverPort +'api/places', form).subscribe((result)=>{
       console.log(result);
       });
   }
 
   getlocationPrivate(type)
   {
-      return this.httpClient.get<{message : string, data : any}>('http://localhost:8081/api/places/' + type).subscribe(res=>{
+      return this.httpClient.get<{message : string, data : any}>( this.serverPort + 'api/places/' + type).subscribe(res=>{
         this.locationUpdatedPrivate = res.data;
         this.locationPrivate.next(this.locationUpdatedPrivate);
      });;
@@ -85,7 +86,7 @@ export class locationsService {
 
   getlocationPublic(type)
   {
-      return this.httpClient.get<{message : string, data : any}>('http://localhost:8081/api/places/' + type).subscribe(res=>{
+      return this.httpClient.get<{message : string, data : any}>(this.serverPort+'api/places/' + type).subscribe(res=>{
         console.log(res.data);
         this.locationUpdatedPublic = res.data;
         this.locationPublic.next(this.locationUpdatedPublic);
@@ -93,7 +94,7 @@ export class locationsService {
   }
 
   getSinglelocation(code)  {
-    return this.httpClient.get<{message : string, data : any}>('http://localhost:8081/api/one/place/' + code).subscribe(res=>{
+    return this.httpClient.get<{message : string, data : any}>(this.serverPort+'api/one/place/' + code).subscribe(res=>{
       console.log(res.data);
       this.locationUpdated = res.data;
       this.location.next(this.locationUpdated);
@@ -103,14 +104,14 @@ export class locationsService {
 
   //stifi
   getlocation()  {
-    return this.httpClient.get('http://localhost:8081/api/places/');
+    return this.httpClient.get(this.serverPort+'api/places/');
   }
 
   putLocation(place: place){
-    return this.httpClient.put('http://localhost:8081/api/places/'+`${place.email}`,place)
+    return this.httpClient.put(this.serverPort+'api/places/'+`${place.email}`,place)
   }
 
   deleteLocation(email:string){
-    return this.httpClient.delete('http://localhost:8081/api/places/delete/'+`${email}`)
+    return this.httpClient.delete(this.serverPort+'api/places/delete/'+`${email}`)
   }
 }

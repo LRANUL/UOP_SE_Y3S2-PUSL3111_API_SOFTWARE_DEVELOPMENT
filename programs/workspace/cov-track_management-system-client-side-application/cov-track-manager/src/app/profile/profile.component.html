@@ -1,4 +1,3 @@
-<h1>header here</h1>
 <mat-grid-list cols="1" rowHeight="740px">
   <mat-grid-tile>
     <mat-card class="profile-card" >
@@ -8,58 +7,48 @@
       <mat-card-content>
         <h2 style="text-align:center;"><strong>My Profile Details</strong></h2>
         <mat-label style="padding-right: 80px;">
-          First Name:
+          First Name: {{officerDetails.firstName}}
         </mat-label>
         <mat-label style="padding-right: 80px;">
-          Middle Name:
+          Middle Name: {{officerDetails.middleName}}
         </mat-label>
         <mat-label style="padding-right: 80px;">
-          Last Name:
+          Last Name: {{officerDetails.lastName}}
         </mat-label>
         <br>
         <br>
         <mat-label>
-          Date Of Birth
+          User Name: {{officerDetails.userName}}
         </mat-label>
         <br>
         <br>
         <mat-label>
-          Mobile Number:
+          Date Of Birth: {{officerDetails.DOB}}
         </mat-label>
         <br>
         <br>
         <mat-label>
-          E-mail:
+          Mobile Number: {{officerDetails.phone}}
         </mat-label>
         <br>
         <br>
         <mat-label>
-          Health:
+          E-mail: {{officerDetails.email}}
         </mat-label>
         <br>
         <br>
         <mat-label>
-          Type:
+         User Type: {{officerDetails.userType}}
         </mat-label>
         <br>
         <br>
         <mat-label>
-         Profession:
-        </mat-label>
-        <br>
-        <br>
-        <mat-label>
-          Department:
-        </mat-label>
-        <br>
-        <br>
-        <mat-label>
-          Address:
+          Address: {{officerDetails.address}}
         </mat-label >
         <br>
         <br>
         <mat-label>
-          City:
+          City: {{officerDetails.city}}
         </mat-label>
       </mat-card-content>
       <mat-card-actions>

@@ -148,6 +148,11 @@ const UserSchema = new Schema(
       required: [true, 'FirstName is required!'],
       trim: true,
     },
+    middleName: {
+      type: String,
+      required: [true, 'MiddleName is required!'],
+      trim: true,
+    },
     lastName: {
       type: String,
       required: [true, 'LastName is required!'],

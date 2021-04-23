@@ -85,17 +85,17 @@ var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _validator = __webpack_require__(31);
+var _validator = __webpack_require__(32);
 
 var _validator2 = _interopRequireDefault(_validator);
 
 var _bcryptNodejs = __webpack_require__(19);
 
-var _jsonwebtoken = __webpack_require__(26);
+var _jsonwebtoken = __webpack_require__(27);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _mongooseUniqueValidator = __webpack_require__(27);
+var _mongooseUniqueValidator = __webpack_require__(28);
 
 var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
 
@@ -246,6 +246,11 @@ const UserSchema = new _mongoose.Schema({
     required: [true, 'FirstName is required!'],
     trim: true
   },
+  middleName: {
+    type: String,
+    required: [true, 'MiddleName is required!'],
+    trim: true
+  },
   lastName: {
     type: String,
     required: [true, 'LastName is required!'],
@@ -378,6 +383,12 @@ exports.default = Object.assign({}, defaultConfig, envConfig(process.env.NODE_EN
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -392,11 +403,11 @@ var _passport = __webpack_require__(8);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportLocal = __webpack_require__(30);
+var _passportLocal = __webpack_require__(31);
 
 var _passportLocal2 = _interopRequireDefault(_passportLocal);
 
-var _passportJwt = __webpack_require__(29);
+var _passportJwt = __webpack_require__(30);
 
 var _covTrackModel = __webpack_require__(0);
 
@@ -455,12 +466,6 @@ const authLocal = exports.authLocal = _passport2.default.authenticate('local', {
 const authJwt = exports.authJwt = _passport2.default.authenticate('jwt', { session: false });
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("express");
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -478,7 +483,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.passwordReg = undefined;
 
-var _joi = __webpack_require__(25);
+var _joi = __webpack_require__(26);
 
 var _joi2 = _interopRequireDefault(_joi);
 
@@ -521,13 +526,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _express = __webpack_require__(4);
+var _express = __webpack_require__(3);
 
 var _expressValidation = __webpack_require__(22);
 
 var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
-var _auth = __webpack_require__(3);
+var _auth = __webpack_require__(4);
 
 var _userController = __webpack_require__(18);
 
@@ -715,7 +720,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _morgan = __webpack_require__(28);
+var _morgan = __webpack_require__(29);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
@@ -727,7 +732,7 @@ var _compression = __webpack_require__(21);
 
 var _compression2 = _interopRequireDefault(_compression);
 
-var _helmet = __webpack_require__(23);
+var _helmet = __webpack_require__(24);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
@@ -768,7 +773,7 @@ module.exports = require("cors");
 "use strict";
 
 
-var _express = __webpack_require__(4);
+var _express = __webpack_require__(3);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -790,7 +795,7 @@ var _covTrackRoutes = __webpack_require__(9);
 
 var _covTrackRoutes2 = _interopRequireDefault(_covTrackRoutes);
 
-var _auth = __webpack_require__(3);
+var _auth = __webpack_require__(4);
 
 var _mongoose = __webpack_require__(1);
 
@@ -879,33 +884,100 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 
 var _covTrackModel = __webpack_require__(0);
 
+var _expressXmlBodyparser = __webpack_require__(23);
+
+var _expressXmlBodyparser2 = _interopRequireDefault(_expressXmlBodyparser);
+
+var _xml2js = __webpack_require__(33);
+
+var _xml2js2 = _interopRequireDefault(_xml2js);
+
+var _express = __webpack_require__(3);
+
+var _express2 = _interopRequireDefault(_express);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const app = (0, _express2.default)();
+/** XML SUPPORT FOR SERVER */
 /* eslint-disable prefer-const */
 /* eslint-disable no-shadow */
+const xmlOptions = {
+  charkey: 'value',
+  trim: true,
+  explicitRoot: false,
+  explicitArray: false,
+  normalizeTags: false,
+  mergeAttrs: true
+};
+
+const builder = new _xml2js2.default.Builder({
+  renderOpts: { 'pretty': false }
+});
+
+const requestHeaders = (req, res, next) => {
+  req.app.isXml = false;
+
+  if (request.headers['content-type'] === 'application/xml' || request.headers['accept'] === 'application/xml') {
+    req.app.isXml = true;
+  }
+
+  next();
+};
+
 const Citizen = _mongoose2.default.model("Citizen", _covTrackModel.CitizenSchema);
 const History = _mongoose2.default.model("History", _covTrackModel.HistorySchema);
 const Business = _mongoose2.default.model("Business", _covTrackModel.placesSchema);
-/** Creating a New Citizen */
-const addNewCitizen = exports.addNewCitizen = (req, res) => {
-  let newCitizen = new Citizen(req.body);
+/** Creating a New Citizen - XML/JSON SUPPORTED */
+const addNewCitizen = exports.addNewCitizen = (requestHeaders, (req, res) => {
+  var body = req.body['citizen'] || req.body;
+  let newCitizen = new Citizen(body);
 
   newCitizen.save((err, Citizen) => {
     if (err) {
       res.sendStatus(err);
+    } else if (req.app.isXml) {
+      res.setHeader('Content-Type', 'application/xml');
+      var builder = new _xml2js2.default.Builder();
+      // Sending custom message here, other team members use xml body for parsed data from MongoDB responses
+      var xmlBody = builder.buildObject(JSON.stringify(Citizen));
+      return res.format({
+        'application/xml': () => {
+          res.status(200).send(builder.buildObject({ ['message']: `Citizen Registered` }));
+        }
+      });
+    } else {
+      response.format({
+        'application/json': () => {
+          response.status(200).json({ message: `Citizen Registered` });
+        }
+      });
     }
-    res.json({ message: `Citizen Registered` });
   });
-};
-/** Search Citizen List */
-const getCitizens = exports.getCitizens = (req, res) => {
-  Citizen.find({}, (err, Citizen) => {
-    if (err) {
-      res.send(err);
+});
+/** Search Citizen List - XML/JSON SUPPORTED  */
+const getCitizens = exports.getCitizens = (requestHeaders, (req, res) => {
+  var nic = req.body['nic'] || req.body.nic;
+  console.log(req.app.isXml);
+  Citizen.findOne({ nic: nic }, (err, Citizen) => {
+    if (req.app.isXml) {
+      res.setHeader('Content-Type', 'application/xml');
+      var builder = new _xml2js2.default.Builder();
+      var xmlBody = builder.buildObject(JSON.stringify(Citizen));
+      return res.format({
+        'application/xml': () => {
+          res.status(200).send(builder.buildObject({ ['citizen']: xmlBody }));
+        }
+      });
+    } else {
+      response.format({
+        'application/json': () => {
+          response.status(200).json(Citizen);
+        }
+      });
     }
-    res.json(Citizen);
   });
-};
+});
 /** 
  * Find Citizen by NIC 
  * @param {string} nic requests provides NIC to find Citizen
@@ -1232,7 +1304,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.signUp = signUp;
 exports.login = login;
 
-var _httpStatus = __webpack_require__(24);
+var _httpStatus = __webpack_require__(25);
 
 var _httpStatus2 = _interopRequireDefault(_httpStatus);
 
@@ -1286,55 +1358,67 @@ module.exports = require("express-validation");
 /* 23 */
 /***/ (function(module, exports) {
 
-module.exports = require("helmet");
+module.exports = require("express-xml-bodyparser");
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports) {
 
-module.exports = require("http-status");
+module.exports = require("helmet");
 
 /***/ }),
 /* 25 */
 /***/ (function(module, exports) {
 
-module.exports = require("joi");
+module.exports = require("http-status");
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports) {
 
-module.exports = require("jsonwebtoken");
+module.exports = require("joi");
 
 /***/ }),
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose-unique-validator");
+module.exports = require("jsonwebtoken");
 
 /***/ }),
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = require("morgan");
+module.exports = require("mongoose-unique-validator");
 
 /***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-jwt");
+module.exports = require("morgan");
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = require("passport-local");
+module.exports = require("passport-jwt");
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
+module.exports = require("passport-local");
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
 module.exports = require("validator");
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+module.exports = require("xml2js");
 
 /***/ })
 /******/ ]);
