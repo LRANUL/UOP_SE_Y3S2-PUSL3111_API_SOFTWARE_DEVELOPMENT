@@ -128,7 +128,7 @@ export default function App() {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Scan Code'} onPress={() => setScanned(false)} />}
+      {scanned && <Button title={'Scan QR Code'} onPress={() => setScanned(false)} />}
     </View>
   );
 }

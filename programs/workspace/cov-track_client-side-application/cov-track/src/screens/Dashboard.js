@@ -21,7 +21,7 @@ function Dashboard(props) {
   const [healthStatus, setHealthStatus] = useState(null);
 
   if (Platform.OS === 'web') {
-   // mobileView = false
+   mobileView = false
     // setting to true during development
     // @RyanCargon and @hvlhasanka comment line 17 to after testing
   }
