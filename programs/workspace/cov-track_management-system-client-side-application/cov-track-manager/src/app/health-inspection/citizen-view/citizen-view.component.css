@@ -1,0 +1,30 @@
+
+mat-form-field,
+textarea {
+ width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-form-field{
+  color: black !important;
+}
+mat-select{
+  font-size: larger;
+}
+input{
+  color: black !important;
+  font-size: larger;
+}
+
+mat-option{
+  color: black !important;
+}
+
+mat-label{
+  color: black ;
+  font-size: larger;
+}
+
