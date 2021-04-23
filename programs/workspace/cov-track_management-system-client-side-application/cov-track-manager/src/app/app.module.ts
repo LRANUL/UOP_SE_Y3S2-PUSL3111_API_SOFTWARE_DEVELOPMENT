@@ -40,7 +40,7 @@ import { QrGenerationComponent } from './places/qr-generation/qr-generation.comp
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //import default modules
 import { DefaultModule } from '../app/dashboard/layouts/default/default.module';
 import { OfficersListComponent } from './officers/officers-list/officers-list.component';
@@ -54,6 +54,8 @@ import { MatDialogModule } from '@angular/material/dialog'
 
 import { NotifierModule } from 'angular-notifier';
 import { ProfileComponent } from './profile/profile.component';
+import { StatusChangeComponent } from './health-inspection/citizen-view/status-change/status-change.component';
+import { AuthInterceptor } from './services/auth-interceptor';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 // import {}  from '../app/dashboard/shared/shared.module';
@@ -78,6 +80,7 @@ import { ProfileComponent } from './profile/profile.component';
     PlacesViewComponent,
     NotificationComponent,
     ProfileComponent,
+    StatusChangeComponent,
 
 
 
@@ -109,6 +112,7 @@ import { ProfileComponent } from './profile/profile.component';
     AngularFireModule.initializeApp(environment.firebase),
     MatDialogModule
   ],
+
   providers: [MessagingService,AsyncPipe],
   bootstrap: [AppComponent]
 })

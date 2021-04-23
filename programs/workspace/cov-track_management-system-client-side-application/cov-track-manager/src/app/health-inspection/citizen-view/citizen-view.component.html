@@ -1,1 +1,65 @@
-<p>citizen-view works!</p>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <button mat-raised-button color="accent" type="button" routerLink="/health-inspection">Back</button>
+  <br>
+  <br>
+    <form [formGroup]="form" (submit)="onUpdateCitizen()"  *ngIf="!isLoading">
+
+<!-- edit componet -->
+      <mat-form-field>
+        <mat-label>NIC</mat-label>
+        <input matInput type="text" formControlName="nic" placeholder="NIC">
+
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="email" >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>FirstName</mat-label>
+        <input matInput type="text" formControlName="firstName" placeholder="firstName" >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>LastName</mat-label>
+        <input matInput type="text" formControlName="lastName" placeholder="lastName" >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>NIC</mat-label>
+        <input matInput type="text" formControlName="address" placeholder="address" >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Health Statues</mat-label>
+        <mat-select matInput type="text" formControlName="health">
+          <mat-option value="positive">Positive</mat-option>
+          <mat-option value="negative">Negative</mat-option>
+          <mat-option value="compromised">Compromsed</mat-option>
+          <mat-option value="deceased">Deceased</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Phone No</mat-label>
+        <input matInput type="text" formControlName="phone" placeholder="phone No" >
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" type="submit" *ngIf="mode=='edit'">Update</button>
+
+
+
+    </form>
+    <mat-form-field *ngIf="mode=='View'">
+      <mat-label>Signuped Date :{{ signupedDate }}</mat-label>
+      <input matInput type="text" value="" disabled>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="mode=='View'">
+      <mat-label>Last checked in Coordinates :  <b>Long:</b>{{ logn }}   |   <b>Lat:</b>{{ lat }}</mat-label>
+      <input matInput type="text" value="" disabled>
+    </mat-form-field>
+
+</mat-card>

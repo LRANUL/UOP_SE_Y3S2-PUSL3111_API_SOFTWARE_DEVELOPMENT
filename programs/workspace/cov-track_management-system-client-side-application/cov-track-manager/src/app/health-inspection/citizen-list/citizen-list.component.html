@@ -1,1 +1,58 @@
-<p>citizen-list works!</p>
+
+
+
+<mat-card>
+  <mat-card-title>
+    <div class="row">
+
+      <mat-grid-list cols="3" rowHeight="1:5">
+
+          <mat-card style="margin-left: 60px; margin-right: 60px; margin-bottom: 20px;">
+            <mat-card-content>
+            <mat-grid-list cols="5" rowHeight="10:1">
+              <mat-grid-tile><b>Customer Name</b></mat-grid-tile>
+              <mat-grid-tile><b>NIC</b></mat-grid-tile>
+              <mat-grid-tile><b>Email</b></mat-grid-tile>
+              <mat-grid-tile><b>Health Status</b></mat-grid-tile>
+              </mat-grid-list>
+            </mat-card-content>
+          </mat-card>
+        <mat-card style="margin-left: 60px; margin-right: 60px; margin-bottom: 20px;" *ngFor="let cust of citizen">
+          <mat-card-content>
+            <mat-grid-list cols="5" rowHeight="4:1">
+
+              <mat-grid-tile>
+                <mat-label>
+                  {{ cust.firstName }}  {{cust.lastName}}
+                </mat-label>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-label>{{cust.nic}}</mat-label>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <mat-label>
+                  {{ cust.emailAddress }}
+                </mat-label>
+                <mat-label>
+                  {{cust.checkedIn }}
+                </mat-label>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              {{ cust.heathStatus }}
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <button mat-raised-button color="primary" style="width: 100%;" [routerLink]="['/','health-inspection','edit',cust.nic]">Edit</button><span>   </span>
+              <button mat-stroked-button color="warn"[routerLink]="['/','health-inspection',cust.nic]" style="width: 100%;">View</button>
+            </mat-grid-tile>
+
+            </mat-grid-list>
+          </mat-card-content>
+        </mat-card>
+
+      </mat-grid-list>
+  </div>
+  </mat-card-title>
+</mat-card>
+<mat-paginator [length]="totalCustomers" [pageSize]="cutomersPerPage" [pageSizeOptions]="pageSizes" (page)="onChangedPage($event)"></mat-paginator>
+<!-- <mat-paginator [length] ="totalPosts" [pageSize]="postPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0 "></mat-paginator> -->

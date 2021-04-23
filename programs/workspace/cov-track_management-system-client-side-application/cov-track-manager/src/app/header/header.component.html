@@ -1,1 +1,27 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+  <span>CovTracker</span>
+  <ul>
+    <li >
+      <a mat-button routerLink="/health-inspection" routerLinkActive="mat-accent">Health Inspection</a>
+    </li>
+    <li >
+      <a mat-button routerLink="/places" routerLinkActive="mat-accent">Places</a>
+    </li>
+    <li >
+      <a mat-button routerLink="/profile" routerLinkActive="mat-accent">Officer Info</a>
+    </li>
+    </ul>
+    <span class="giveSpace"></span>
+    <ul>
+
+    <li *ngIf="!AuthStatus">
+     <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+   </li>
+   <li *ngIf="!AuthStatus">
+     <a mat-button routerLink="/signup" routerLinkActive="mat-accent">SignUp</a>
+   </li>
+   <li *ngIf="AuthStatus">
+     <button mat-button (click)="onLogout()">LogOut</button>
+   </li>
+  </ul>
+</mat-toolbar>
