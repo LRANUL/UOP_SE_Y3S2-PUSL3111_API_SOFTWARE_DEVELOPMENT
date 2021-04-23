@@ -7,6 +7,7 @@ import {
   Alert
 } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import QRCheckOut from "../components/QRCheckOut";
 
 function CheckOut(props) {
   return (
@@ -48,7 +49,7 @@ function CheckOut(props) {
           </View>
         </View>
         <TouchableOpacity 
-          onPress={() => {}}
+          onPress={() => props.navigation.navigate('CheckOutQRCode')}
         >
           <View style={styles.scanQrCodeButton}>
             <View>
