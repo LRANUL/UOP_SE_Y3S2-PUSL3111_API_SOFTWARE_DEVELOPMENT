@@ -5,7 +5,18 @@
     padding: 24px;
     text-align: center;
   }
-  
+
+  .container {
+      flex: 1;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+  }
+
+  .item {
+    width: 50%;
+  }
+
   .section {
     margin-bottom: 32px;
     width: 600px;
