@@ -1,7 +1,19 @@
 <mat-card>
-  <div mat-card-avatar class="login-header-image"></div>
+  <mat-grid-list cols="1" rowHeight="9:1">
+    <mat-grid-tile>
+      <img mat-card-avatar style="height: 120px; width: 120px;" src="../../../assets/images/addUser.jpg">
+    </mat-grid-tile>
+  </mat-grid-list>
   <br>
   <mat-card-title style="font-weight: bolder; text-align: center;">Sign Up</mat-card-title>
+  <br>
+  <div *ngIf="error">
+    <mat-grid-list cols="1" rowHeight="16:1">
+      <mat-grid-tile>
+        <mat-label style="text-align: center; font-weight: bold; color: red;">There was a error siging up the user</mat-label>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
   <br>
 <mat-card-content>
   <form class="login-form" [formGroup]="SignUpForm" (ngSubmit)="submit()" style=" margin-left: 60px;  margin-right: 60px;">
@@ -78,16 +90,6 @@
       Password is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-  <mat-form-field class="example-full-width" style=" margin-left: 40px">
-    <mat-label>Confirm Password</mat-label>
-    <input type="password" matInput formControlName="confirmPassword">
-    <mat-error *ngIf="password != confirmPassword && confirmPassword.touched">
-      The Passwords does not Match
-    </mat-error>
-    <mat-error *ngIf="confirmPassword.invalid && !confirmPassword.errors?.minlength && !confirmPassword.errors?.maxlength">
-      Password is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
   <br>
   <br>
   <mat-form-field class="login-full-width" style=" margin-left: 40px">
@@ -100,10 +102,19 @@
   <br>
   <br>
   <mat-form-field class="login-full-width" style=" margin-left: 40px">
+    <mat-label>City</mat-label>
+    <input matInput formControlName="city">
+    <mat-error *ngIf="address.invalid">
+      city is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="login-full-width" style=" margin-left: 40px">
     <mat-label>User Type</mat-label>
   <mat-select disableRipple formControlName="userType">
-    <mat-option value="PHI User">PHI User</mat-option>
-    <mat-option value="CDC User">CDC User</mat-option>
+    <mat-option value="PHI User">PHI Officers</mat-option>
+    <mat-option value="CDC User">CDC Officers</mat-option>
   </mat-select>
     <mat-error *ngIf="userType.invalid">
       User Type is <strong>required</strong>

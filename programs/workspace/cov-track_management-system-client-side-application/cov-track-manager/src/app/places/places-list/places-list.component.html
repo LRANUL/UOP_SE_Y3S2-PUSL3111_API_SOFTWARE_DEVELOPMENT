@@ -1,44 +1,82 @@
-<mat-tab-group animationDuration="2000ms" style="margin-left: 80px; margin-right: 80px;">
-  <mat-tab label="School">
-    <br>
-    <div class="button">
-      <button mat-stroked-button style="float: right; color: lightgreen;">Add New Agent</button>
-    </div>
-    <br>
-    <br>
-    <br>
-    School Content
-    <mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]">
-    </mat-paginator>
-  </mat-tab>
+<mat-tab-group animationDuration="200ms" style="margin-left: 80px; margin-right: 80px;">
   <mat-tab label="Private Businesses">
     <br>
     <div class="button">
-      <button mat-stroked-button style="float: right; color: lightgreen;">Add New Agent</button>
+      <button mat-stroked-button style="float: right; color: lightgreen;"  (click)="addLocation()">Add New Business</button>
     </div>
     <br>
     <br>
     <br>
-    Private Business Content
-    <mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]">
-    </mat-paginator>
+    <mat-card style="margin-left: 60px; margin-right: 60px; margin-bottom: 20px;" *ngFor="let location of locationsPrivate">
+      <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="3:1">
+          <mat-grid-tile style="width: 40px;">
+            <qrcode #codePrivate [qrdata]="location.uid" [size]="120"></qrcode>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="button" style="padding-right: 30px;">
+                    <button mat-stroked-button style="width: 100%;" [routerLink]="['/','places','edit_place']"  >Edit</button>
+                    <!-- <button mat-stroked-button style="width: 100%;" href="./places/edit_place"  >Edit</button> -->
+            </div>
+            <div class="button" style="padding-right: 30px;">
+              <button mat-stroked-button style="width: 100%;" (click)=" viewUser(location.uid)">View</button>
+            </div>
+            <div class="button">
+              <button mat-stroked-button style="width: 100%;"  (click)="downloadQR(codePrivate)">Download QR</button>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <mat-label>
+                Name: {{location.name}}
+                <br>
+                Email: {{location.email}}
+                <br>
+                City: {{location.city}}
+              </mat-label>
+              <br>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
   </mat-tab>
   <mat-tab label="Public Businesses">
     <br>
     <div class="button">
-      <button mat-stroked-button style="float: right; color: lightgreen;">Add New Agent</button>
+      <button mat-stroked-button style="float: right; color: lightgreen;" (click)="addLocation()">Add New Business</button>
     </div>
     <br>
     <br>
     <br>
-    Public Business Content
-    <mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]">
-    </mat-paginator>
+    <mat-card style="margin-left: 60px; margin-right: 60px; margin-bottom: 20px;" *ngFor="let location of locationsPublic">
+      <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="3:1">
+          <mat-grid-tile style="width: 40px;">
+            <qrcode #codePublic [qrdata]="location.uid" [size]="120"></qrcode>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="button" style="padding-right: 30px;">
+                    <button mat-stroked-button style="width: 100%;" [routerLink]="['/','places','edit_place']"   >Edit</button>
+                    <!-- <button mat-stroked-button style="width: 100%;" href="./places/edit_place"  >Edit</button> -->
+            </div>
+            <div class="button" style="padding-right: 30px;">
+              <button mat-stroked-button style="width: 100%;" (click)=" viewUser(location.uid)">View</button>
+            </div>
+            <div class="button">
+              <button mat-stroked-button style="width: 100%;"  (click)="downloadQR(codePublic)">Download QR</button>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <mat-label>
+                Name: {{location.name}}
+                <br>
+                Email: {{location.email}}
+                <br>
+                City: {{location.city}}
+              </mat-label>
+              <br>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
   </mat-tab>
 </mat-tab-group>

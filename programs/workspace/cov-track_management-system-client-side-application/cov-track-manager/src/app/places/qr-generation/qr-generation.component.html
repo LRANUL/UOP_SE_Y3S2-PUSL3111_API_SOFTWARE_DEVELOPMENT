@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Your QR Code is:</h1>
+<div mat-dialog-content style="display: flex; justify-content: center;">
+  <qrcode #parent [qrdata]="data.uid" [size]="250"></qrcode>
+</div>
+<div mat-dialog-actions style="margin-bottom: 2px; float: right;">
+  <button mat-button (click)="saveAsImage(parent)">Download Code</button>
+  <button mat-button (click)="close()" cdkFocusInitial>Ok</button>
+</div>

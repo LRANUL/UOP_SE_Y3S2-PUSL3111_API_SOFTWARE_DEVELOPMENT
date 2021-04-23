@@ -1,0 +1,227 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" style="margin-left: 50px;">
+
+
+    <!-- <h1 class="texth1">Response to COVID-19</h1> -->
+
+    <h3 class="texth3"><br>
+        <img width="140px" src="../../../../assets/1200px-Emblem_of_Sri_Lanka.svg.png" alt="">
+        <!-- <img width="140px" src="../../../../assets/" alt=""> -->
+        <img width="300px" src="../../../../assets/cdc-logo.png" alt="" style="margin-left: 160px;">
+        <h1 class="texth1">Response to <br> COVID-19</h1>
+        Affecting countries worldwide, the outbreak of the COVID-19 disease that began in Wuhan – China in December 2019
+        is now taking over the world by storm. An information hub for all things COVID-19 related, this website was
+        seamlessly designed to help citizens stay in touch and also be updated on accurate news with the latest updates,
+        both locally and globally.
+    </h3>
+
+    <img class="image" src="../../../../assets/head-image (1).png" alt="">
+</div>
+<br>
+
+<mat-divider></mat-divider>
+<div class="container">
+    <img style="width:100%;" src="../../../../assets/covid-19-home-page-banner-1330x370px.jpg" alt="">
+
+    <div class="centered">
+        <img style="height: 160px;opacity: 0.6;" width="600px"
+            src="../../../../assets/s3-news-tmp-213062-black_square--default--1280.jpg" alt="">
+
+        <div class="center">
+            <h1 style="font-weight: 500;">Coronavirus Disease 2019</h1>
+            <h4 style="font-weight: 300;">CDC is responding to the coronavirus outbreak.</h4>
+            <a class="button" href="https://www.hpb.health.gov.lk/en/covid-19" target="_"><input class="button"
+                    type="button" value="Learn More About COVID-19" /></a>
+        </div>
+
+    </div>
+
+</div>
+<mat-divider></mat-divider>
+
+
+
+<div>
+    <app-widget-area [data]="bigChart"></app-widget-area>
+</div>
+
+
+<br>
+<mat-divider></mat-divider>
+
+
+<div style="margin-top: 50px;">
+
+    <div style="float: right;margin-right: 100px;">
+        <img width="500px" src="../../../../assets/covid-after-vaccination_900x275.png" alt="">
+        <h2>When you’ve been fully vaccinated?</h2>
+        <h5>People who are fully vaccinated can start to do some things they <br> stopped doing because of the pandemic.
+        </h5>
+        <!-- <button class="b1" (mouseover)="color='yellow'" (mouseout)="color='red'">What You Need to Know</button> -->
+        <a class="b1" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/covid-19-vaccines"
+            target="_"><input class="b1" type="button" value="Learn More About COVID-19" /></a>
+
+
+
+    </div>
+
+
+    <div style="width: 700px">
+        <app-widget-area [data]="bigChart"></app-widget-area>
+    </div>
+
+
+</div>
+
+
+
+<mat-divider></mat-divider>
+
+<br>
+
+<!-- <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
+
+    <a href="https://hpb.health.gov.lk/covid19-dashboard/" class="a">
+        <mat-card fxFlex="90">
+            <img style="height: 300px; width: 450px;" src="../../../../assets/conf.jpg" alt="">
+            <app-widget-card label="Relegious Holidays"></app-widget-card>
+            <h4 style="color: black;font-weight: 300;">Gather virtually, with people who live with you, or outside and
+                at least 6 feet apart from others</h4>
+            
+        </mat-card>
+    </a>
+
+
+    <a href="https://www.epid.gov.lk/web/" class="a">
+        <mat-card fxFlex="90">
+            <img style="height: 300px; width: 450px;" src="../../../../assets/vaccine.jpg" alt="">
+            <app-widget-card label="COVID -19 Vaccines Work"></app-widget-card>
+            <h4 style="color: black;font-weight: 300;">COVID-19 vaccines will help protect you from
+                getting sick or severly ill with COVID-19</h4>
+        </mat-card>
+    </a>
+
+
+    <a href="https://hpb.health.gov.lk/covid19-dashboard/" class="a">
+        <mat-card fxFlex="90">
+            <img style="height: 300px; width: 450px;" src="../../../../assets/DSCF6982.jpg" alt="">
+            
+            <app-widget-card label="COVID Data Tracker"></app-widget-card>
+            <h4 style="color: black;font-weight: 300;">Find maps and charts tracking cases, deaths, and trends of
+                COVID-19 in the SRI Lanka</h4>
+        </mat-card>
+    </a>
+
+
+
+</div> -->
+
+<!-- <br>
+
+<mat-divider></mat-divider> -->
+
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="60">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="Name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+                </ng-container>
+
+                <!-- Hospital ID Column -->
+                <ng-container matColumnDef="Hospital_ID">
+                    <th mat-header-cell *matHeaderCellDef> Hospital ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Hospital_ID}} </td>
+                </ng-container>
+
+                <!-- Hospital Number Column -->
+                <ng-container matColumnDef="Hospital_Number">
+                    <th mat-header-cell *matHeaderCellDef> Hospital Number </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Hospital_Number}} </td>
+                </ng-container>
+
+                <!-- Location Column -->
+                <ng-container matColumnDef="Location">
+                    <th mat-header-cell *matHeaderCellDef> Location </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Location}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        </div>
+
+    </div>
+    <div fxFlex="40">
+        <app-widget-pie [data]="pieChart"></app-widget-pie>
+    </div>
+</div>
+
+
+<br>
+<mat-divider></mat-divider>
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" style="margin-left: 50px;">
+    <div>
+        <h1> Sri Lanka Traveller View</h1>
+        <img style="height: 700px;float: left;" src="../../../../assets/destination-map-sri-lanka.png" alt="">
+    
+        <img style="height: 700px;float: right;" src="../../../../assets/moh_area_map.jpg" alt="">
+        <br>
+    </div>
+
+</div>
+<br>
+<mat-divider></mat-divider>
+
+
+
+<!-- <div>
+    <h3 style="background-color: brown;width: 500px;">Level 4: COVID-19 Very High</h3>
+    <ul>COVID-19 in Isle of Man <br> <h5>April 02, 2021</h5><h5>Travelers should avoid all travel to Isle of Man.</h5></ul>
+    <ul>COVID-19 in the Sri Lanka</ul>
+</div>
+
+ -->
+
+
+<!-- <h1 style="font-weight: 500;">Travel and COVID-19</h1>
+<h3 style="font-weight: 400;">Travel increases your chance of getting and spreading COVID-19. Stay home to protect
+    yourself and others from
+    COVID-19. Airports, bus stations, train stations, and rest stops are all places travelers can be exposed to the
+    virus. These are also places where it can be hard to social distance. If you travel, take steps before, during, and
+    after travel to keep yourself and others from getting COVID-19.</h3>
+
+<h1 style="font-weight: 500;">Before You Travel</h1>
+<h3 style="font-weight: 400;">Talk to your doctor ahead of travel, especially if you are at increased risk for severe
+    illness from COVID-19.<br>
+    <br>
+
+    If you are eligible, get fully vaccinated for COVID-19. Wait 2 weeks after getting your second vaccine dose to
+    travel—it takes time for your body to build protection after any vaccination.<br>
+    <br>
+
+    Get tested with a viral test 1–3 days before your trip.<br>
+    <br>
+    <b>Do NOT travel if you were</b> exposed to COVID-19, you are sick, or you test positive for COVID-19. Learn when it
+    is safe for you to travel. Don’t travel with someone who is sick.
+</h3>
+<h3 style="font-weight: 400;">If you get sick in Sri Lanka, you might need medical care. Plan ahead and learn more about
+    Getting Health Care During Travel.</h3>
+
+
+<h1 style="font-weight: 500;">After You Travel</h1>
+<h3 style="font-weight: 400;"> You may have been exposed to COVID-19 on your travels. You may feel well and not have any
+    symptoms, but you can still
+    spread the virus to others. You and your travel companions (including children) may pose a risk to your family,
+    friends,
+    and community after your travel.</h3>
+
+<h2 style="font-weight: 400;">Get Tested and Stay Home After Travel</h2> -->

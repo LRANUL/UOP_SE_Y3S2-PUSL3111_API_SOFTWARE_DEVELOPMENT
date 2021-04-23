@@ -1,0 +1,4 @@
+.coolQRCode {
+  filter: drop-shadow(3px 3px 3px #999);
+     width: 250px;
+}

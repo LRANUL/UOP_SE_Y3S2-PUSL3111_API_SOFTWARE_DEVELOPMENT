@@ -1,0 +1,37 @@
+{
+  "name": "CovTrack",
+  "displayName": "CovTrack",
+  "githubUrl":"https://github.com/LRANUL/UOP_SE_Y3S2-PUSL3111_API_SOFTWARE_DEVELOPMENT/tree/developer/programs/workspace/cov-track_client-side-application/cov-track",
+  "expo": {
+    "name": "CovTrack",
+    "slug": "cov-track",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/icon.png",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.covtrack.rpls"
+    },
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#77BC3F"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "backgroundColor": "#77BC3F"
+      },
+      "package": "com.covtrack.rpls"
+    },
+    "web": {
+      "favicon": "./src/assets/images/favicon.png"
+    }
+  }
+}

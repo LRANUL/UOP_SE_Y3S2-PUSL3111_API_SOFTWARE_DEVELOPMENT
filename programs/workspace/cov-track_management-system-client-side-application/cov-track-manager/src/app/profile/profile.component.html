@@ -1,0 +1,60 @@
+<mat-grid-list cols="1" rowHeight="740px">
+  <mat-grid-tile>
+    <mat-card class="profile-card" >
+      <mat-card-header>
+        <img mat-card-image src="../../assets/profile.jpg" style=" display: block; margin-left: auto; margin-right: auto; width: 30%;">
+      </mat-card-header>
+      <mat-card-content>
+        <h2 style="text-align:center;"><strong>My Profile Details</strong></h2>
+        <mat-label style="padding-right: 80px;">
+          First Name: {{officerDetails.firstName}}
+        </mat-label>
+        <mat-label style="padding-right: 80px;">
+          Middle Name: {{officerDetails.middleName}}
+        </mat-label>
+        <mat-label style="padding-right: 80px;">
+          Last Name: {{officerDetails.lastName}}
+        </mat-label>
+        <br>
+        <br>
+        <mat-label>
+          User Name: {{officerDetails.userName}}
+        </mat-label>
+        <br>
+        <br>
+        <mat-label>
+          Date Of Birth: {{officerDetails.DOB}}
+        </mat-label>
+        <br>
+        <br>
+        <mat-label>
+          Mobile Number: {{officerDetails.phone}}
+        </mat-label>
+        <br>
+        <br>
+        <mat-label>
+          E-mail: {{officerDetails.email}}
+        </mat-label>
+        <br>
+        <br>
+        <mat-label>
+         User Type: {{officerDetails.userType}}
+        </mat-label>
+        <br>
+        <br>
+        <mat-label>
+          Address: {{officerDetails.address}}
+        </mat-label >
+        <br>
+        <br>
+        <mat-label>
+          City: {{officerDetails.city}}
+        </mat-label>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button style="width: 100%; color: lightblue;">Edit Profile</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
