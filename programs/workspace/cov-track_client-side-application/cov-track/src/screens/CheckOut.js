@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
     borderRadius: 10,
     flexDirection: 'column',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   tileHeading: {
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: '500',
     color: '#ffffff'
   },
   tileTextBlock: {
@@ -178,18 +178,18 @@ const styles = StyleSheet.create({
   },
   tileText: {
     fontSize: 15,
-    fontWeight: 450,
+    fontWeight: '500',
     letterSpacing: 2,
     color: '#ffffff'
   },
   checkInDetailsTile: {
     backgroundColor: '#2F7BF9',
     minWidth: '90%',
-    minHeight: '15vh',
+    height: '15vh',
     marginTop: 10,
     borderRadius: 10,
     flexDirection: 'column',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 60,
     flexDirection: 'row',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,

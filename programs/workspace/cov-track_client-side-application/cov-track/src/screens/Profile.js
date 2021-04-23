@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
     borderRadius: 10,
     flexDirection: 'row',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: '#ffffff',
     borderRadius: 10,
-    shadowColor: '#00000',
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 8,
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 10,
     flexDirection: 'column',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   },
   userDetailsHeading: {
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: '500',
     letterSpacing: 2,
     paddingTop: 2,
     paddingLeft: 2,

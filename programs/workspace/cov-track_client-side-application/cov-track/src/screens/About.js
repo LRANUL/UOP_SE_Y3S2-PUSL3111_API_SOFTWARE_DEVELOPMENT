@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: '2%',
     marginLeft: '2%',
-    fontWeight: 500
+    fontWeight: '500'
   },
   /* IMAGE BLOCK */
   imageBlock: {
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: '#ffffff',
     borderRadius: 20,
-    shadowColor: '#00000',
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 8,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   textBold: {
-    fontWeight: 500
+    fontWeight: '500'
   }
 });
 

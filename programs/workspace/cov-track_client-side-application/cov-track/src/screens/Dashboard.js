@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: '#ffffff',
     borderRadius: 10,
-    shadowColor: '#00000',
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 8,
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   },
   healthStatus: {
     color: '#ffffff',
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 25,
     letterSpacing: 2,
     paddingBottom: '6%'
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,
@@ -406,7 +406,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 5,
