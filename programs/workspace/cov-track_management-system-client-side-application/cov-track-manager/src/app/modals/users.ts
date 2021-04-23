@@ -44,7 +44,7 @@ export interface officer{
   DOB: string,
   email:string,
   password: string,
-  phone: string
+  phone: string,
   address: string,
   city: string,
   userType: string,

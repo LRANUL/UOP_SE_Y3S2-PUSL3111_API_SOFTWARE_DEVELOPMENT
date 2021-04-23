@@ -6,11 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class RegistrationService {
 
+  private serverPort:string = "http://localhost:8081/";
   constructor(private httpClient: HttpClient) { }
 
   signup(form)
   {
     console.log(form);
-    return this.httpClient.post('http://localhost:8081/api/signup', form)
+    return this.httpClient.post(this.serverPort+'api/signup', form)
   }
 }
