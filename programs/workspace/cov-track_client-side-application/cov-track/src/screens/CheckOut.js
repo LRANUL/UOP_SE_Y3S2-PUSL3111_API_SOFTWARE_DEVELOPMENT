@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   checkInDetailsTile: {
     backgroundColor: '#2F7BF9',
     minWidth: '90%',
-    height: '15vh',
+    minHeight: '15vh',
     marginTop: 10,
     borderRadius: 10,
     flexDirection: 'column',
